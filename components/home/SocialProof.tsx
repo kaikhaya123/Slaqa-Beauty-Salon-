@@ -97,12 +97,12 @@ export default function SocialProof() {
   ]
 
   return (
-    <Section background="primary">
+    <Section background="black">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-heading font-bold text-dark-900 mb-4">
+        <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
           Trusted by Durban
         </h2>
-        <p className="text-lg text-dark-600 max-w-2xl mx-auto">
+        <p className="text-lg text-white max-w-2xl mx-auto">
           Reviews from our clients
         </p>
       </div>
@@ -118,27 +118,35 @@ export default function SocialProof() {
 
             <Quote className="h-8 w-8 text-accent-200 mb-3" />
 
-            <p className="text-gray-700 mb-4 italic">
+            <p className="text-black mb-4 italic">
               &quot;{testimonial.text}&quot;
             </p>
 
             <div className="pt-4 border-t border-gray-200">
-              <p className="font-semibold text-primary-900">{testimonial.name}</p>
-              <p className="text-sm text-gray-600">{testimonial.location}</p>
+              <p className="font-semibold text-black">{testimonial.name}</p>
+              <p className="text-sm text-black">{testimonial.location}</p>
             </div>
           </Card>
         ))}
-    </div> {/* end testimonials grid */}
-
-    {/* Stats Bar */}
-    <div className="mt-16 bg-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <StatCounter value={98} suffix="%" label="Client Satisfaction" />
-        <StatCounter value={1000} suffix="+" label="Monthly Clients" />
-        <StatCounter value={4.9} suffix="★" label="Average Rating" decimals={1} />
-        <StatCounter value={5} suffix="+" label="Years Trusted" />
       </div>
-    </div>
+
+      {/* Stats Bar */}
+      <div className="mt-16 bg-black text-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="col-span-full md:col-span-1 mb-6 md:mb-0">
+          <StatCounter value={98} suffix="%" label="Client Satisfaction" />
+        </div>
+        <div>
+          <StatCounter value={1000} suffix="+" label="Monthly Clients" />
+        </div>
+        <div>
+          <StatCounter value={4.9} suffix="★" label="Average Rating" decimals={1} />
+        </div>
+        <div>
+          <StatCounter value={5} suffix="+" label="Years Trusted" />
+        </div>
+        </div>
+      </div>
     </Section>
   )
 }

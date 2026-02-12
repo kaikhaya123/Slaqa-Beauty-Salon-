@@ -2,7 +2,7 @@
 export const BUSINESS_INFO = {
   name: 'Pro Barber Shop ZA',
   tagline: 'Sharp Cuts. Fresh Looks. Professional Service.',
-  address: '35 Nyakata St, Chatsworth, KwaZulu-Natal',
+  address: '35 Nyakata St, Lamontville, Chatsworth, 4027, South Africa',
   phone: '+27 68 218 8679',
   whatsapp: '27682188679',
   email: 'goodhopengcobo5@gmail.com',
@@ -14,8 +14,8 @@ export const BUSINESS_INFO = {
     sunday: 'Closed or by special arrangement',
   },
   coordinates: {
-    lat: -29.8868,
-    lng: 30.9524,
+    lat: -29.9353649,
+    lng: 30.9367593,
   },
 } 
 

@@ -31,7 +31,7 @@ export default function IntroSection() {
                 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-dark-900 leading-tight"
               >
                 More than a haircut.
-                <span className="block text-dark-600 text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold">
+                <span className="block text-dark-900 text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold">
                   It&#39;s a culture.
                 </span>
               </h2>

@@ -88,23 +88,47 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-2">
-                <MapPin className="h-5 w-5 text-accent-600 mt-0.5 flex-shrink-0" />
+                <Image 
+                  src="/Icons/location (2).png" 
+                  alt="Location" 
+                  width={20} 
+                  height={20} 
+                  className="h-5 w-5 mt-0.5 flex-shrink-0"
+                />
                 <span className="text-dark-600 text-sm">{BUSINESS_INFO.address}</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone className="h-5 w-5 text-accent-600 flex-shrink-0" />
+                <Image 
+                  src="/Icons/phone-call.png" 
+                  alt="Phone" 
+                  width={20} 
+                  height={20} 
+                  className="h-5 w-5 flex-shrink-0"
+                />
                 <a href={`tel:${BUSINESS_INFO.phone}`} className="text-dark-600 hover:text-accent-600 text-sm">
                   {BUSINESS_INFO.phone}
                 </a>
               </li>
               <li className="flex items-center space-x-2">
-                <Mail className="h-5 w-5 text-accent-600 flex-shrink-0" />
+                <Image 
+                  src="/Icons/mail.png" 
+                  alt="Email" 
+                  width={20} 
+                  height={20} 
+                  className="h-5 w-5 flex-shrink-0"
+                />
                 <a href={`mailto:${BUSINESS_INFO.email}`} className="text-dark-600 hover:text-accent-600 text-sm">
                   {BUSINESS_INFO.email}
                 </a>
               </li>
               <li className="flex items-start space-x-2">
-                <Clock className="h-5 w-5 text-accent-600 mt-0.5 flex-shrink-0" />
+                <Image 
+                  src="/Icons/clock.png" 
+                  alt="Hours" 
+                  width={20} 
+                  height={20} 
+                  className="h-5 w-5 mt-0.5 flex-shrink-0"
+                />
                 <div className="text-dark-600 text-sm">
                   <div>Mon-Fri: {BUSINESS_INFO.hours.weekdays}</div>
                   <div>Sat: {BUSINESS_INFO.hours.saturday}</div>

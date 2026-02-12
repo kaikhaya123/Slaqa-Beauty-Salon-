@@ -1,7 +1,7 @@
 interface SectionProps {
   children: React.ReactNode
   className?: string
-  background?: 'white' | 'gray' | 'primary' | 'cream'
+  background?: 'white' | 'gray' | 'primary' | 'cream' | 'black'
   padding?: 'sm' | 'md' | 'lg'
   id?: string
 }
@@ -18,6 +18,7 @@ export default function Section({
     gray: 'bg-gray-50',
     primary: 'bg-primary-50',
     cream: 'bg-cream-50',
+    black: 'bg-black',
   }
   
   const paddings = {

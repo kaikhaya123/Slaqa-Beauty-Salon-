@@ -97,154 +97,251 @@ export default function BookingConfirmation({
   }, [lottieLoaded]);
 
   return (
-    <div className="text-center">
-      <div className="mb-6">
-        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" onLoad={() => setLottieLoaded(true)} />
-          <div ref={lottieRef} className="h-12 w-12" />
+    <div className="min-h-screen bg-[#f1efec] p-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Header Section */}
+        <div className="bg-[#7f6446] text-center py-8 px-6 mb-0 relative overflow-hidden">
+          <div className="relative z-10">
+            <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" onLoad={() => setLottieLoaded(true)} />
+              <div ref={lottieRef} className="h-12 w-12" />
+            </div>
+            <h1 className="text-4xl font-bold text-white mb-3 font-serif">
+              Your Appointment
+            </h1>
+            <h2 className="text-4xl font-bold text-white mb-2 font-serif">
+              Awaits!
+            </h2>
+            <p className="text-[#d9d5ce] text-sm max-w-md mx-auto leading-relaxed">
+              Your appointment has been confirmed and saved to our system. We&apos;ll contact you shortly via WhatsApp to finalize details.
+            </p>
+          </div>
         </div>
-        <h2 className="text-3xl font-bold text-primary-900 mb-2">
-          Booking Confirmed!
-        </h2>
-        <p className="text-gray-600">
-          Your appointment has been saved. We&apos;ll contact you shortly via WhatsApp to confirm.
-        </p>
-      </div>
 
-      {/* Booking ID */}
-      <div className="bg-accent-50 rounded-lg p-4 mb-6">
-        <p className="text-sm text-gray-600 mb-1">Booking Reference</p>
-        <p className="text-2xl font-bold text-accent-600 font-mono">{bookingId}</p>
-        <p className="text-xs text-gray-500 mt-2">
-          Keep this reference for your records
-        </p>
-      </div>
+        {/* Main Content Card */}
+        <div className="bg-white border-l-[10px] border-r-[10px] border-[#7f6446] p-6">
+          {/* Success Icon & Title */}
+          <div className="text-center mb-6">
+            <Image 
+              src="/Icons/success.png" 
+              alt="Success" 
+              width={60} 
+              height={60} 
+              className="h-15 w-15 mx-auto mb-4"
+            />
+            <h2 className="text-2xl font-bold text-[#7f6446] font-serif">
+              Appointment Confirmed
+            </h2>
+            <p className="text-gray-600 text-sm mt-2">
+              Reference: <span className="font-mono font-bold text-[#7f6446]">{bookingId}</span>
+            </p>
+          </div>
 
-      {/* Queue Number - PROMINENT */}
-      {queueNumber && (
-        <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-6 mb-6 text-center">
-          <p className="text-sm text-yellow-800 mb-2 font-semibold">YOUR QUEUE NUMBER</p>
-          <p className="text-5xl font-bold text-yellow-700 font-mono">{queueNumber}</p>
-          <p className="text-xs text-yellow-700 mt-3">
-            This is your position in the queue. Arrive on time and mention this number!
-          </p>
-        </div>
-      )}
-
-      {/* Appointment Details */}
-      <div className="bg-white border-2 border-primary-200 rounded-lg p-6 mb-6 text-left">
-        <h3 className="font-bold text-primary-900 mb-4 text-center">Appointment Details</h3>
-        
-        <div className="space-y-4">
-          <div className="flex items-start space-x-3">
-            <Image src="/Icons/calendar (1).png" alt="Date" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
-            <div>
-              <p className="text-sm text-gray-600">Date & Time</p>
-              <p className="font-semibold text-primary-900">
+          {/* Date & Time Section - Prominent */}
+          <div className="grid grid-cols-3 gap-0 mb-6">
+            {/* Date Display */}
+            <div className="bg-white border-l-[1px] border-[#7f6446] text-center p-4">
+              <h3 className="text-3xl font-bold text-[#7f6446] font-serif leading-none">
+                {format(date, 'd')}
+              </h3>
+              <h4 className="text-lg font-bold text-[#7f6446] font-serif">
+                {format(date, 'MMM').toUpperCase()}
+              </h4>
+            </div>
+            
+            {/* Appointment Details */}
+            <div className="col-span-2 p-4 text-left">
+              <div className="text-gray-600 text-sm mb-1">
                 {format(date, 'EEEE, MMMM d, yyyy')}
+              </div>
+              <div className="font-semibold text-[#7f6446] text-lg mb-2">{time}</div>
+              <div className="text-sm text-gray-600">
+                Please arrive 5 minutes early for your appointment.
+              </div>
+            </div>
+          </div>
+
+          {/* Queue Number - PROMINENT */}
+          {queueNumber && (
+            <div className="bg-[#ffd16f] border-2 border-[#7f6446] rounded-lg p-6 mb-6 text-center">
+              <p className="text-sm text-[#7f6446] mb-2 font-semibold">YOUR QUEUE NUMBER</p>
+              <p className="text-5xl font-bold text-[#7f6446] font-mono">{queueNumber}</p>
+              <p className="text-xs text-[#7f6446] mt-3">
+                This is your position in the queue. Arrive on time and mention this number!
               </p>
-              <p className="font-semibold text-primary-900">{time}</p>
+            </div>
+          )}
+
+          {/* Service Details Section */}
+          <div className="bg-[#7f6446] text-white p-6 mb-6 rounded-lg">
+            <div className="grid grid-cols-3 gap-4">
+              {/* Service Image */}
+              <div className="text-center">
+                <Image 
+                  src="/Icons/hairdresser.png" 
+                  alt="Barber Service" 
+                  width={80} 
+                  height={80}
+                  className="w-20 h-20 mx-auto mb-2 filter brightness-0 invert"
+                />
+              </div>
+              
+              {/* Service Details */}
+              <div className="col-span-2">
+                <h3 className="text-xl font-bold mb-2 text-white">
+                  {service.name}
+                </h3>
+                <p className="text-[#d9d5ce] text-sm mb-2">
+                  {service.duration} minutes • R{service.price}
+                </p>
+                <p className="text-[#d9d5ce] text-sm leading-relaxed">
+                  Professional hair styling service with experienced barber.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-start space-x-3">
-            <Image src="/Icons/hairdresser.png" alt="Barber" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
-            <div>
-              <p className="text-sm text-gray-600">Barber</p>
-              <p className="font-semibold text-primary-900">{barber.name}</p>
-              <p className="text-sm text-gray-500">{barber.title}</p>
+          {/* Barber Details Section */}
+          <div className="bg-[#7f6446] text-white p-6 mb-6 rounded-lg border-t border-white/20">
+            <div className="grid grid-cols-3 gap-4">
+              {/* Barber Image */}
+              <div className="text-center">
+                <Image 
+                  src="/Icons/barber.png" 
+                  alt="Your Barber" 
+                  width={80} 
+                  height={80}
+                  className="w-20 h-20 mx-auto mb-2 filter brightness-0 invert"
+                />
+              </div>
+              
+              {/* Barber Details */}
+              <div className="col-span-2">
+                <h3 className="text-xl font-bold mb-2 text-white">
+                  {barber.name}
+                </h3>
+                <p className="text-[#d9d5ce] text-sm mb-2">
+                  {barber.title}
+                </p>
+                <p className="text-[#d9d5ce] text-sm leading-relaxed">
+                  Your professional barber will provide excellent service and styling.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-start space-x-3">
-            <Image src="/Icons/clock.png" alt="Service time" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
-            <div>
-              <p className="text-sm text-gray-600">Service</p>
-              <p className="font-semibold text-primary-900">{service.name}</p>
-              <p className="text-sm text-gray-500">{service.duration} minutes • R{service.price}</p>
+          {/* Location Details */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+            <div className="flex items-start space-x-4">
+              <Image 
+                src="/Icons/location.png" 
+                alt="Location" 
+                width={24} 
+                height={24} 
+                className="h-6 w-6 mt-1 flex-shrink-0"
+              />
+              <div>
+                <h4 className="font-bold text-[#7f6446] mb-2">Visit Us At</h4>
+                <p className="text-gray-700 font-medium">{BUSINESS_INFO.address}</p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Located conveniently in Durban for all your grooming needs.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-start space-x-3">
-            <Image src="/Icons/location.png" alt="Location" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
-            <div>
-              <p className="text-sm text-gray-600">Location</p>
-              <p className="font-semibold text-primary-900">{BUSINESS_INFO.address}</p>
+          {/* What Happens Next */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+            <h4 className="font-bold text-[#7f6446] mb-4 flex items-center gap-3">
+              <Image 
+                src="/Icons/chatting.png" 
+                alt="Next Steps" 
+                width={24} 
+                height={24} 
+                className="h-6 w-6"
+              />
+              What Happens Next?
+            </h4>
+            <div className="space-y-3 text-sm text-gray-700">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <span>Your booking has been saved to our system</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <span>Our staff will contact you via WhatsApp to confirm details</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <span>You&apos;ll receive a reminder 24 hours before your appointment</span>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <span>Please arrive 5 minutes early on your appointment day</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Important Info */}
-      <div className="bg-white-50 border border-white-200 rounded-lg p-4 mb-6 text-left">
-        <h4 className="font-semibold text-black-900 mb-2 flex items-center gap-2">
-          <Image src="/Icons/chatting.png" alt="Phone" width={20} height={20} className="h-5 w-5 object-contain" />
-          What Happens Next?
-        </h4>
-        <ul className="text-sm text-blue-800 space-y-1">
-          <li>✓ Your booking has been saved to our system</li>
-          <li>• Our staff will review and contact you via WhatsApp</li>
-          <li>• We&apos;ll confirm your appointment details</li>
-          <li>• You&apos;ll receive a reminder 24 hours before your appointment</li>
-          <li>• Please arrive 5 minutes early</li>
-          <li>• Questions? Call us at {BUSINESS_INFO.phone}</li>
-        </ul>
-      </div>
-
-      {/* Actions */}
-      <div className="space-y-3">
-        <Button
-          variant="primary"
-          size="lg"
-          fullWidth
-          onClick={() => {
-            const link = whatsappLink || (window as any).__WHATSAPP_LINK || ("https://wa.me/" + (BUSINESS_INFO.whatsapp || ''))
-            try { trackEvent('whatsapp_cta_click', { location: 'booking_confirmation', path: pathname || '/' }) } catch (e) {}
-            window.open(link, '_blank')
-          }}
-        >
-          Open WhatsApp Chat
-        </Button>
-
-        <Button
-          variant="outline"
-          size="lg"
-          fullWidth
-          onClick={onStartOver}
-        >
-          Book Another Request
-        </Button>
-
-        <Button
-          asLink
-          href="/"
-          variant="outline"
-          size="lg"
-          fullWidth
-        >
-          Back to Home
-        </Button>
-      </div>
-
-      {/* Contact */}
-      <div className="mt-8 pt-6 border-t border-gray-200">
-        <p className="text-sm text-gray-600 mb-3">Need help? Contact us:</p>
-        <div className="flex justify-center space-x-4">
-          <a
-            href={`tel:${BUSINESS_INFO.phone}`}
-            className="flex items-center space-x-2 text-accent-600 hover:text-accent-700"
+        {/* Action Buttons */}
+        <div className="bg-[#7f6446] p-6 space-y-4">
+          <Button
+            variant="secondary"
+            size="lg"
+            fullWidth
+            className="bg-[#ffd16f] text-[#7f6446] hover:bg-[#ffd16f]/90 border-0 font-semibold"
+            onClick={() => {
+              const link = whatsappLink || (window as any).__WHATSAPP_LINK || ("https://wa.me/" + (BUSINESS_INFO.whatsapp || ''))
+              try { trackEvent('whatsapp_cta_click', { location: 'booking_confirmation', path: pathname || '/' }) } catch (e) {}
+              window.open(link, '_blank')
+            }}
           >
-            <Image src="/Icons/phone-call(1).png" alt="Call" width={16} height={16} className="h-4 w-4 object-contain" />
-            <span className="text-sm font-medium">Call</span>
-          </a>
-          <span className="text-gray-300">|</span>
-          <a
-            href={`https://wa.me/${BUSINESS_INFO.whatsapp}`}
-            className="flex items-center space-x-2 text-accent-600 hover:text-accent-700"
-          >
-            <Image src="/Icons/whatsapp.png" alt="WhatsApp" width={16} height={16} className="h-4 w-4 object-contain" />
-            <span className="text-sm font-medium">WhatsApp</span>
-          </a>
+            Open WhatsApp Chat
+          </Button>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              variant="outline"
+              size="md"
+              fullWidth
+              className="border-white text-white hover:bg-white hover:text-[#7f6446]"
+              onClick={onStartOver}
+            >
+              Book Another
+            </Button>
+
+            <Button
+              asLink
+              href="/"
+              variant="outline"
+              size="md"
+              fullWidth
+              className="border-white text-white hover:bg-white hover:text-[#7f6446]"
+            >
+              Back to Home
+            </Button>
+          </div>
+        </div>
+
+        {/* Bottom Contact */}
+        <div className="bg-[#f1efec] text-center py-6">
+          <p className="text-sm text-gray-600 mb-3">Need Immediate Help?</p>
+          <div className="flex justify-center space-x-6">
+            <a
+              href={`tel:${BUSINESS_INFO.phone}`}
+              className="flex items-center space-x-2 text-[#7f6446] hover:text-[#7f6446]/80"
+            >
+              <Image src="/Icons/phone-call(1).png" alt="Call" width={18} height={18} className="h-4 w-4" />
+              <span className="text-sm font-medium">Call Us</span>
+            </a>
+            <a
+              href={`https://wa.me/${BUSINESS_INFO.whatsapp}`}
+              className="flex items-center space-x-2 text-[#7f6446] hover:text-[#7f6446]/80"
+            >
+              <Image src="/Icons/whatsapp.png" alt="WhatsApp" width={18} height={18} className="h-4 w-4" />
+              <span className="text-sm font-medium">WhatsApp</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

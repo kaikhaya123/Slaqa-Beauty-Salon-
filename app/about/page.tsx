@@ -61,23 +61,16 @@ export default function AboutPage() {
           className="grid md:grid-cols-2 gap-8 items-center"
         >
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Story</h2>
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <h2 className="text-2xl font-bold text-black mb-4">Our Story</h2>
+            <p className="text-black mb-4 leading-relaxed">
               Pro Barber Shop was founded with a simple mission: to bring world-class barbering 
               services to Durban, in the township of lamontiville. We believe that a fresh haircut is more than just clean fade&mdash;it&apos;s 
               about confidence, style, and self-expression.
             </p>
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="text-black mb-4 leading-relaxed">
               From our establishment in the township of lamontiville, we&apos;ve built a loyal community of clients who 
               appreciate quality craftsmanship, attention to detail, and genuine customer care. 
-              Every barber on our team is hand-picked for their skill and passion for the craft.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              Today, we&apos;re proud to offer both traditional walk-in services and modern digital 
-              booking solutions, making it easier than ever to get the cut you deserve.
-            </p>
-          </div>
-          <div className="relative h-80 rounded-lg overflow-hidden shadow-lg bg-gray-100">
+Every barber on our team is hand-picked for their skill and passion for the craft. </p> <p className="text-black leading-relaxed"> Today, we&apos;re proud to offer both traditional walk-in services and modern digital booking solutions, making it easier than ever to get the cut you deserve. </p> </div> <div className="relative h-80 rounded-lg overflow-hidden shadow-lg bg-white">
             {/* Hero Image Placeholder - Replace with your shop image */}
             {/* TODO: Add hero image path to: /public/Images/about-hero.jpg or .png */}
             <Image
@@ -125,7 +118,7 @@ export default function AboutPage() {
                 initial="hidden"
                 animate="visible"
                 custom={2.3 + idx * 0.1}
-                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-lg border border-gray-200 hover:border-gray-400 transition-colors"
+                className="bg-white"
               >
                 <h3 className="text-lg font-bold text-gray-900 mb-3">{value.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{value.description}</p>
@@ -184,7 +177,7 @@ export default function AboutPage() {
               },
               {
                 title: 'Convenient Location',
-                description: 'Convenient Chatsworth location in Durban',
+                description: 'Convenient Lamontville location in Chatsworth, Durban',
                 // TODO: Add icon image path - icon_location.svg or .png
                 icon: '/Icons/location (2).png',
               },
