@@ -51,7 +51,7 @@ export default function BookingConfirmation({
       if (!ce.get('lottie-player')) return false;
 
       mountedEl = document.createElement('lottie-player');
-      mountedEl.setAttribute('src', encodeURI('/lottie/Success Tick.lottie'));
+      mountedEl.setAttribute('src', encodeURI('/lottie/Check.json'));
       mountedEl.setAttribute('background', 'transparent');
       mountedEl.setAttribute('speed', '1');
       mountedEl.setAttribute('style', 'width:48px;height:48px');
@@ -97,65 +97,65 @@ export default function BookingConfirmation({
   }, [lottieLoaded]);
 
   return (
-    <div className="min-h-screen bg-[#f1efec] p-4">
+    <div className="min-h-screen bg-cream-50 p-4">
       <div className="max-w-2xl mx-auto">
         {/* Header Section */}
-        <div className="bg-[#7f6446] text-center py-8 px-6 mb-0 relative overflow-hidden">
+        <div className="bg-dark-900 text-center py-8 px-6 mb-0 relative overflow-hidden">
           <div className="relative z-10">
-            <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-20 h-20 bg-cream-50/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" onLoad={() => setLottieLoaded(true)} />
               <div ref={lottieRef} className="h-12 w-12" />
             </div>
-            <h1 className="text-4xl font-bold text-white mb-3 font-serif">
+            <h1 className="text-4xl font-bold text-cream-50 mb-3 font-sans">
               Your Appointment
             </h1>
-            <h2 className="text-4xl font-bold text-white mb-2 font-serif">
+            <h2 className="text-4xl font-bold text-cream-50 mb-2 font-sans">
               Awaits!
             </h2>
-            <p className="text-[#d9d5ce] text-sm max-w-md mx-auto leading-relaxed">
+            <p className="text-cream-200 text-sm max-w-md mx-auto leading-relaxed">
               Your appointment has been confirmed and saved to our system. We&apos;ll contact you shortly via WhatsApp to finalize details.
             </p>
           </div>
         </div>
 
         {/* Main Content Card */}
-        <div className="bg-white border-l-[10px] border-r-[10px] border-[#7f6446] p-6">
+        <div className="bg-cream-50 border-l-[10px] border-r-[10px] border-dark-900 p-6">
           {/* Success Icon & Title */}
           <div className="text-center mb-6">
             <Image 
-              src="/Icons/success.png" 
+              src="/Icons/check-mark (2).png" 
               alt="Success" 
               width={60} 
               height={60} 
               className="h-15 w-15 mx-auto mb-4"
             />
-            <h2 className="text-2xl font-bold text-[#7f6446] font-serif">
+            <h2 className="text-2xl font-bold text-dark-900 font-sans">
               Appointment Confirmed
             </h2>
-            <p className="text-gray-600 text-sm mt-2">
-              Reference: <span className="font-mono font-bold text-[#7f6446]">{bookingId}</span>
+            <p className="text-dark-600 text-sm mt-2">
+              Reference: <span className="font-mono font-bold text-dark-900">{bookingId}</span>
             </p>
           </div>
 
           {/* Date & Time Section - Prominent */}
           <div className="grid grid-cols-3 gap-0 mb-6">
             {/* Date Display */}
-            <div className="bg-white border-l-[1px] border-[#7f6446] text-center p-4">
-              <h3 className="text-3xl font-bold text-[#7f6446] font-serif leading-none">
+            <div className="bg-cream-50 border-l-[1px] border-dark-900 text-center p-4">
+              <h3 className="text-3xl font-bold text-dark-900 font-sans leading-none">
                 {format(date, 'd')}
               </h3>
-              <h4 className="text-lg font-bold text-[#7f6446] font-serif">
+              <h4 className="text-lg font-bold text-dark-900 font-sans">
                 {format(date, 'MMM').toUpperCase()}
               </h4>
             </div>
             
             {/* Appointment Details */}
             <div className="col-span-2 p-4 text-left">
-              <div className="text-gray-600 text-sm mb-1">
+              <div className="text-dark-600 text-sm mb-1">
                 {format(date, 'EEEE, MMMM d, yyyy')}
               </div>
-              <div className="font-semibold text-[#7f6446] text-lg mb-2">{time}</div>
-              <div className="text-sm text-gray-600">
+              <div className="font-semibold text-dark-900 text-lg mb-2">{time}</div>
+              <div className="text-sm text-dark-600">
                 Please arrive 5 minutes early for your appointment.
               </div>
             </div>
@@ -163,22 +163,22 @@ export default function BookingConfirmation({
 
           {/* Queue Number - PROMINENT */}
           {queueNumber && (
-            <div className="bg-[#ffd16f] border-2 border-[#7f6446] rounded-lg p-6 mb-6 text-center">
-              <p className="text-sm text-[#7f6446] mb-2 font-semibold">YOUR QUEUE NUMBER</p>
-              <p className="text-5xl font-bold text-[#7f6446] font-mono">{queueNumber}</p>
-              <p className="text-xs text-[#7f6446] mt-3">
+            <div className="bg-cream-200 border-2 border-dark-900 rounded-lg p-6 mb-6 text-center">
+              <p className="text-sm text-dark-900 mb-2 font-semibold">YOUR QUEUE NUMBER</p>
+              <p className="text-5xl font-bold text-dark-900 font-mono">{queueNumber}</p>
+              <p className="text-xs text-dark-900 mt-3">
                 This is your position in the queue. Arrive on time and mention this number!
               </p>
             </div>
           )}
 
           {/* Service Details Section */}
-          <div className="bg-[#7f6446] text-white p-6 mb-6 rounded-lg">
+          <div className="bg-dark-900 text-cream-50 p-6 mb-6 rounded-lg">
             <div className="grid grid-cols-3 gap-4">
               {/* Service Image */}
               <div className="text-center">
                 <Image 
-                  src="/Icons/hairdresser.png" 
+                  src="/Icons/hair-clipper.png" 
                   alt="Barber Service" 
                   width={80} 
                   height={80}
@@ -188,13 +188,13 @@ export default function BookingConfirmation({
               
               {/* Service Details */}
               <div className="col-span-2">
-                <h3 className="text-xl font-bold mb-2 text-white">
+                <h3 className="text-xl font-bold mb-2 text-cream-50">
                   {service.name}
                 </h3>
-                <p className="text-[#d9d5ce] text-sm mb-2">
+                <p className="text-cream-200 text-sm mb-2">
                   {service.duration} minutes • R{service.price}
                 </p>
-                <p className="text-[#d9d5ce] text-sm leading-relaxed">
+                <p className="text-cream-200 text-sm leading-relaxed">
                   Professional hair styling service with experienced barber.
                 </p>
               </div>
@@ -202,12 +202,12 @@ export default function BookingConfirmation({
           </div>
 
           {/* Barber Details Section */}
-          <div className="bg-[#7f6446] text-white p-6 mb-6 rounded-lg border-t border-white/20">
+          <div className="bg-dark-900 text-cream-50 p-6 mb-6 rounded-lg border-t border-cream-50/20">
             <div className="grid grid-cols-3 gap-4">
               {/* Barber Image */}
               <div className="text-center">
                 <Image 
-                  src="/Icons/barber.png" 
+                  src="/Icons/barber (1).png" 
                   alt="Your Barber" 
                   width={80} 
                   height={80}
@@ -217,13 +217,13 @@ export default function BookingConfirmation({
               
               {/* Barber Details */}
               <div className="col-span-2">
-                <h3 className="text-xl font-bold mb-2 text-white">
+                <h3 className="text-xl font-bold mb-2 text-cream-50">
                   {barber.name}
                 </h3>
-                <p className="text-[#d9d5ce] text-sm mb-2">
+                <p className="text-cream-200 text-sm mb-2">
                   {barber.title}
                 </p>
-                <p className="text-[#d9d5ce] text-sm leading-relaxed">
+                <p className="text-cream-200 text-sm leading-relaxed">
                   Your professional barber will provide excellent service and styling.
                 </p>
               </div>
@@ -231,7 +231,7 @@ export default function BookingConfirmation({
           </div>
 
           {/* Location Details */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <div className="bg-cream-50 border border-cream-300 rounded-lg p-6 mb-6">
             <div className="flex items-start space-x-4">
               <Image 
                 src="/Icons/location.png" 
@@ -241,9 +241,9 @@ export default function BookingConfirmation({
                 className="h-6 w-6 mt-1 flex-shrink-0"
               />
               <div>
-                <h4 className="font-bold text-[#7f6446] mb-2">Visit Us At</h4>
-                <p className="text-gray-700 font-medium">{BUSINESS_INFO.address}</p>
-                <p className="text-sm text-gray-600 mt-2">
+                <h4 className="font-bold text-dark-900 mb-2">Visit Us At</h4>
+                <p className="text-dark-700 font-medium">{BUSINESS_INFO.address}</p>
+                <p className="text-sm text-dark-600 mt-2">
                   Located conveniently in Durban for all your grooming needs.
                 </p>
               </div>
@@ -251,8 +251,8 @@ export default function BookingConfirmation({
           </div>
 
           {/* What Happens Next */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-            <h4 className="font-bold text-[#7f6446] mb-4 flex items-center gap-3">
+          <div className="bg-cream-50 border border-cream-300 rounded-lg p-6 mb-6">
+            <h4 className="font-bold text-dark-900 mb-4 flex items-center gap-3">
               <Image 
                 src="/Icons/chatting.png" 
                 alt="Next Steps" 
@@ -262,21 +262,21 @@ export default function BookingConfirmation({
               />
               What Happens Next?
             </h4>
-            <div className="space-y-3 text-sm text-gray-700">
+            <div className="space-y-3 text-sm text-dark-700">
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Your booking has been saved to our system</span>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Our staff will contact you via WhatsApp to confirm details</span>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
                 <span>You&apos;ll receive a reminder 24 hours before your appointment</span>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#ffd16f] rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Please arrive 5 minutes early on your appointment day</span>
               </div>
             </div>
@@ -284,12 +284,12 @@ export default function BookingConfirmation({
         </div>
 
         {/* Action Buttons */}
-        <div className="bg-[#7f6446] p-6 space-y-4">
+        <div className="bg-dark-900 p-6 space-y-4">
           <Button
             variant="secondary"
             size="lg"
             fullWidth
-            className="bg-[#ffd16f] text-[#7f6446] hover:bg-[#ffd16f]/90 border-0 font-semibold"
+            className="bg-cream-200 text-dark-900 hover:bg-cream-300 border-0 font-semibold"
             onClick={() => {
               const link = whatsappLink || (window as any).__WHATSAPP_LINK || ("https://wa.me/" + (BUSINESS_INFO.whatsapp || ''))
               try { trackEvent('whatsapp_cta_click', { location: 'booking_confirmation', path: pathname || '/' }) } catch (e) {}
@@ -304,7 +304,7 @@ export default function BookingConfirmation({
               variant="outline"
               size="md"
               fullWidth
-              className="border-white text-white hover:bg-white hover:text-[#7f6446]"
+              className="border-cream-50 text-cream-50 hover:bg-cream-50 hover:text-dark-900"
               onClick={onStartOver}
             >
               Book Another
@@ -316,7 +316,7 @@ export default function BookingConfirmation({
               variant="outline"
               size="md"
               fullWidth
-              className="border-white text-white hover:bg-white hover:text-[#7f6446]"
+              className="border-cream-50 text-cream-50 hover:bg-cream-50 hover:text-dark-900"
             >
               Back to Home
             </Button>
@@ -324,19 +324,19 @@ export default function BookingConfirmation({
         </div>
 
         {/* Bottom Contact */}
-        <div className="bg-[#f1efec] text-center py-6">
-          <p className="text-sm text-gray-600 mb-3">Need Immediate Help?</p>
+        <div className="bg-cream-50 text-center py-6">
+          <p className="text-sm text-dark-600 mb-3">Need Immediate Help?</p>
           <div className="flex justify-center space-x-6">
             <a
               href={`tel:${BUSINESS_INFO.phone}`}
-              className="flex items-center space-x-2 text-[#7f6446] hover:text-[#7f6446]/80"
+              className="flex items-center space-x-2 text-dark-900 hover:text-dark-700"
             >
               <Image src="/Icons/phone-call(1).png" alt="Call" width={18} height={18} className="h-4 w-4" />
               <span className="text-sm font-medium">Call Us</span>
             </a>
             <a
               href={`https://wa.me/${BUSINESS_INFO.whatsapp}`}
-              className="flex items-center space-x-2 text-[#7f6446] hover:text-[#7f6446]/80"
+              className="flex items-center space-x-2 text-dark-900 hover:text-dark-700"
             >
               <Image src="/Icons/whatsapp.png" alt="WhatsApp" width={18} height={18} className="h-4 w-4" />
               <span className="text-sm font-medium">WhatsApp</span>

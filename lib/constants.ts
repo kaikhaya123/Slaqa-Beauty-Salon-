@@ -19,6 +19,30 @@ export const BUSINESS_INFO = {
   },
 } 
 
+/**
+ * Get the base URL for the application
+ * Checks environment variables for deployment URL first, then fallbacks
+ */
+export function getBaseUrl(): string {
+  // Development
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000'
+  }
+  
+  // Production - use environment variable if set
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL
+  }
+  
+  // Vercel deployment
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+  
+  // Fallback to production domain
+  return 'https://realbarbershop.co.za'
+}
+
 // Services offered
 export const SERVICES = [
   {
