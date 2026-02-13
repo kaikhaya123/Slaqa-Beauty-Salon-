@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState, useCallback, useMemo } from 'react'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { format } from 'date-fns'
+import { useAdminAuth } from '@/lib/useAdminAuth'
 import Image from 'next/image'
 
 interface Booking {
@@ -10,6 +11,7 @@ interface Booking {
   phone: string
   service: string
   name: string | null
+  email: string | null
   date: string | null
   time: string | null
   barber: string | null
@@ -19,266 +21,364 @@ interface Booking {
   createdat: string
 }
 
-export default function AdminBookings() {
-  const [bookings, setBookings] = useState<Booking[]>([])
-  const [statusFilter, setStatusFilter] = useState<'all' | Booking['status']>('all')
-  const [rangeFilter, setRangeFilter] = useState<'today' | 'yesterday' | 'week' | 'month' | 'all'>('today')
-  const [selectedDate, setSelectedDate] = useState<string>('')
+const servicePrices: { [key: string]: number } = {
+  'DROP FADE & DYE': 150,
+  'TAPER FADE & DYE': 150,
+  'FADE & DYE': 150,
+  'KIDDIES CUT & STYLE': 150,
+  'KIDDIES FADE & DYE': 150,
+  'PLAIN FADE': 60,
+  'FADE DYE WITH DESIGNS': 200,
+}
 
+export default function BookingsPage() {
+  const { isAuthenticated, loading: authLoading } = useAdminAuth()
+  const [bookings, setBookings] = useState<Booking[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [filter, setFilter] = useState<'all' | 'today' | 'upcoming' | 'pending' | 'confirmed' | 'completed'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [lastRefresh, setLastRefresh] = useState(new Date())
 
-  /* ---------------- FETCH ---------------- */
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        setLoading(true)
+        const res = await fetch('/api/admin/bookings')
+        if (!res.ok) throw new Error('Failed to load bookings')
+        
+        const data: Booking[] = await res.json()
+        setBookings(data)
+        setLastRefresh(new Date())
+        setError('')
+      } catch (e: any) {
+        setError(e.message)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-  const fetchBookings = useCallback(async () => {
+    if (isAuthenticated) {
+      fetchBookings()
+      const interval = setInterval(fetchBookings, 30000)
+      return () => clearInterval(interval)
+    }
+  }, [isAuthenticated])
+
+  const handleManualRefresh = async () => {
+    setLoading(true)
     try {
       const res = await fetch('/api/admin/bookings')
       if (!res.ok) throw new Error('Failed to load bookings')
-      setBookings(await res.json())
+      
+      const data: Booking[] = await res.json()
+      setBookings(data)
+      setLastRefresh(new Date())
       setError('')
     } catch (e: any) {
       setError(e.message)
     } finally {
       setLoading(false)
     }
-  }, [])
-
-  useEffect(() => {
-    fetchBookings()
-  }, [fetchBookings])
-
-  /* ---------------- DATE LOGIC ---------------- */
-
-  const todayISO = new Date().toISOString().split('T')[0]
-
-  const rangeDates = useMemo(() => {
-    const start = new Date()
-    start.setHours(0, 0, 0, 0)
-
-    const end = new Date(start)
-    end.setDate(end.getDate() + 1)
-
-    if (rangeFilter === 'yesterday') {
-      const y = new Date(start)
-      y.setDate(y.getDate() - 1)
-      return { start: y, end: start }
-    }
-
-    if (rangeFilter === 'week') {
-      const w = new Date(start)
-      w.setDate(w.getDate() - 7)
-      return { start: w, end }
-    }
-
-    if (rangeFilter === 'month') {
-      const m = new Date(start)
-      m.setMonth(m.getMonth() - 1)
-      return { start: m, end }
-    }
-
-    if (rangeFilter === 'all') {
-      return { start: new Date(0), end: new Date(9999, 0, 1) }
-    }
-
-    return { start, end }
-  }, [rangeFilter])
-
-  /* ---------------- FILTERED DATA ---------------- */
-
-  const filteredBookings = useMemo(() => {
-    return bookings.filter(b => {
-      if (statusFilter !== 'all' && b.status !== statusFilter) return false
-
-      if (!b.date) return false
-
-      if (selectedDate) {
-        return b.date === selectedDate
-      }
-
-      const d = new Date(b.date)
-      d.setHours(0, 0, 0, 0)
-
-      return d >= rangeDates.start && d < rangeDates.end
-    })
-  }, [bookings, statusFilter, selectedDate, rangeDates])
-
-  /* ---------------- STATS ---------------- */
-
-  const todayStats = useMemo(() => {
-    const today = bookings.filter(b => b.date === todayISO)
-    return {
-      total: today.length,
-      pending: today.filter(b => b.status === 'pending').length,
-      confirmed: today.filter(b => b.status === 'confirmed').length,
-      completed: today.filter(b => b.status === 'completed').length,
-      cancelled: today.filter(b => b.status === 'cancelled').length,
-    }
-  }, [bookings, todayISO])
-
-  /* ---------------- ACTIONS ---------------- */
-
-  const updateStatus = async (bookingId: string, status: Booking['status']) => {
-    await fetch('/api/admin/bookings', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bookingId, status }),
-    })
-    fetchBookings()
   }
 
-  /* ---------------- UI ---------------- */
+  const getFilteredBookings = () => {
+    let filtered = bookings
+
+    // Apply status/date filters
+    const today = format(new Date(), 'yyyy-MM-dd')
+    switch (filter) {
+      case 'today':
+        filtered = filtered.filter(b => b.date === today)
+        break
+      case 'upcoming':
+        filtered = filtered.filter(b => b.date && b.date >= today && b.status !== 'cancelled')
+        break
+      case 'pending':
+        filtered = filtered.filter(b => b.status === 'pending')
+        break
+      case 'confirmed':
+        filtered = filtered.filter(b => b.status === 'confirmed')
+        break
+      case 'completed':
+        filtered = filtered.filter(b => b.status === 'completed')
+        break
+    }
+
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(b =>
+        b.name?.toLowerCase().includes(query) ||
+        b.phone.includes(query) ||
+        b.email?.toLowerCase().includes(query) ||
+        b.bookingid.toLowerCase().includes(query) ||
+        b.service.toLowerCase().includes(query)
+      )
+    }
+
+    // Sort by date and time (newest first)
+    return filtered.sort((a, b) => {
+      const dateA = new Date(`${a.date || '2000-01-01'}T${a.time || '00:00'}`)
+      const dateB = new Date(`${b.date || '2000-01-01'}T${b.time || '00:00'}`)
+      return dateB.getTime() - dateA.getTime()
+    })
+  }
+
+  const getStatusBadge = (status: string) => {
+    const styles = {
+      pending: 'bg-yellow-100 text-yellow-900 border-yellow-300',
+      confirmed: 'bg-green-100 text-green-900 border-green-300',
+      completed: 'bg-blue-100 text-blue-900 border-blue-300',
+      cancelled: 'bg-red-100 text-red-900 border-red-300',
+    }
+    return (
+      <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase border-2 ${styles[status as keyof typeof styles]}`}>
+        {status}
+      </span>
+    )
+  }
+
+  if (authLoading || loading && bookings.length === 0) {
+    return (
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center p-4">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-dark-900 border-t-transparent"></div>
+          <div className="text-lg sm:text-xl font-bold text-dark-900 text-center">Loading bookings...</div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return null
+  }
+
+  const filteredBookings = getFilteredBookings()
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-6xl mx-auto space-y-6">
-
-        {/* HEADER */}
-        <header className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold">Bookings</h1>
-            <p className="text-sm text-gray-600">Daily tracking and management</p>
-          </div>
-          <Link href="/" className="text-blue-600">← Back</Link>
-        </header>
-
-        {/* STATS */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-          {Object.entries(todayStats).map(([k, v]) => (
-            <div key={k} className="bg-white border rounded-lg p-3 text-center">
-              <p className="text-xs uppercase text-gray-500">{k}</p>
-              <p className="text-xl font-bold">{v}</p>
+    <div className="min-h-screen bg-cream-50">
+      {/* Page Header */}
+      <div className="sticky top-0 z-30 bg-white border-b-2 border-cream-300 shadow-sm">
+        <div className="px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h1 className="text-xl sm:text-2xl font-black text-dark-900">All Bookings</h1>
+              <p className="text-xs sm:text-sm text-dark-600 font-semibold mt-0.5">{filteredBookings.length} bookings found</p>
             </div>
-          ))}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="hidden sm:block text-xs text-dark-600 font-medium">
+                {lastRefresh.toLocaleTimeString()}
+              </div>
+              <button
+                onClick={handleManualRefresh}
+                disabled={loading}
+                className="px-3 py-2 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+                title="Refresh data"
+              >
+                <Image
+                  src="/Icons/refresh-page-option.png"
+                  alt="Refresh"
+                  width={16}
+                  height={16}
+                  className={`object-contain ${loading ? 'animate-spin' : ''}`}
+                />
+                <span className="hidden sm:inline">Refresh</span>
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
 
-        {/* FILTERS */}
-        <div className="bg-white border rounded-lg p-4 space-y-4">
+      {/* Main Content */}
+      <main className="p-3 sm:p-4 lg:p-6">
+        <div className="space-y-4 sm:space-y-6">
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 sm:p-4 shadow-lg">
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/Icons/multiply.png"
+                  alt="Error"
+                  width={20}
+                  height={20}
+                  className="object-contain flex-shrink-0 sm:w-6 sm:h-6"
+                />
+                <p className="text-sm sm:text-base font-bold text-red-900">{error}</p>
+              </div>
+            </div>
+          )}
 
-          {/* STATUS */}
-          <div className="flex gap-2 flex-wrap">
-            {(['all', 'pending', 'confirmed', 'completed', 'cancelled'] as const).map(s => (
-              <button
-                key={s}
-                onClick={() => setStatusFilter(s)}
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  statusFilter === s ? 'bg-black text-white' : 'bg-gray-100'
-                }`}
-              >
-                {s}
-              </button>
-            ))}
+          {/* Filters and Search */}
+          <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4">
+            <div className="space-y-4">
+              {/* Search Bar */}
+              <div>
+                <input
+                  type="text"
+                  placeholder="Search by name, phone, email, or booking ID..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-cream-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-dark-900 focus:border-transparent font-semibold text-dark-900 placeholder:text-dark-400"
+                />
+              </div>
+
+              {/* Filter Buttons */}
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                <button
+                  onClick={() => setFilter('all')}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                    filter === 'all'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      : 'bg-cream-200 text-dark-900 hover:bg-cream-300'
+                  }`}
+                >
+                  All ({bookings.length})
+                </button>
+                <button
+                  onClick={() => setFilter('today')}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                    filter === 'today'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      : 'bg-cream-200 text-dark-900 hover:bg-cream-300'
+                  }`}
+                >
+                  Today
+                </button>
+                <button
+                  onClick={() => setFilter('upcoming')}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                    filter === 'upcoming'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      : 'bg-cream-200 text-dark-900 hover:bg-cream-300'
+                  }`}
+                >
+                  Upcoming
+                </button>
+                <button
+                  onClick={() => setFilter('pending')}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                    filter === 'pending'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      : 'bg-yellow-100 text-yellow-900 hover:bg-yellow-200 border-2 border-yellow-300'
+                  }`}
+                >
+                  Pending
+                </button>
+                <button
+                  onClick={() => setFilter('confirmed')}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                    filter === 'confirmed'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      : 'bg-green-100 text-green-900 hover:bg-green-200 border-2 border-green-300'
+                  }`}
+                >
+                  Confirmed
+                </button>
+                <button
+                  onClick={() => setFilter('completed')}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                    filter === 'completed'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      : 'bg-blue-100 text-blue-900 hover:bg-blue-200 border-2 border-blue-300'
+                  }`}
+                >
+                  Completed
+                </button>
+              </div>
+            </div>
           </div>
 
-          {/* RANGE */}
-          <div className="flex gap-2 flex-wrap">
-            {(['today', 'yesterday', 'week', 'month', 'all'] as const).map(r => (
-              <button
-                key={r}
-                onClick={() => {
-                  setRangeFilter(r)
-                  setSelectedDate('')
-                }}
-                className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  rangeFilter === r && !selectedDate ? 'bg-blue-600 text-white' : 'bg-gray-100'
-                }`}
-              >
-                {r}
-              </button>
-            ))}
-          </div>
+          {/* Bookings List */}
+          <div className="space-y-2.5 sm:space-y-3">
+            {filteredBookings.length === 0 ? (
+              <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-6 sm:p-8 text-center">
+                <Image
+                  src="/Icons/appointment.png"
+                  alt="No bookings"
+                  width={48}
+                  height={48}
+                  className="object-contain mx-auto mb-3 sm:mb-4 opacity-50 sm:w-16 sm:h-16"
+                />
+                <p className="text-lg sm:text-xl font-bold text-dark-600">No bookings found</p>
+                <p className="text-xs sm:text-sm text-dark-400 mt-2">Try adjusting your filters or search query</p>
+              </div>
+            ) : (
+              filteredBookings.map((booking) => (
+                <div
+                  key={booking.id}
+                  className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4 hover:shadow-xl transition-all"
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4">
+                    {/* Booking Info */}
+                    <div className="flex-1 space-y-1.5 sm:space-y-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="text-base sm:text-lg font-black text-dark-900">
+                          {booking.name || 'Walk-in Customer'}
+                        </h3>
+                        {booking.queuenumber && (
+                          <span className="px-3 py-1 rounded-full text-xs font-black bg-dark-900 text-cream-50 border-2 border-cream-300">
+                            Client no.{booking.queuenumber}
+                          </span>
+                        )}
+                        {getStatusBadge(booking.status)}
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-dark-600">Phone:</span>
+                          <span className="text-dark-900">{booking.phone}</span>
+                        </div>
+                        {booking.email && (
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-dark-600">Email:</span>
+                            <span className="text-dark-900 truncate">{booking.email}</span>
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-dark-600">Service:</span>
+                          <span className="text-dark-900">{booking.service}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-dark-600">Price:</span>
+                          <span className="text-dark-900">R{servicePrices[booking.service] || 0}</span>
+                        </div>
+                      </div>
+                    </div>
 
-          {/* DATE PICKER */}
-          <div className="flex items-center gap-3">
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={e => setSelectedDate(e.target.value)}
-              className="border rounded px-3 py-2 text-sm"
-            />
-            {selectedDate && (
-              <button
-                onClick={() => setSelectedDate('')}
-                className="text-sm text-red-600"
-              >
-                Clear
-              </button>
+                    {/* Date & Time */}
+                    <div className="flex flex-row sm:flex-row lg:flex-col gap-2 sm:gap-3 lg:gap-2">
+                      <div className="bg-cream-100 px-3 sm:px-4 py-2 rounded-xl flex-1 sm:flex-initial">
+                        <p className="text-xs font-bold text-dark-600 uppercase">Date</p>
+                        <p className="text-sm sm:text-base font-black text-dark-900">
+                          {booking.date ? format(new Date(booking.date), 'MMM dd, yyyy') : 'Not set'}
+                        </p>
+                      </div>
+                      <div className="bg-cream-100 px-3 sm:px-4 py-2 rounded-xl flex-1 sm:flex-initial">
+                        <p className="text-xs font-bold text-dark-600 uppercase">Time</p>
+                        <p className="text-sm sm:text-base font-black text-dark-900">
+                          {booking.time || 'Not set'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Barber Info */}
+                    <div className="lg:w-44">
+                      <div className="bg-dark-900 text-cream-50 px-3 py-2 rounded-xl text-center">
+                        <p className="text-xs font-bold uppercase mb-1">Barber</p>
+                        <p className="text-base sm:text-lg font-black">{booking.barber || 'Any Available'}</p>
+                      </div>
+                      <p className="text-xs text-dark-400 text-center mt-2 font-semibold">
+                        ID: {booking.bookingid.substring(0, 8)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))
             )}
           </div>
         </div>
-
-        {/* CONTENT */}
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p className="text-red-600">{error}</p>
-        ) : filteredBookings.length === 0 ? (
-          <div className="bg-white border rounded-lg p-10 text-center text-gray-500">
-            No bookings found for this selection
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {filteredBookings.map(b => (
-              <div key={b.id} className="bg-white border rounded-lg p-4 space-y-3">
-
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <div>
-                    <p className="font-semibold">{b.name || 'Customer'}</p>
-                    <p className="text-xs text-gray-500">{b.phone}</p>
-                  </div>
-
-                  <div>
-                    <p className="font-semibold">
-                      {b.date} · {b.time}
-                    </p>
-                    <p className="text-xs">{b.service}</p>
-                    <p className="text-xs text-gray-500">{b.barber}</p>
-                  </div>
-
-                  <div>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium
-                      ${b.status === 'pending' && 'bg-yellow-100 text-yellow-800'}
-                      ${b.status === 'confirmed' && 'bg-green-100 text-green-800'}
-                      ${b.status === 'completed' && 'bg-blue-100 text-blue-800'}
-                      ${b.status === 'cancelled' && 'bg-red-100 text-red-800'}
-                    `}>
-                      {b.status}
-                    </span>
-                  </div>
-                </div>
-
-                {/* ACTIONS */}
-                <div className="flex gap-2 flex-wrap">
-                  {b.status === 'pending' && (
-                    <>
-                      <button onClick={() => updateStatus(b.bookingid, 'confirmed')} className="px-4 py-2 bg-black text-white rounded">
-                        Confirm
-                      </button>
-                      <button onClick={() => updateStatus(b.bookingid, 'cancelled')} className="px-4 py-2 bg-black text-white rounded">
-                        Cancel
-                      </button>
-                    </>
-                  )}
-                  {b.status === 'confirmed' && (
-                    <button onClick={() => updateStatus(b.bookingid, 'completed')} className="px-4 py-2 bg-black text-white rounded">
-                      Complete
-                    </button>
-                  )}
-
-                  <a
-                    href={`https://wa.me/${b.phone.replace('+','')}`}
-                    target="_blank"
-                    className="px-4 py-2 bg-green-600 text-white rounded flex items-center gap-2"
-                  >
-                    <Image src="/Icons/whatsapp.png" alt="WhatsApp" width={18} height={18} />
-                    WhatsApp
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-      </div>
+      </main>
     </div>
   )
 }

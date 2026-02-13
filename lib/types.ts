@@ -9,7 +9,7 @@ export interface Service {
 }
 
 export interface Barber {
-  id: string
+  id: number
   name: string
   title: string
   experience: string

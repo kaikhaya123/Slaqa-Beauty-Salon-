@@ -15,6 +15,7 @@ export default function Header() {
     { name: 'SERVICES', href: '/services' },
     { name: 'BARBERS', href: '/barbers' },
     { name: 'CONTACT', href: '/contact' },
+    { name: 'ADMIN', href: '/admin/login' },
   ]
 
   const menuItems = [
@@ -23,6 +24,7 @@ export default function Header() {
     { label: 'Services', ariaLabel: 'View our services', link: '/services' },
     { label: 'Barbers', ariaLabel: 'Meet our barbers', link: '/barbers' },
     { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' },
+    { label: 'Admin Login', ariaLabel: 'Access admin panel', link: '/admin/login' },
   ]
 
   const socialItems = [

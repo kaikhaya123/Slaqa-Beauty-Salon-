@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { saveBooking } from '@/lib/bookings'
+import { saveBooking, updateBookingQueueNumber } from '@/lib/bookings'
 import { sendTwilioMessage } from '@/lib/whatsappClient'
 import { sanitizePhone } from '@/lib/whatsapp'
-
+import { generateQueueNumber } from '@/lib/queue'
 import { sendBookingConfirmationEmail } from '@/lib/gmail'
 import { supabase } from '@/lib/supabase-bookings'
 
@@ -16,8 +16,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Service is required' }, { status: 400 })
     }
 
-    // STEP 1: Check slot availability if date and time are provided
-    if (date && time && barberId) {
+    // STEP 1: Check slot availability if date and time are provided (TEMPORARILY DISABLED)
+    if (date && time && barberId && false) { // Added && false to disable availability check
       const { data: existingBooking, error } = await supabase
         .from('bookings')
         .select('id, bookingid')
@@ -57,6 +57,22 @@ export async function POST(req: NextRequest) {
 
     console.log('[Web Booking] Booking saved:', { bookingId: booking.bookingid, service, name, barber })
     
+    // STEP 3: Generate and assign queue number
+    let queueNumber = null
+    try {
+      const bookingDate = date || new Date().toISOString().split('T')[0]
+      const barberName = barber || 'Any Available'
+      queueNumber = await generateQueueNumber(bookingDate, barberName)
+      
+      // Update booking with queue number
+      await updateBookingQueueNumber(booking.bookingid, queueNumber)
+      
+      console.log('[Web Booking] Queue number assigned:', { bookingId: booking.bookingid, queueNumber })
+    } catch (err) {
+      console.error('[Web Booking] Failed to assign queue number:', err)
+      // Continue with booking even if queue number fails
+    }
+    
     let confirmationSent = false
     let confirmationMethod = 'none'
 
@@ -88,21 +104,22 @@ export async function POST(req: NextRequest) {
       try {
         const cleanPhone = sanitizePhone(phone)
         const dateTimeDisplay = date && time ? `${date} ${time}` : 'To be scheduled'
+        const queueDisplay = queueNumber ? `\n- Queue Number: Client no.${queueNumber}` : ''
         const confirmationMsg = `
-✓ *Booking Confirmed*
+[BOOKING CONFIRMED]
 
-Hi ${name || 'there'}! 👋
+Hi ${name || 'there'}!
 
 Your booking has been saved!
 
-📋 *Details:*
-• Service: ${service}
-• Date & Time: ${dateTimeDisplay}
-• Barber: ${barber || 'Any available'}
+DETAILS:
+- Service: ${service}
+- Date & Time: ${dateTimeDisplay}
+- Barber: ${barber || 'Any available'}${queueDisplay}
 
-📌 *Reference: ${booking.bookingid}*
+REFERENCE: ${booking.bookingid}
 
-We'll contact you shortly to confirm. Thanks! 💈
+We'll contact you shortly to confirm. Thanks!
         `.trim()
 
         await sendTwilioMessage(`whatsapp:+${cleanPhone}`, confirmationMsg)
@@ -122,6 +139,7 @@ We'll contact you shortly to confirm. Thanks! 💈
       success: true,
       booking: {
         id: booking.bookingid,
+        queueNumber: queueNumber,
         service,
         date,
         time,

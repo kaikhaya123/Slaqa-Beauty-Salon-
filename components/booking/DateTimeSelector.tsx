@@ -36,18 +36,22 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
     try {
       setIsLoadingSlots(true)
       const dateString = format(date, 'yyyy-MM-dd')
+      
+      // Debug barber ID
+      console.log('Fetching availability for barberId:', barberId, 'type:', typeof barberId)
+      
       const response = await fetch(`/api/availability?date=${dateString}&barberId=${barberId}`)
       
       if (!response.ok) {
-        console.error('Failed to fetch availability')
-        return []
+        console.error('Availability API failed:', response.status)
+        return [] // Fallback to empty array if API fails
       }
 
       const data = await response.json()
       return data.takenSlots || []
     } catch (error) {
       console.error('Error fetching availability:', error)
-      return []
+      return [] // Fallback to empty array on error
     } finally {
       setIsLoadingSlots(false)
     }
@@ -76,8 +80,11 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
         availableToday = filtered.filter(slot => slot > currentTime)
       }
 
+      // Debug barber.id before making API call
+      console.log('Debug - barber.id:', barber.id, 'type:', typeof barber.id)
+
       // Fetch taken slots from database
-      const taken = await fetchAvailability(selectedDate, Number(barber.id))
+      const taken = await fetchAvailability(selectedDate, barber.id)
       setTakenSlots(taken)
       
       // Set available slots (excluding taken ones)

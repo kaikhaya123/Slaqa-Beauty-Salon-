@@ -15,9 +15,9 @@ ADD COLUMN IF NOT EXISTS queuenumber VARCHAR(10);
 CREATE INDEX IF NOT EXISTS idx_bookings_queuenumber 
 ON public.bookings(queuenumber);
 
--- Step 3: Create composite index for barber + datetime lookups (used in queue generation)
-CREATE INDEX IF NOT EXISTS idx_bookings_barber_datetime 
-ON public.bookings(barber, datetime);
+-- Step 3: Create composite index for barber + date lookups (used in queue generation)
+CREATE INDEX IF NOT EXISTS idx_bookings_barber_date 
+ON public.bookings(barber, date);
 
 -- Step 4: Verify the migration was successful
 -- Run this query to confirm:

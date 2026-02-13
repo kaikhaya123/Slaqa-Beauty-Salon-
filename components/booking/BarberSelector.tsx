@@ -27,6 +27,7 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
   }, [availableBarbers, selectedBarber, onSelect])
 
   const handleSelect = (barber: Barber) => {
+    console.log('BarberSelector - Selected barber:', barber, 'ID:', barber.id, 'type:', typeof barber.id)
     setSelectedBarber(barber)
     onSelect(barber)
   }

@@ -113,7 +113,7 @@ export const SERVICES = [
 // Barber profiles
 export const BARBERS = [
   {
-    id: 'fuze',
+    id: 1,
     name: 'Fuze Ngcobo',
     title: 'Professional Barber',
     experience: '7+ years',
