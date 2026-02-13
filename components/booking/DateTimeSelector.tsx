@@ -77,7 +77,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       }
 
       // Fetch taken slots from database
-      const taken = await fetchAvailability(selectedDate, barber.id)
+      const taken = await fetchAvailability(selectedDate, Number(barber.id))
       setTakenSlots(taken)
       
       // Set available slots (excluding taken ones)
