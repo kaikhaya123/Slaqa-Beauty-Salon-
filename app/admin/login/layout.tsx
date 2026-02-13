@@ -25,10 +25,10 @@ export default function LoginLayout({
           html, body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            height: 100dvh;
-            overflow: hidden;
-            position: fixed;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            overflow-y: auto;
             width: 100%;
             background: #fdfcfa;
           }

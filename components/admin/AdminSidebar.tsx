@@ -69,7 +69,7 @@ export default function AdminSidebar() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:relative top-0 left-0 z-40 h-full w-64
+          fixed lg:relative top-0 left-0 z-40 h-full w-full lg:w-64
           bg-white border-r-2 border-white shadow-xl lg:shadow-none
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
