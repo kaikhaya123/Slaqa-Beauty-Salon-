@@ -68,9 +68,9 @@ export default function ContactPage() {
               </Button>
             </Link>
 
-            <Link href="/queue">
+            <Link href="/services">
               <Button className="bg-accent-600 hover:bg-accent-700 text-white px-8 py-3 text-base rounded-full">
-                JOIN QUEUE
+                VIEW SERVICES
               </Button>
             </Link>
           </div>

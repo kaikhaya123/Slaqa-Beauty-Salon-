@@ -151,7 +151,7 @@ export default function Services() {
                   href="/book" 
                   variant="primary" 
                   size="md"
-                  className="bg-accent-600 hover:bg-accent-700 whitespace-nowrap"
+                  className="bg-dark-900 hover:bg-dark-800 whitespace-nowrap text-white"
                 >
                   Book Your Service →
                 </Button>
@@ -196,7 +196,7 @@ export default function Services() {
                         <h3 className="text-2xl font-black text-white mb-1 tracking-wide">
                           {service.name}
                         </h3>
-                        <div className="text-3xl font-black text-white tracking-wide">
+                        <div className="text-3xl font-black text-black tracking-wide">
                           R{service.price}
                         </div>
                       </div>

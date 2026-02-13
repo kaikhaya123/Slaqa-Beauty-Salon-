@@ -161,17 +161,6 @@ export default function BookingConfirmation({
             </div>
           </div>
 
-          {/* Queue Number - PROMINENT */}
-          {queueNumber && (
-            <div className="bg-cream-200 border-2 border-dark-900 rounded-lg p-6 mb-6 text-center">
-              <p className="text-sm text-dark-900 mb-2 font-semibold">YOUR QUEUE NUMBER</p>
-              <p className="text-5xl font-bold text-dark-900 font-mono">{queueNumber}</p>
-              <p className="text-xs text-dark-900 mt-3">
-                This is your position in the queue. Arrive on time and mention this number!
-              </p>
-            </div>
-          )}
-
           {/* Service Details Section */}
           <div className="bg-dark-900 text-cream-50 p-6 mb-6 rounded-lg">
             <div className="grid grid-cols-3 gap-4">

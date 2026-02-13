@@ -13,14 +13,17 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 }
 
 // Initialize Supabase client - only if credentials are available
-let supabase: any = null
+let supabaseClient: any = null
 
 function getSupabase() {
-  if (!supabase && SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-    supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+  if (!supabaseClient && SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
   }
-  return supabase
+  return supabaseClient
 }
+
+// Export the supabase client for direct use in API routes
+export const supabase = getSupabase()
 
 export async function loadBookings() {
   try {

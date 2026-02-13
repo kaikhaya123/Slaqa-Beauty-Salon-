@@ -8,7 +8,7 @@ interface BookingEmailData {
   date?: string
   time?: string
   barber: string
-  queueNumber: string
+  queueNumber?: string
   bookingId?: string
   location?: string
 }
@@ -265,20 +265,12 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData): Prom
                                                         <tr>
                                                             <td class="pad" style="padding-bottom:10px;padding-left:60px;padding-right:60px;padding-top:10px;">
                                                                 <div style="color:#ffffff;direction:ltr;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;font-size:20px;font-weight:300;letter-spacing:0px;line-height:1.2;text-align:center;mso-line-height-alt:24px;">
-                                                                    <p style="margin: 0;">Your haircut appointment has been successfully booked at Pro Barber Shop ZA.<br><br>Keep your queue number ready when you arrive at our Lamontville location</p>
+                                                                    <p style=\"margin: 0;\">Your haircut appointment has been successfully booked at Pro Barber Shop ZA.<br><br>Please arrive on time for your scheduled appointment at our Lamontville location</p>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    <table class="paragraph_block block-3" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
-                                                        <tr>
-                                                            <td class="pad" style="padding-left:60px;padding-right:60px;padding-top:20px;">
-                                                                <div style="color:#ffffff;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:20px;font-weight:400;letter-spacing:0px;line-height:1.2;text-align:center;mso-line-height-alt:24px;">
-                                                                    <p style="margin: 0;"><strong><span style="word-break: break-word; color: #bea287;"><span style="word-break: break-word; color: #ffffff;">YOUR</span> <span style="word-break: break-word; color: #ffffff;">QUEUE NUMBER</span><br><span style="word-break: break-word; color: #ffffff; font-size: 36px;">${queueNumber}</span></span></strong></p>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+
                                                     <table class="image_block block-4" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                                                         <tr>
                                                             <td class="pad" style="width:100%;">
@@ -308,7 +300,7 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData): Prom
                                                                     <p style="margin: 0 0 12px 0;"><strong>What happens next?</strong></p>
                                                                     <p style="margin: 0 0 8px 0;">• Your booking has been saved to our system</p>
                                                                     <p style="margin: 0 0 8px 0;">• Arrive 5-10 minutes before your appointment</p>
-                                                                    <p style="margin: 0 0 8px 0;">• Present your queue number at reception</p>
+                                                                    <p style="margin: 0 0 8px 0;">• Arrive 5-10 minutes before your appointment time</p>
                                                                     <p style="margin: 0 0 8px 0;">• We'll contact you via WhatsApp if needed</p>
                                                                     <p style="margin: 0;">• We'll send you a reminder 24 hours before</p>
                                                                 </div>
@@ -391,12 +383,12 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData): Prom
         address: process.env.GMAIL_USER || 'bookings@probarbershop.co.za'
       },
       to: email,
-      subject: `✓ Booking Confirmed - Queue #${queueNumber}`,
+      subject: `✓ Booking Confirmed - ${service}`,
       html: html,
     }
 
     const result = await transporter.sendMail(mailOptions)
-    console.log('[Gmail] Confirmation email sent to:', email, 'Queue:', queueNumber, 'Message ID:', result.messageId)
+    console.log('[Gmail] Confirmation email sent to:', email, 'Service:', service, 'Message ID:', result.messageId)
     return true
 
   } catch (error) {

@@ -34,9 +34,9 @@ export default function BookingForm() {
     setConfirmationData(data);
     setShowConfirmation(true);
 
-    // Redirect after 7 seconds (matches BookingConfirmation timeout)
+    // Redirect after 7 seconds to home page
     setTimeout(() => {
-      window.location.href = '/queue';
+      window.location.href = '/';
     }, 7000);
   };
 

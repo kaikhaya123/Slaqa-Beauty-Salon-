@@ -18,7 +18,9 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [availableDates, setAvailableDates] = useState<Date[]>([])
   const [availableSlots, setAvailableSlots] = useState<string[]>([])
+  const [takenSlots, setTakenSlots] = useState<string[]>([])
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
+  const [isLoadingSlots, setIsLoadingSlots] = useState(false)
 
   // Generate next 7 days
   useEffect(() => {
@@ -29,31 +31,63 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
     setAvailableDates(dates)
   }, [])
 
+  // Fetch availability for selected date and barber
+  const fetchAvailability = async (date: Date, barberId: number) => {
+    try {
+      setIsLoadingSlots(true)
+      const dateString = format(date, 'yyyy-MM-dd')
+      const response = await fetch(`/api/availability?date=${dateString}&barberId=${barberId}`)
+      
+      if (!response.ok) {
+        console.error('Failed to fetch availability')
+        return []
+      }
+
+      const data = await response.json()
+      return data.takenSlots || []
+    } catch (error) {
+      console.error('Error fetching availability:', error)
+      return []
+    } finally {
+      setIsLoadingSlots(false)
+    }
+  }
+
   // Get available time slots for selected date
   useEffect(() => {
-    if (!selectedDate) return
+    const loadSlots = async () => {
+      if (!selectedDate) return
 
-    const dayOfWeek = selectedDate.getDay()
-    const hours = OPERATING_HOURS[dayOfWeek as keyof typeof OPERATING_HOURS]
-    
-    // Filter slots based on operating hours
-    const filtered = TIME_SLOTS.filter(slot => {
-      return slot >= hours.open && slot <= hours.close
-    })
-
-    // If today, filter out past times
-    if (isToday(selectedDate)) {
-      const currentHour = new Date().getHours()
-      const currentMinute = new Date().getMinutes()
-      const currentTime = `${currentHour.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}`
+      const dayOfWeek = selectedDate.getDay()
+      const hours = OPERATING_HOURS[dayOfWeek as keyof typeof OPERATING_HOURS]
       
-      setAvailableSlots(filtered.filter(slot => slot > currentTime))
-    } else {
-      setAvailableSlots(filtered)
+      // Filter slots based on operating hours
+      const filtered = TIME_SLOTS.filter(slot => {
+        return slot >= hours.open && slot <= hours.close
+      })
+
+      // If today, filter out past times
+      let availableToday = filtered
+      if (isToday(selectedDate)) {
+        const currentHour = new Date().getHours()
+        const currentMinute = new Date().getMinutes()
+        const currentTime = `${currentHour.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}`
+        
+        availableToday = filtered.filter(slot => slot > currentTime)
+      }
+
+      // Fetch taken slots from database
+      const taken = await fetchAvailability(selectedDate, barber.id)
+      setTakenSlots(taken)
+      
+      // Set available slots (excluding taken ones)
+      setAvailableSlots(availableToday)
+
+      setSelectedTime(null)
     }
 
-    setSelectedTime(null)
-  }, [selectedDate])
+    loadSlots()
+  }, [selectedDate, barber.id])
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date)
@@ -64,7 +98,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
   }
 
   const handleContinue = () => {
-    if (selectedDate && selectedTime) {
+    if (selectedDate && selectedTime && !takenSlots.includes(selectedTime)) {
       onSelect(selectedDate, selectedTime)
     }
   }
@@ -118,30 +152,64 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       <div className="mb-8">
         <h3 className="text-lg font-semibold text-primary-900 mb-4">
           Choose a Time
-          <span className="ml-2 text-sm text-gray-600 font-normal">
-            ({availableSlots.length} slots available)
-          </span>
+          {isLoadingSlots ? (
+            <span className="ml-2 text-sm text-gray-600 font-normal">
+              Loading availability...
+            </span>
+          ) : (
+            <span className="ml-2 text-sm text-gray-600 font-normal">
+              ({availableSlots.filter(slot => !takenSlots.includes(slot)).length} slots available)
+            </span>
+          )}
         </h3>
         
-        {availableSlots.length > 0 ? (
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-            {availableSlots.map((time) => {
-              const isSelected = time === selectedTime
-              return (
-                <button
-                  key={time}
-                  onClick={() => handleTimeSelect(time)}
-                  className={`p-3 rounded-lg text-center font-semibold transition-all ${
-                    isSelected
-                      ? 'bg-accent-600 text-white shadow-lg'
-                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  {time}
-                </button>
-              )
-            })}
+        {isLoadingSlots ? (
+          <div className="text-center py-8 text-gray-500">
+            <Clock className="h-12 w-12 mx-auto mb-3 text-gray-400 animate-spin" />
+            <p>Checking availability...</p>
           </div>
+        ) : availableSlots.length > 0 ? (
+          <>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+              {availableSlots.map((time) => {
+                const isSelected = time === selectedTime
+                const isTaken = takenSlots.includes(time)
+                
+                return (
+                  <button
+                    key={time}
+                    onClick={() => !isTaken && handleTimeSelect(time)}
+                    disabled={isTaken}
+                    className={`p-3 rounded-lg text-center font-semibold transition-all relative ${
+                      isTaken
+                        ? 'bg-red-50 text-red-400 cursor-not-allowed border border-red-200'
+                        : isSelected
+                        ? 'bg-accent-600 text-white shadow-lg'
+                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                    }`}
+                  >
+                    <div className="text-sm">{time}</div>
+                    {isTaken && (
+                      <div className="text-xs text-red-500 font-normal">Taken</div>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+            
+            {takenSlots.length > 0 && (
+              <div className="mt-4 flex items-center justify-center gap-4 text-xs text-gray-600">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-gray-100 rounded border"></div>
+                  <span>Available</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-red-50 border border-red-200 rounded"></div>
+                  <span>Taken</span>
+                </div>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-8 text-gray-500">
             <Clock className="h-12 w-12 mx-auto mb-3 text-gray-400" />
@@ -152,7 +220,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       </div>
 
       {/* Summary & Continue */}
-      {selectedTime && (
+      {selectedTime && !takenSlots.includes(selectedTime) && (
         <div className="bg-primary-50 rounded-lg p-4 mb-6">
           <div className="flex items-center justify-between">
             <div>
@@ -174,9 +242,9 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
         size="lg"
         fullWidth
         onClick={handleContinue}
-        disabled={!selectedTime}
+        disabled={!selectedTime || takenSlots.includes(selectedTime) || isLoadingSlots}
       >
-        Continue to Details
+        {isLoadingSlots ? 'Loading...' : 'Continue to Details'}
       </Button>
     </div>
   )

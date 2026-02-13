@@ -93,7 +93,7 @@ export default function IntroSection() {
             transition={{ duration: 0.5 }}
             className="relative"
           >
-            <div className="relative h-[520px] md:h-[650px] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative h-[520px] md:h-[650px] rounded-2xl overflow-hidden">
               <Image
                 src="/Images/clinton-dube-84lpzy66IZk-unsplash.jpg"
                 alt="Barber performing a clean fade haircut"
@@ -102,7 +102,6 @@ export default function IntroSection() {
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
             </div>
           </motion.div>
         </div>

@@ -13,7 +13,7 @@ export default function Hero() {
         {/* Left Image */}
         <div className="relative w-full md:w-1/2 h-1/2 md:h-full">
           <Image
-            src={encodeURI("/Images/daniel-mitchel.jpg")}
+            src={encodeURI("/Images/Gemini_Generated_Image_n05afan05afan05a.png")}
             alt="Pro Barber Shop ZA"
             fill
             className="object-cover object-center brightness-90 contrast-110"
@@ -25,7 +25,7 @@ export default function Hero() {
         {/* Right Image */}
         <div className="relative w-full md:w-1/2 h-1/2 md:h-full">
           <Image
-            src={encodeURI("/Images/short-hair-queenk.jpg")}
+            src={encodeURI("/Images/Gemini_Generated_Image_7xv8yq7xv8yq7xv8 - Copy.png")}
             alt="Short Haircut for Women"
             fill
             className="object-cover object-center md:object-left brightness-90 contrast-110"

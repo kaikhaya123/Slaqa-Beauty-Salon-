@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { saveBooking, updateBookingQueueNumber } from '@/lib/bookings'
+import { saveBooking } from '@/lib/bookings'
 import { sendTwilioMessage } from '@/lib/whatsappClient'
 import { sanitizePhone } from '@/lib/whatsapp'
-import { generateQueueNumber, formatQueueDisplay } from '@/lib/queue'
+
 import { sendBookingConfirmationEmail } from '@/lib/gmail'
+import { supabase } from '@/lib/supabase-bookings'
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,7 +16,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Service is required' }, { status: 400 })
     }
 
-    // STEP 1: Save booking FIRST (without queue number yet)
+    // STEP 1: Check slot availability if date and time are provided
+    if (date && time && barberId) {
+      const { data: existingBooking, error } = await supabase
+        .from('bookings')
+        .select('id, bookingid')
+        .eq('barberid', barberId)
+        .eq('date', date)
+        .eq('time', time)
+        .in('status', ['pending', 'confirmed'])
+        .single()
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows found (good)
+        console.error('[Booking] Availability check failed:', error)
+        return NextResponse.json({ error: 'Failed to check availability' }, { status: 500 })
+      }
+
+      if (existingBooking) {
+        console.log('[Booking] Time slot already taken:', { barberId, date, time, existingBooking: existingBooking.bookingid })
+        return NextResponse.json({ 
+          error: 'This time slot is already booked. Please select a different time.',
+          conflictingBooking: existingBooking.bookingid
+        }, { status: 409 }) // 409 = Conflict
+      }
+    }
+
+    // STEP 2: Save booking (availability confirmed)
     const booking = await saveBooking({
       source: 'web',
       from: phone ? sanitizePhone(phone) : '+0000000000',
@@ -30,16 +56,6 @@ export async function POST(req: NextRequest) {
     })
 
     console.log('[Web Booking] Booking saved:', { bookingId: booking.bookingid, service, name, barber })
-
-    // STEP 2: Generate queue number NOW that booking exists in database
-    const bookingDate = date || new Date().toISOString().split('T')[0]
-    const queueNumber = await generateQueueNumber(bookingDate, barber || 'General')
-    const queueDisplay = formatQueueDisplay(queueNumber, barber)
-
-    // STEP 3: Update booking with queue number
-    await updateBookingQueueNumber(booking.bookingid, queueDisplay)
-
-    console.log('[Web Booking] Queue assigned:', { bookingId: booking.id, queueNumber: queueDisplay })
     
     let confirmationSent = false
     let confirmationMethod = 'none'
@@ -54,11 +70,10 @@ export async function POST(req: NextRequest) {
           date: date,
           time: time,
           barber: barber || 'Any available',
-          queueNumber: queueDisplay,
           location: '35 Nyakata St, Lamontville, Chatsworth, 4027, South Africa',
         })
         if (emailSent) {
-          console.log('[Web Booking] Email confirmation sent to:', email, 'Queue:', queueDisplay)
+          console.log('[Web Booking] Email confirmation sent to:', email)
           confirmationSent = true
           confirmationMethod = 'email'
         }
@@ -77,8 +92,6 @@ export async function POST(req: NextRequest) {
 ✓ *Booking Confirmed*
 
 Hi ${name || 'there'}! 👋
-
-Queue #: ${queueDisplay}
 
 Your booking has been saved!
 
@@ -116,7 +129,6 @@ We'll contact you shortly to confirm. Thanks! 💈
         name,
         status: 'pending',
         phone: phone ? sanitizePhone(phone) : undefined,
-        queueNumber: queueDisplay,
       },
       confirmation: {
         sent: confirmationSent,

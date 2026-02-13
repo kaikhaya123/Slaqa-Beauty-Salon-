@@ -66,9 +66,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/queue" className="text-dark-700 hover:text-dark-900 transition-colors">
-                  Walk-In Queue
-                </Link>
+
               </li>
               <li>
                 <Link href="/barbers" className="text-dark-600 hover:text-accent-600 transition-colors">
