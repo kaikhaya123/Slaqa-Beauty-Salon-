@@ -25,7 +25,7 @@ export default function Hero() {
         {/* Right Image */}
         <div className="relative w-full md:w-1/2 h-1/2 md:h-full">
           <Image
-            src={encodeURI("/Images/download (2) (1).jpg")}
+            src={encodeURI("/Images/download_women.jpg")}
             alt="Short Haircut for Women"
             fill
             className="object-cover object-center md:object-left brightness-90 contrast-110"

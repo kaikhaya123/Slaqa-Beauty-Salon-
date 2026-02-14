@@ -25,9 +25,9 @@ export default function AdminLayout({
   const isLoginPage = pathname === '/admin/login'
 
   return (
-    <div className={`${rethinkSans.variable} ${isLoginPage ? 'min-h-screen' : 'fixed inset-0 flex flex-col lg:flex-row bg-cream-50 overflow-hidden'}`}>
+    <div className={`${rethinkSans.variable} ${isLoginPage ? 'min-h-screen' : 'fixed inset-0 w-full h-full flex flex-col lg:flex-row bg-cream-50'}`}>
       {!isLoginPage && <AdminSidebar />}
-      <main className={isLoginPage ? 'w-full' : 'flex-1 flex flex-col overflow-hidden'}>
+      <main className={isLoginPage ? 'w-full' : 'flex-1 w-full lg:w-auto flex flex-col overflow-hidden'}>
         {children}
       </main>
     </div>

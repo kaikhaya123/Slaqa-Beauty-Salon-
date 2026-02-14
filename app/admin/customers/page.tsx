@@ -171,27 +171,27 @@ export default function CustomersPage() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col bg-white">
+    <div className="w-full h-full flex flex-col bg-white overflow-hidden">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
-        <div className="px-4 sm:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <h1 className="text-xl sm:text-2xl font-black text-dark-900">
+      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
+        <div className="px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4">
+          <div className="flex items-center justify-between gap-2 sm:gap-3">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-black text-dark-900 truncate">
                 Customers
               </h1>
-              <p className="text-xs sm:text-sm text-dark-600 font-semibold mt-0.5">
-                Total: {customers.length} customers
+              <p className="text-xs text-dark-600 font-semibold mt-0.5">
+                Total: {customers.length}
               </p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
               <div className="hidden sm:block text-xs text-dark-600 font-medium">
                 {lastRefresh.toLocaleTimeString()}
               </div>
               <button
                 onClick={handleManualRefresh}
                 disabled={loading}
-                className="px-3 py-2 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+                className="px-2 sm:px-3 py-1.5 sm:py-2 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
                 title="Refresh data"
               >
                 <Image
@@ -199,9 +199,9 @@ export default function CustomersPage() {
                   alt="Refresh"
                   width={16}
                   height={16}
-                  className="object-contain"
+                  className={`object-contain flex-shrink-0 ${loading ? 'animate-spin' : ''}`}
                 />
-                <span className="hidden sm:inline">Refresh</span>
+                <span className="hidden sm:inline text-xs sm:text-sm">Refresh</span>
               </button>
             </div>
           </div>
@@ -209,125 +209,121 @@ export default function CustomersPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4 bg-cream-50 border-b border-cream-200 space-y-3">
-        <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex-shrink-0 px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4 bg-cream-50 border-b border-cream-200 space-y-2 sm:space-y-3">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           {/* Search */}
           <input
             type="text"
-            placeholder="Search by name, phone, or email..."
+            placeholder="Search customers..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 px-3 py-2 border-2 border-cream-300 rounded-lg text-sm focus:outline-none focus:border-dark-900 transition-colors"
+            className="flex-1 px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-cream-300 rounded-lg text-xs sm:text-sm focus:outline-none focus:border-dark-900 transition-colors"
           />
 
           {/* Sort */}
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="px-3 py-2 border-2 border-cream-300 rounded-lg text-sm font-medium focus:outline-none focus:border-dark-900 transition-colors"
+            className="px-2.5 sm:px-3 py-1.5 sm:py-2 border-2 border-cream-300 rounded-lg text-xs sm:text-sm font-medium focus:outline-none focus:border-dark-900 transition-colors min-w-max"
           >
-            <option value="recent">Most Recent</option>
-            <option value="name">Name (A-Z)</option>
-            <option value="bookings">Most Bookings</option>
-            <option value="spent">Highest Spender</option>
+            <option value="recent">Recent</option>
+            <option value="name">Name</option>
+            <option value="bookings">Bookings</option>
+            <option value="spent">Spent</option>
           </select>
         </div>
       </div>
 
       {/* Content */}
-      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 pt-20 lg:pt-3">
+      <main className="flex-1 overflow-y-auto p-2.5 sm:p-3 lg:p-6 pt-14 sm:pt-16 lg:pt-3 bg-cream-50">
         {error && (
-          <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 sm:p-4 shadow-lg mb-4">
-            <div className="flex items-center gap-3">
+          <div className="bg-red-50 border-2 border-red-300 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-lg mb-3 sm:mb-4">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Image
                 src="/Icons/multiply.png"
                 alt="Error"
-                width={20}
-                height={20}
+                width={18}
+                height={18}
                 className="object-contain flex-shrink-0"
               />
-              <p className="text-sm sm:text-base font-bold text-red-900">{error}</p>
+              <p className="text-xs sm:text-sm lg:text-base font-bold text-red-900">{error}</p>
             </div>
           </div>
         )}
 
         {customers.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-12">
+          <div className="flex flex-col items-center justify-center py-8 sm:py-12">
             <Image
               src="/Icons/leader.png"
               alt="No customers"
-              width={64}
-              height={64}
-              className="object-contain mb-4 opacity-50"
+              width={40}
+              height={40}
+              className="object-contain mb-2 sm:mb-3 lg:mb-4 opacity-50"
             />
-            <p className="text-dark-600 font-semibold text-lg">No customers found</p>
-            <p className="text-dark-500 text-sm">Customers will appear here once they make bookings</p>
+            <p className="text-dark-600 font-semibold text-sm sm:text-lg">No customers found</p>
+            <p className="text-dark-500 text-xs sm:text-sm mt-1">Customers will appear once they make bookings</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-2.5 lg:space-y-3">
             {customers.map((customer) => (
               <div
                 key={customer.phone}
-                className="bg-white border-2 border-cream-200 rounded-xl p-4 hover:shadow-md transition-shadow"
+                className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 hover:shadow-md transition-shadow"
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {/* Customer Info */}
-                  <div className="sm:col-span-2">
-                    <h3 className="text-base font-black text-dark-900">
-                      {customer.name || 'Unknown Customer'}
+                {/* Customer Info */}
+                <div className="flex items-start justify-between gap-2 sm:gap-3 mb-2">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm sm:text-base lg:text-lg font-black text-dark-900 truncate break-words">
+                      {customer.name || 'Unknown'}
                     </h3>
-                    <p className="text-sm text-dark-600 font-semibold mt-1">
+                    <p className="text-xs sm:text-sm text-dark-600 font-semibold mt-0.5 break-all">
                       {customer.phone}
                     </p>
                     {customer.email && (
-                      <p className="text-sm text-dark-600 font-semibold">
+                      <p className="text-xs sm:text-sm text-dark-600 font-semibold truncate">
                         {customer.email}
                       </p>
                     )}
-                    <div className="mt-2">
-                      <span
-                        className={`inline-block px-2 py-1 rounded-full text-xs font-bold ${
-                          customer.status === 'active'
-                            ? 'bg-green-100 text-green-900'
-                            : 'bg-gray-100 text-gray-900'
-                        }`}
-                      >
-                        {customer.status === 'active' ? 'Active' : 'Inactive'}
-                      </span>
-                    </div>
                   </div>
+                  <span
+                    className={`px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-xs font-bold whitespace-nowrap flex-shrink-0 ${
+                      customer.status === 'active'
+                        ? 'bg-green-100 text-green-900'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
+                  >
+                    {customer.status === 'active' ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
 
-                  {/* Stats */}
-                  <div>
-                    <p className="text-xs text-dark-600 font-semibold uppercase tracking-wide">
+                {/* Stats Grid */}
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                  <div className="bg-cream-50 rounded-lg p-2 sm:p-3 text-center">
+                    <p className="text-xs text-dark-600 font-semibold uppercase tracking-wide mb-0.5">
                       Bookings
                     </p>
-                    <p className="text-2xl font-black text-dark-900">
+                    <p className="text-lg sm:text-xl lg:text-2xl font-black text-dark-900">
                       {customer.totalBookings}
                     </p>
                   </div>
 
-                  <div>
-                    <p className="text-xs text-dark-600 font-semibold uppercase tracking-wide">
-                      Total Spent
+                  <div className="bg-cream-50 rounded-lg p-2 sm:p-3 text-center">
+                    <p className="text-xs text-dark-600 font-semibold uppercase tracking-wide mb-0.5">
+                      Spent
                     </p>
-                    <p className="text-2xl font-black text-dark-900">
+                    <p className="text-lg sm:text-xl lg:text-2xl font-black text-dark-900">
                       R{customer.totalSpent}
                     </p>
                   </div>
 
-                  {/* Last Booking */}
-                  <div className="sm:col-span-2 lg:col-span-4">
-                    <p className="text-xs text-dark-600 font-semibold uppercase tracking-wide">
-                      Last Booking
+                  <div className="bg-cream-50 rounded-lg p-2 sm:p-3 text-center">
+                    <p className="text-xs text-dark-600 font-semibold uppercase tracking-wide mb-0.5">
+                      Last
                     </p>
-                    <p className="text-sm text-dark-900 font-semibold">
+                    <p className="text-xs sm:text-sm lg:text-base font-bold text-dark-900">
                       {new Date(customer.lastBooking || '').toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
                       })}
                     </p>
                   </div>

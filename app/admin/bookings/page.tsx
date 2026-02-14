@@ -203,23 +203,23 @@ export default function BookingsPage() {
   const filteredBookings = getFilteredBookings()
 
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="w-full h-full flex flex-col bg-cream-50 overflow-hidden">
       {/* Page Header */}
-      <div className="sticky top-0 z-30 bg-white border-b-2 border-cream-300 shadow-sm">
-        <div className="px-4 sm:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <h1 className="text-xl sm:text-2xl font-black text-dark-900">All Bookings</h1>
-              <p className="text-xs sm:text-sm text-dark-600 font-semibold mt-0.5">{filteredBookings.length} bookings found</p>
+      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-cream-300 shadow-sm flex-shrink-0">
+        <div className="px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4">
+          <div className="flex items-center justify-between gap-2 sm:gap-3">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-black text-dark-900 truncate">All Bookings</h1>
+              <p className="text-xs text-dark-600 font-semibold mt-0.5">{filteredBookings.length} bookings found</p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
               <div className="hidden sm:block text-xs text-dark-600 font-medium">
                 {lastRefresh.toLocaleTimeString()}
               </div>
               <button
                 onClick={handleManualRefresh}
                 disabled={loading}
-                className="px-3 py-2 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+                className="px-2 sm:px-3 py-1.5 sm:py-2 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
                 title="Refresh data"
               >
                 <Image
@@ -227,9 +227,9 @@ export default function BookingsPage() {
                   alt="Refresh"
                   width={16}
                   height={16}
-                  className={`object-contain ${loading ? 'animate-spin' : ''}`}
+                  className={`object-contain flex-shrink-0 ${loading ? 'animate-spin' : ''}`}
                 />
-                <span className="hidden sm:inline">Refresh</span>
+                <span className="hidden sm:inline text-xs sm:text-sm">Refresh</span>
               </button>
             </div>
           </div>
@@ -237,71 +237,71 @@ export default function BookingsPage() {
       </div>
 
       {/* Main Content */}
-      <main className="p-3 sm:p-4 lg:p-6 pt-20 lg:pt-3">
-        <div className="space-y-4 sm:space-y-6">
+      <main className="flex-1 overflow-y-auto p-2.5 sm:p-3 lg:p-6 pt-14 sm:pt-16 lg:pt-3">
+        <div className="space-y-3 sm:space-y-4 lg:space-y-6">
           {/* Error Message */}
           {error && (
-            <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 sm:p-4 shadow-lg">
-              <div className="flex items-center gap-3">
+            <div className="bg-red-50 border-2 border-red-300 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-lg">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <Image
                   src="/Icons/multiply.png"
                   alt="Error"
-                  width={20}
-                  height={20}
-                  className="object-contain flex-shrink-0 sm:w-6 sm:h-6"
+                  width={18}
+                  height={18}
+                  className="object-contain flex-shrink-0"
                 />
-                <p className="text-sm sm:text-base font-bold text-red-900">{error}</p>
+                <p className="text-xs sm:text-sm lg:text-base font-bold text-red-900">{error}</p>
               </div>
             </div>
           )}
 
           {/* Success Message */}
           {successMessage && (
-            <div className="bg-green-50 border-2 border-green-300 rounded-xl p-3 sm:p-4 shadow-lg">
-              <div className="flex items-center gap-3">
+            <div className="bg-green-50 border-2 border-green-300 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-lg">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <Image
                   src="/Icons/check.png"
                   alt="Success"
-                  width={20}
-                  height={20}
-                  className="object-contain flex-shrink-0 sm:w-6 sm:h-6"
+                  width={18}
+                  height={18}
+                  className="object-contain flex-shrink-0"
                 />
-                <p className="text-sm sm:text-base font-bold text-green-900">✓ Booking {successMessage}</p>
+                <p className="text-xs sm:text-sm lg:text-base font-bold text-green-900">✓ Booking {successMessage}</p>
               </div>
             </div>
           )}
 
           {/* Filters and Search */}
-          <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4">
-            <div className="space-y-4">
+          <div className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg p-2.5 sm:p-3 lg:p-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* Search Bar */}
               <div>
                 <input
                   type="text"
-                  placeholder="Search by name, phone, email, or booking ID..."
+                  placeholder="Search bookings..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-cream-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-dark-900 focus:border-transparent font-semibold text-dark-900 placeholder:text-dark-400"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm border-2 border-cream-300 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-dark-900 focus:border-transparent font-semibold text-dark-900 placeholder:text-dark-400"
                 />
               </div>
 
               {/* Filter Buttons */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-2">
                 <button
                   onClick={() => setFilter('all')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'all'
-                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
                       : 'bg-cream-200 text-dark-900 hover:bg-cream-300'
                   }`}
                 >
-                  All ({bookings.filter(b => b.status !== 'cancelled').length})
+                  All
                 </button>
                 <button
                   onClick={() => setFilter('today')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'today'
-                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
                       : 'bg-cream-200 text-dark-900 hover:bg-cream-300'
                   }`}
                 >
@@ -309,9 +309,9 @@ export default function BookingsPage() {
                 </button>
                 <button
                   onClick={() => setFilter('upcoming')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'upcoming'
-                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
                       : 'bg-cream-200 text-dark-900 hover:bg-cream-300'
                   }`}
                 >
@@ -319,9 +319,9 @@ export default function BookingsPage() {
                 </button>
                 <button
                   onClick={() => setFilter('pending')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'pending'
-                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
                       : 'bg-yellow-100 text-yellow-900 hover:bg-yellow-200 border-2 border-yellow-300'
                   }`}
                 >
@@ -329,9 +329,9 @@ export default function BookingsPage() {
                 </button>
                 <button
                   onClick={() => setFilter('confirmed')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'confirmed'
-                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
                       : 'bg-green-100 text-green-900 hover:bg-green-200 border-2 border-green-300'
                   }`}
                 >
@@ -339,9 +339,9 @@ export default function BookingsPage() {
                 </button>
                 <button
                   onClick={() => setFilter('completed')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'completed'
-                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
                       : 'bg-blue-100 text-blue-900 hover:bg-blue-200 border-2 border-blue-300'
                   }`}
                 >
@@ -349,47 +349,47 @@ export default function BookingsPage() {
                 </button>
                 <button
                   onClick={() => setFilter('cancelled')}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                  className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'cancelled'
-                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
                       : 'bg-red-100 text-red-900 hover:bg-red-200 border-2 border-red-300'
                   }`}
                 >
-                  Cancelled ({bookings.filter(b => b.status === 'cancelled').length})
+                  Cancelled
                 </button>
               </div>
             </div>
           </div>
 
           {/* Bookings List */}
-          <div className="space-y-2.5 sm:space-y-3">
+          <div className="space-y-2 sm:space-y-2.5 lg:space-y-3">
             {filteredBookings.length === 0 ? (
-              <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-6 sm:p-8 text-center">
+              <div className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 text-center">
                 <Image
                   src="/Icons/appointment.png"
                   alt="No bookings"
-                  width={48}
-                  height={48}
-                  className="object-contain mx-auto mb-3 sm:mb-4 opacity-50 sm:w-16 sm:h-16"
+                  width={40}
+                  height={40}
+                  className="object-contain mx-auto mb-2 sm:mb-3 lg:mb-4 opacity-50"
                 />
-                <p className="text-lg sm:text-xl font-bold text-dark-600">No bookings found</p>
-                <p className="text-xs sm:text-sm text-dark-400 mt-2">Try adjusting your filters or search query</p>
+                <p className="text-sm sm:text-lg lg:text-xl font-bold text-dark-600">No bookings found</p>
+                <p className="text-xs sm:text-sm text-dark-400 mt-1.5">Try adjusting your filters</p>
               </div>
             ) : (
               filteredBookings.map((booking) => (
                 <div
                   key={booking.id}
-                  className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4 hover:shadow-xl transition-all"
+                  className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg p-2.5 sm:p-3 lg:p-4 hover:shadow-xl transition-all"
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4">
+                  <div className="flex flex-col gap-2 sm:gap-3 lg:gap-4">
                     {/* Booking Info */}
-                    <div className="flex-1 space-y-1.5 sm:space-y-2">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="text-base sm:text-lg font-black text-dark-900">
+                    <div className="space-y-1.5 sm:space-y-2">
+                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                        <h3 className="text-sm sm:text-base lg:text-lg font-black text-dark-900 break-words">
                           {booking.name || 'Walk-in Customer'}
                         </h3>
                         {booking.queuenumber && (
-                          <span className="px-3 py-1 rounded-full text-xs font-black bg-dark-900 text-cream-50 border-2 border-cream-300">
+                          <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-black bg-dark-900 text-cream-50 border-2 border-cream-300 whitespace-nowrap">
                             Client no.{booking.queuenumber}
                           </span>
                         )}
@@ -397,75 +397,68 @@ export default function BookingsPage() {
                       </div>
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-dark-600">Phone:</span>
-                          <span className="text-dark-900">{booking.phone}</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                          <span className="font-bold text-dark-600 flex-shrink-0">Phone:</span>
+                          <span className="text-dark-900 break-all">{booking.phone}</span>
                         </div>
                         {booking.email && (
-                          <div className="flex items-center gap-2">
-                            <span className="font-bold text-dark-600">Email:</span>
+                          <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                            <span className="font-bold text-dark-600 flex-shrink-0">Email:</span>
                             <span className="text-dark-900 truncate">{booking.email}</span>
                           </div>
                         )}
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-dark-600">Service:</span>
-                          <span className="text-dark-900">{booking.service}</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                          <span className="font-bold text-dark-600 flex-shrink-0">Service:</span>
+                          <span className="text-dark-900 break-words">{booking.service}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-dark-600">Price:</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <span className="font-bold text-dark-600 flex-shrink-0">Price:</span>
                           <span className="text-dark-900">R{servicePrices[booking.service] || 0}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Date & Time */}
-                    <div className="flex flex-row sm:flex-row lg:flex-col gap-2 sm:gap-3 lg:gap-2">
-                      <div className="bg-cream-100 px-3 sm:px-4 py-2 rounded-xl flex-1 sm:flex-initial">
+                    {/* Date & Time & Barber */}
+                    <div className="grid grid-cols-3 gap-2 sm:gap-2 lg:gap-3">
+                      <div className="bg-cream-100 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
                         <p className="text-xs font-bold text-dark-600 uppercase">Date</p>
-                        <p className="text-sm sm:text-base font-black text-dark-900">
-                          {booking.date ? format(new Date(booking.date), 'MMM dd, yyyy') : 'Not set'}
+                        <p className="text-xs sm:text-sm lg:text-base font-black text-dark-900 break-words">
+                          {booking.date ? format(new Date(booking.date), 'MMM dd') : 'Not set'}
                         </p>
                       </div>
-                      <div className="bg-cream-100 px-3 sm:px-4 py-2 rounded-xl flex-1 sm:flex-initial">
+                      <div className="bg-cream-100 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
                         <p className="text-xs font-bold text-dark-600 uppercase">Time</p>
-                        <p className="text-sm sm:text-base font-black text-dark-900">
-                          {booking.time || 'Not set'}
+                        <p className="text-xs sm:text-sm lg:text-base font-black text-dark-900">
+                          {booking.time || '-'}
                         </p>
                       </div>
-                    </div>
-
-                    {/* Barber Info */}
-                    <div className="lg:w-44">
-                      <div className="bg-dark-900 text-cream-50 px-3 py-2 rounded-xl text-center">
-                        <p className="text-xs font-bold uppercase mb-1">Barber</p>
-                        <p className="text-base sm:text-lg font-black">{booking.barber || 'Any Available'}</p>
+                      <div className="bg-dark-900 text-cream-50 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-center">
+                        <p className=" text-xs font-bold uppercase">Barber</p>
+                        <p className="text-xs sm:text-sm lg:text-base font-black break-words">{booking.barber || 'Any'}</p>
                       </div>
-                      <p className="text-xs text-dark-400 text-center mt-2 font-semibold">
-                        ID: {booking.bookingid.substring(0, 8)}
-                      </p>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-2 lg:flex-col">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {booking.status === 'pending' && (
                         <button
                           onClick={() => updateBookingStatus(booking.id, 'confirmed')}
                           disabled={updatingIds.includes(booking.id)}
-                          className="px-4 py-2 bg-black hover:bg-black text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm whitespace-nowrap flex items-center justify-center gap-2"
-                          title="Confirm this booking"
+                          className="flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-2 bg-dark-900 hover:bg-dark-800 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm flex items-center justify-center gap-1 min-w-max"
+                          title="Confirm booking"
                         >
                           {updatingIds.includes(booking.id) ? (
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
                           ) : (
                             <>
                               <Image
                                 src="/Icons/verified.png"
                                 alt="Confirm"
-                                width={16}
-                                height={16}
-                                className="object-contain brightness-0 invert"
+                                width={14}
+                                height={14}
+                                className="object-contain brightness-0 invert flex-shrink-0"
                               />
-                              <span className="hidden sm:inline">Confirm</span>
+                              <span>Confirm</span>
                             </>
                           )}
                         </button>
@@ -475,21 +468,21 @@ export default function BookingsPage() {
                         <button
                           onClick={() => updateBookingStatus(booking.id, 'completed')}
                           disabled={updatingIds.includes(booking.id)}
-                          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm whitespace-nowrap flex items-center justify-center gap-2"
+                          className="flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm flex items-center justify-center gap-1 min-w-max"
                           title="Mark as completed"
                         >
                           {updatingIds.includes(booking.id) ? (
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
                           ) : (
                             <>
                               <Image
                                 src="/Icons/check (2).png"
                                 alt="Complete"
-                                width={16}
-                                height={16}
-                                className="object-contain brightness-0 invert"
+                                width={14}
+                                height={14}
+                                className="object-contain brightness-0 invert flex-shrink-0"
                               />
-                              <span className="hidden sm:inline">Complete</span>
+                              <span>Complete</span>
                             </>
                           )}
                         </button>
@@ -499,21 +492,21 @@ export default function BookingsPage() {
                         <button
                           onClick={() => updateBookingStatus(booking.id, 'cancelled')}
                           disabled={updatingIds.includes(booking.id)}
-                          className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm whitespace-nowrap flex items-center justify-center gap-2"
-                          title="Cancel this booking"
+                          className="flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm flex items-center justify-center gap-1 min-w-max"
+                          title="Cancel booking"
                         >
                           {updatingIds.includes(booking.id) ? (
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
                           ) : (
                             <>
                               <Image
                                 src="/Icons/cancel.png"
                                 alt="Cancel"
-                                width={16}
-                                height={16}
-                                className="object-contain brightness-0 invert"
+                                width={14}
+                                height={14}
+                                className="object-contain brightness-0 invert flex-shrink-0"
                               />
-                              <span className="hidden sm:inline">Cancel</span>
+                              <span>Cancel</span>
                             </>
                           )}
                         </button>
