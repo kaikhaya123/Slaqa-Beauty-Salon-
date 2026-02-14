@@ -69,7 +69,6 @@ export default function BookingsPage() {
 
   const updateBookingStatus = async (bookingId: string, newStatus: Booking['status']) => {
     try {
-      console.log('Updating booking:', bookingId, 'to status:', newStatus)
       setUpdatingIds((prev: string[]) => (prev.includes(bookingId) ? prev : [...prev, bookingId]))
       
       const res = await fetch('/api/admin/bookings/update', {
@@ -84,7 +83,6 @@ export default function BookingsPage() {
       setBookings(prev =>
         prev.map(b => (b.id === bookingId ? { ...b, status: newStatus } : b))
       )
-      console.log('Local state updated for booking:', bookingId, 'new status:', newStatus)
 
       // Set appropriate success message
       if (newStatus === 'confirmed') {
@@ -239,7 +237,7 @@ export default function BookingsPage() {
       </div>
 
       {/* Main Content */}
-      <main className="p-3 sm:p-4 lg:p-6">
+      <main className="p-3 sm:p-4 lg:p-6 pt-20 lg:pt-3">
         <div className="space-y-4 sm:space-y-6">
           {/* Error Message */}
           {error && (

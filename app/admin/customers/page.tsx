@@ -173,7 +173,7 @@ export default function CustomersPage() {
   return (
     <div className="w-full h-full flex flex-col bg-white">
       {/* Header */}
-      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
+      <div className="sticky top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
         <div className="px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between gap-3">
             <div>
@@ -235,7 +235,7 @@ export default function CustomersPage() {
       </div>
 
       {/* Content */}
-      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 pt-20 lg:pt-3">
         {error && (
           <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 sm:p-4 shadow-lg mb-4">
             <div className="flex items-center gap-3">

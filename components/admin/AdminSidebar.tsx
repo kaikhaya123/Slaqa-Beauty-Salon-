@@ -31,7 +31,32 @@ export default function AdminSidebar() {
     if (user) {
       setAdminUser(user)
     }
-  }, [])
+    
+    // Close menu when route changes
+    setIsOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    // Close menu on escape key
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape)
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
 
   const handleLogout = () => {
     localStorage.removeItem('adminAuth')
@@ -43,7 +68,7 @@ export default function AdminSidebar() {
     <>
       {/* Mobile Header - Always visible on mobile */}
       {mounted && (
-        <header className="lg:hidden fixed top-0 left-0 right-0 z-30 h-16 bg-white border-b-2 border-white shadow-md flex items-center justify-between px-4">
+        <header className="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b-2 border-white shadow-md flex items-center justify-between px-4">
           {/* Logo Section */}
           <div className="flex items-center space-x-2.5">
             <div className="relative w-8 h-8">
@@ -80,7 +105,8 @@ export default function AdminSidebar() {
       {/* Full Screen Overlay for mobile menu */}
       {mounted && isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-dark-900/50 z-40 top-16"
+          className="lg:hidden fixed inset-0 bg-dark-900/50 z-40"
+          style={{ top: '64px' }}
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -93,7 +119,7 @@ export default function AdminSidebar() {
           transition-all duration-300 ease-in-out
           ${
             mounted && isOpen
-              ? 'fixed top-0 left-0 z-50 pt-20 translate-x-0'
+              ? 'fixed top-16 left-0 z-50 translate-x-0 h-[calc(100vh-4rem)]'
               : mounted
                 ? 'hidden lg:flex flex-col'
                 : 'flex flex-col'

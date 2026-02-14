@@ -190,9 +190,9 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white">
       {/* Page Header */}
-      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
+      <div className="sticky top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
         <div className="px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 pt-20 lg:pt-3">
         <div className="space-y-4 sm:space-y-6">
           {/* Error Message */}
           {error && (
