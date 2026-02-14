@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
@@ -9,34 +9,36 @@ export default function IntroSection() {
   type IntroImage = {
     src: string
     alt: string
-    objectUrl?: string
   }
 
-  const initialImages: IntroImage[] = [
+  const images: IntroImage[] = [
     {
-      src: '/Images/clinton-dube-84lpzy66IZk-unsplash.jpg',
+      src: '/Images/pexels-rafael-quaty-37077235-13450758.jpg',
       alt: 'Barber performing a clean fade haircut',
     },
     {
-      src: '/Images/tyler-nix-2r_1eZ3g8Lk-unsplash.jpg',
+      src: '/Images/pexels-sephina-cornwall-759251776-32351047.jpg',
       alt: 'Barber shop interior with tools and mirrors',
     },
     {
-      src: '/Images/jakob-owens-8pmKEJ9N9-I-unsplash.jpg',
+      src: '/Images/pexels-rdne-7697383.jpg',
       alt: 'Barber shaping a haircut with clippers',
     },
     {
-      src: '/Images/adam-winger-VjRpkGtS55w-unsplash.jpg',
+      src: '/Images/bapesidechick (1).jpg',
       alt: 'Barber finishing a fade haircut',
     },
     {
-      src: '/Images/joel-mott-7p9c2X9yS8M-unsplash.jpg',
+      src: '/Images/download (20).jpg',
       alt: 'Fresh haircut with clean lineup',
     },
+    { src: '/Images/clinton-dube-84lpzy66IZk-unsplash.jpg', alt: 'Add image description' },
+    { src: '/Images/download (1).jpg', alt: 'Add image description' },
+    // Add or replace images here.
+    // Add or replace images here.
+    // Example:
+    // { src: '/Images/your-image.jpg', alt: 'Describe the image' },
   ]
-
-  const [images, setImages] = useState<IntroImage[]>(initialImages)
-  const objectUrlsRef = useRef<Set<string>>(new Set())
 
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -48,34 +50,6 @@ export default function IntroSection() {
     return () => clearInterval(interval)
   }, [images.length])
 
-  useEffect(() => {
-    return () => {
-      objectUrlsRef.current.forEach((url) => URL.revokeObjectURL(url))
-      objectUrlsRef.current.clear()
-    }
-  }, [])
-
-  const handleImageUpload = (index: number, file: File) => {
-    const objectUrl = URL.createObjectURL(file)
-
-    setImages((prev) => {
-      const next = [...prev]
-      const previous = next[index]
-      if ('objectUrl' in previous && previous.objectUrl) {
-        URL.revokeObjectURL(previous.objectUrl)
-        objectUrlsRef.current.delete(previous.objectUrl)
-      }
-      next[index] = {
-        ...previous,
-        src: objectUrl,
-        alt: `Uploaded intro image ${index + 1}`,
-        objectUrl,
-      }
-      return next
-    })
-
-    objectUrlsRef.current.add(objectUrl)
-  }
 
   return (
     <section
@@ -102,7 +76,7 @@ export default function IntroSection() {
                 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-dark-900 leading-tight"
               >
                 More than a haircut.
-                <span className="block text-dark-900 text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold">
+                <span className="block text-gray-600 text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold">
                   It&#39;s a culture.
                 </span>
               </h2>
