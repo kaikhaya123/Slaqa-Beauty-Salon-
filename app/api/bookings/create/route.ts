@@ -79,6 +79,7 @@ export async function POST(req: NextRequest) {
     // PRIMARY: Try EMAIL first if provided
     if (email) {
       try {
+        console.log('[Web Booking] Attempting to send email to:', email)
         const emailSent = await sendBookingConfirmationEmail({
           name: name || 'Customer',
           email,
@@ -89,14 +90,18 @@ export async function POST(req: NextRequest) {
           location: '35 Nyakata St, Lamontville, Chatsworth, 4027, South Africa',
         })
         if (emailSent) {
-          console.log('[Web Booking] Email confirmation sent to:', email)
+          console.log('[Web Booking] ✅ Email confirmation sent successfully to:', email)
           confirmationSent = true
           confirmationMethod = 'email'
+        } else {
+          console.log('[Web Booking] ❌ Email sending failed for:', email)  
         }
       } catch (err) {
-        console.error('[Web Booking] Email failed:', err)
+        console.error('[Web Booking] ❌ Email error for', email, ':', err)
         // Continue to WhatsApp fallback
       }
+    } else {
+      console.log('[Web Booking] ⚠️ No email address provided, skipping email confirmation')
     }
 
     // FALLBACK: Try WhatsApp if email failed or not provided

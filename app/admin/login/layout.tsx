@@ -1,3 +1,5 @@
+'use client'
+
 import localFont from 'next/font/local'
 
 const rethinkSans = localFont({
@@ -18,8 +20,15 @@ export default function LoginLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className={`${rethinkSans.variable} relative w-full min-h-screen h-full`}>
-      <style>{`
+    <div className={`${rethinkSans.variable} fixed inset-0 w-screen h-screen overflow-hidden`} data-login-layout>
+      <style jsx global>{`
+        body, html {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
         * {
           box-sizing: border-box;
           -webkit-tap-highlight-color: transparent;

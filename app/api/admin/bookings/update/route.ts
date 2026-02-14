@@ -71,31 +71,39 @@ export async function PUT(request: Request) {
     // Send thank you email when status is confirmed
     if (status === 'confirmed' && bookingData && bookingData.email) {
       try {
+        console.log('[Admin] Sending confirmation email to:', bookingData.email)
         await sendServiceCompletionEmail({
           name: bookingData.name || 'Valued Customer',
           email: bookingData.email,
           service: bookingData.service || 'Haircut Service',
           barber: bookingData.barber || 'our team',
         })
+        console.log('[Admin] ✅ Confirmation email sent successfully to:', bookingData.email)
       } catch (emailError) {
-        console.error('Error sending thank you email:', emailError)
+        console.error('[Admin] ❌ Error sending confirmation email to', bookingData.email, ':', emailError)
         // Don't fail the booking update if email fails
       }
+    } else if (status === 'confirmed') {
+      console.log('[Admin] ⚠️ Cannot send confirmation email - missing email address for booking:', bookingId)
     }
 
     // Send "see you next time" email when booking is marked as completed
     if (status === 'completed' && bookingData && bookingData.email) {
       try {
+        console.log('[Admin] Sending completion email to:', bookingData.email)
         await sendPostServiceEmail({
           name: bookingData.name || 'Valued Customer',
           email: bookingData.email,
           service: bookingData.service || 'Haircut Service',
           barber: bookingData.barber || 'our team',
         })
+        console.log('[Admin] ✅ Completion email sent successfully to:', bookingData.email)
       } catch (emailError) {
-        console.error('Error sending post-service email:', emailError)
+        console.error('[Admin] ❌ Error sending completion email to', bookingData.email, ':', emailError)
         // Don't fail the booking update if email fails
       }
+    } else if (status === 'completed') {
+      console.log('[Admin] ⚠️ Cannot send completion email - missing email address for booking:', bookingId)
     }
 
     return NextResponse.json(data)

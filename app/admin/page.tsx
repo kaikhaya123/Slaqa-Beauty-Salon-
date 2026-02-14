@@ -190,7 +190,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-white overflow-hidden">
       {/* Page Header */}
       <div className="sticky top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
         <div className="px-4 sm:px-6 py-3 sm:py-4">
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 pt-20 lg:pt-3">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 pt-20 lg:pt-3 bg-cream-50">
         <div className="space-y-4 sm:space-y-6">
           {/* Error Message */}
           {error && (
@@ -260,13 +260,13 @@ export default function AdminDashboard() {
             <>
               {/* Stats Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4 transition hover:shadow-xl">
+                <div className="bg-dark-900 border-2 border-dark-800 rounded-xl shadow-lg p-3 sm:p-4 transition hover:shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <p className="text-dark-600 text-xs font-bold uppercase tracking-wide">
+                      <p className="text-cream-300 text-xs font-bold uppercase tracking-wide">
                         Today&apos;s Customers
                       </p>
-                      <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-1">
+                      <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-cream-50 mt-1">
                         {todayStats.totalCustomers}
                       </p>
                     </div>
@@ -282,13 +282,13 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4 transition hover:shadow-xl">
+                <div className="bg-dark-900 border-2 border-dark-800 rounded-xl shadow-lg p-3 sm:p-4 transition hover:shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <p className="text-dark-600 text-xs font-bold uppercase tracking-wide">
+                      <p className="text-cream-300 text-xs font-bold uppercase tracking-wide">
                         Confirmed
                       </p>
-                      <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-1">
+                      <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-cream-50 mt-1">
                         {todayStats.confirmedCuts}
                       </p>
                     </div>
@@ -304,13 +304,13 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4 transition hover:shadow-xl">
+                <div className="bg-dark-900 border-2 border-dark-800 rounded-xl shadow-lg p-3 sm:p-4 transition hover:shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <p className="text-dark-600 text-xs font-bold uppercase tracking-wide">
+                      <p className="text-cream-300 text-xs font-bold uppercase tracking-wide">
                         Pending
                       </p>
-                      <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900 mt-1">
+                      <p className="text-2xl sm:text-3xl lg:text-4xl font-black text-cream-50 mt-1">
                         {todayStats.pendingCuts}
                       </p>
                     </div>
@@ -435,56 +435,56 @@ export default function AdminDashboard() {
               </div>
 
               {/* Progress Bars */}
-              <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg overflow-hidden">
+              <div className="bg-dark-900 border-2 border-dark-800 rounded-xl shadow-lg overflow-hidden">
                 <div className="px-4 py-2.5 sm:py-3 bg-cream-100 border-b-2 border-cream-300">
                   <h3 className="text-sm sm:text-base font-black text-dark-900">Today&apos;s Progress</h3>
                 </div>
                 <div className="p-4">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                     <div>
-                      <div className="text-3xl sm:text-4xl font-black text-dark-900 mb-1 sm:mb-2">{todayStats.completedCuts}</div>
-                      <div className="text-xs sm:text-sm text-dark-600 font-bold mb-2 sm:mb-3">Completed Cuts</div>
+                      <div className="text-3xl sm:text-4xl font-black text-cream-50 mb-1 sm:mb-2">{todayStats.completedCuts}</div>
+                      <div className="text-xs sm:text-sm text-cream-300 font-bold mb-2 sm:mb-3">Completed Cuts</div>
                       <div className="w-full bg-cream-200 rounded-full h-2.5 sm:h-3 border-2 border-cream-300">
                         <div 
-                          className="bg-dark-900 h-full rounded-full transition-all duration-500"
+                          className="bg-cream-50 h-full rounded-full transition-all duration-500"
                           style={{ 
                             width: `${todayStats.totalCustomers > 0 ? (todayStats.completedCuts / todayStats.totalCustomers) * 100 : 0}%` 
                           }}
                         />
                       </div>
-                      <div className="text-xs text-dark-500 font-semibold mt-1.5">
+                      <div className="text-xs text-cream-400 font-semibold mt-1.5">
                         {todayStats.totalCustomers > 0 ? Math.round((todayStats.completedCuts / todayStats.totalCustomers) * 100) : 0}%
                       </div>
                     </div>
                     
                     <div>
-                      <div className="text-3xl sm:text-4xl font-black text-green-700 mb-1 sm:mb-2">{todayStats.confirmedCuts}</div>
-                      <div className="text-xs sm:text-sm text-dark-600 font-bold mb-2 sm:mb-3">Ready to Cut</div>
+                      <div className="text-3xl sm:text-4xl font-black text-green-300 mb-1 sm:mb-2">{todayStats.confirmedCuts}</div>
+                      <div className="text-xs sm:text-sm text-cream-300 font-bold mb-2 sm:mb-3">Ready to Cut</div>
                       <div className="w-full bg-green-100 rounded-full h-2.5 sm:h-3 border-2 border-green-300">
                         <div 
-                          className="bg-green-600 h-full rounded-full transition-all duration-500"
+                          className="bg-green-400 h-full rounded-full transition-all duration-500"
                           style={{ 
                             width: `${todayStats.totalCustomers > 0 ? (todayStats.confirmedCuts / todayStats.totalCustomers) * 100 : 0}%` 
                           }}
                         />
                       </div>
-                      <div className="text-xs text-dark-500 font-semibold mt-1.5">
+                      <div className="text-xs text-cream-400 font-semibold mt-1.5">
                         {todayStats.totalCustomers > 0 ? Math.round((todayStats.confirmedCuts / todayStats.totalCustomers) * 100) : 0}%
                       </div>
                     </div>
                     
                     <div>
-                      <div className="text-3xl sm:text-4xl font-black text-yellow-700 mb-1 sm:mb-2">{todayStats.pendingCuts}</div>
-                      <div className="text-xs sm:text-sm text-dark-600 font-bold mb-2 sm:mb-3">Awaiting Confirmation</div>
+                      <div className="text-3xl sm:text-4xl font-black text-yellow-300 mb-1 sm:mb-2">{todayStats.pendingCuts}</div>
+                      <div className="text-xs sm:text-sm text-cream-300 font-bold mb-2 sm:mb-3">Awaiting Confirmation</div>
                       <div className="w-full bg-yellow-100 rounded-full h-2.5 sm:h-3 border-2 border-yellow-300">
                         <div 
-                          className="bg-yellow-600 h-full rounded-full transition-all duration-500"
+                          className="bg-yellow-400 h-full rounded-full transition-all duration-500"
                           style={{ 
                             width: `${todayStats.totalCustomers > 0 ? (todayStats.pendingCuts / todayStats.totalCustomers) * 100 : 0}%` 
                           }}
                         />
                       </div>
-                      <div className="text-xs text-dark-500 font-semibold mt-1.5">
+                      <div className="text-xs text-cream-400 font-semibold mt-1.5">
                         {todayStats.totalCustomers > 0 ? Math.round((todayStats.pendingCuts / todayStats.totalCustomers) * 100) : 0}%
                       </div>
                     </div>
