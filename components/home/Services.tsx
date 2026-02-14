@@ -196,7 +196,7 @@ export default function Services() {
                         <h3 className="text-2xl font-black text-white mb-1 tracking-wide">
                           {service.name}
                         </h3>
-                        <div className="text-3xl font-black text-black tracking-wide">
+                        <div className="text-3xl font-black text-white   tracking-wide">
                           R{service.price}
                         </div>
                       </div>

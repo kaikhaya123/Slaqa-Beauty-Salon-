@@ -396,3 +396,378 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData): Prom
     return false
   }
 }
+
+export async function sendServiceCompletionEmail(data: BookingEmailData): Promise<boolean> {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    console.warn('[Gmail] Gmail credentials not configured, skipping email')
+    return false
+  }
+
+  try {
+    const { name, email, service } = data
+
+    const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Pro Barber Shop</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+        .message {
+            color: #555555;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .highlight {
+            color: #d4a574;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777777;
+        }
+        .footer-links {
+            margin: 15px 0;
+        }
+        .footer-links a {
+            color: #d4a574;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Thank You!</h1>
+            <p style="margin: 10px 0 0 0; font-size: 16px;">We appreciate your business</p>
+        </div>
+
+        <div class="content">
+            <div class="greeting">Hi ${name},</div>
+
+            <div class="message">
+                We wanted to take a moment to thank you for visiting <span class="highlight">Pro Barber Shop ZA</span> and trusting us with your grooming needs.
+            </div>
+
+            <div class="message">
+                Your recent service:
+                <br><strong style="color: #1a1a1a;">${service}</strong>
+                <br> was completed with our signature attention to detail and care. We hope you're completely satisfied with your haircut and the overall experience you received from our team.
+            </div>
+
+            <div class="message">
+                At Pro Barber Shop, we don't just cut hair – we build relationships with our valued clients. Your satisfaction is our top priority, and we take great pride in delivering professional grooming services with exceptional customer care.
+            </div>
+
+            <div class="message">
+                <strong style="color: #1a1a1a;">We'd love to see you again soon!</strong>
+                <br> Whether you need a regular maintenance cut, a new style, or want to try something fresh, our team is always ready to deliver the premium barber experience you deserve.
+            </div>
+
+            <div style="background-color: #f9f9f9; padding: 20px; border-left: 4px solid #d4a574; margin: 20px 0;">
+                <p style="margin: 0; color: #333333;">
+                    <strong>Ready to book your next appointment?</strong>
+                    <br> Visit us online at <a href="https://probarbershop.co.za" style="color: #d4a574; text-decoration: none;">probarbershop.co.za</a> or contact us directly.
+                </p>
+            </div>
+
+            <div class="message">
+                Thank you again for choosing Pro Barber Shop. We're honored to be your preferred barber and look forward to serving you with the same excellence every time.
+            </div>
+
+            <div style="margin-top: 30px;">
+                <p style="margin: 0; color: #959595; font-size: 14px;">Warm regards,</p>
+                <p style="margin: 5px 0; color: #1a1a1a; font-weight: bold; font-size: 16px;">Pro Barber Shop ZA Team</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div style="margin-bottom: 20px;">
+                <p style="margin: 0; font-weight: bold; color: #333333;">Pro Barber Shop ZA</p>
+                <p style="margin: 5px 0;">35 Nyakata St, Lamontville</p>
+                <p style="margin: 0; color: #999999;">Chatsworth, 4027, South Africa</p>
+            </div>
+
+            <div class="divider" style="margin: 15px 0;"></div>
+
+            <div class="footer-links">
+                <a href="https://instagram.com/pro_barber_shop.za">Instagram</a>
+                <a href="https://wa.me/27682188679">WhatsApp</a>
+            </div>
+
+            <p style="margin: 15px 0 0 0; color: #aaaaaa; font-size: 12px;">
+                © ${new Date().getFullYear()} Pro Barber Shop ZA. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+`
+
+    const mailOptions = {
+      from: {
+        name: 'Pro Barber Shop ZA',
+        address: process.env.GMAIL_USER || 'bookings@probarbershop.co.za'
+      },
+      to: email,
+      subject: `Thank You for Your Visit - Pro Barber Shop ZA`,
+      html: html,
+    }
+
+    const result = await transporter.sendMail(mailOptions)
+    console.log('[Gmail] Service completion thank you email sent to:', email, 'Service:', service, 'Message ID:', result.messageId)
+    return true
+
+  } catch (error) {
+    console.error('[Gmail] Failed to send service completion email:', error)
+    return false
+  }
+}
+
+export async function sendPostServiceEmail(data: BookingEmailData): Promise<boolean> {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    console.warn('[Gmail] Gmail credentials not configured, skipping email')
+    return false
+  }
+
+  try {
+    const { name, email, service, barber } = data
+
+    const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See You Next Time - Pro Barber Shop</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .subheader {
+            color: #d4a574;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+        .message {
+            color: #555555;
+            margin-bottom: 18px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .highlight {
+            color: #d4a574;
+            font-weight: bold;
+        }
+        .next-cut-box {
+            background: linear-gradient(135deg, #f5f5f5 0%, #f9f9f9 100%);
+            border-left: 4px solid #d4a574;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+        .next-cut-box p {
+            margin: 0;
+            color: #333333;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .cta-button:hover {
+            background-color: #333333;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777777;
+        }
+        .footer-brand {
+            font-weight: bold;
+            color: #1a1a1a;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #d4a574;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 25px 0;
+        }
+        .signature {
+            font-style: italic;
+            color: #888888;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Looking Sharp!</h1>
+            <div class="subheader">Thanks for choosing Pro Barber Shop</div>
+        </div>
+
+        <div class="content">
+            <div class="greeting">Hey ${name},</div>
+
+            <div class="message">
+                Thanks for stopping by <span class="highlight">Pro Barber Shop ZA</span> today! We hope you're loving the fresh cut and feeling confident with your new look.
+            </div>
+
+            <div class="message">
+                Our team truly appreciated working with you, and we're glad ${barber && barber !== 'Any Available' ? barber : 'our barber'} could deliver exactly what you were looking for.
+            </div>
+
+            <div class="next-cut-box">
+                <p>
+                    <strong>Here's the thing about great haircuts:</strong> They don't last forever! 😊 
+                    <br><br>
+                    Most haircuts look their best for 3-4 weeks. So mark your calendar and book your next appointment with us soon. We'd love to keep you looking sharp and fresh!
+                </p>
+            </div>
+
+            <div class="message">
+                Whether you need a maintenance trim, want to try a new style, or just want to come back to the best barber shop in Chatsworth – we're here for you.
+            </div>
+
+            <div style="text-align: center;">
+                <a href="https://probarbershop.co.za/book" class="cta-button">Book Your Next Appointment</a>
+            </div>
+
+            <div class="message">
+                Can't wait to see you again! Feel free to reach out if you have any questions or want to chat about your next style.
+            </div>
+
+            <div class="signature">
+                Best regards,<br>
+                <strong>The Pro Barber Shop ZA Team</strong>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-brand">Pro Barber Shop ZA</div>
+            <p style="margin: 5px 0; color: #666666;">35 Nyakata St, Lamontville</p>
+            <p style="margin: 0 color: #666666;">Chatsworth, 4027, South Africa</p>
+
+            <div class="divider"></div>
+
+            <div style="margin: 15px 0;">
+                <a href="https://instagram.com/pro_barber_shop.za">Instagram</a>
+                <a href="https://wa.me/27682188679">WhatsApp</a>
+            </div>
+
+            <p style="margin: 15px 0 0 0; color: #aaaaaa; font-size: 12px;">
+                © ${new Date().getFullYear()} Pro Barber Shop ZA. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+`
+
+    const mailOptions = {
+      from: {
+        name: 'Pro Barber Shop ZA',
+        address: process.env.GMAIL_USER || 'bookings@probarbershop.co.za'
+      },
+      to: email,
+      subject: `Looking Sharp! See You Next Time 💈`,
+      html: html,
+    }
+
+    const result = await transporter.sendMail(mailOptions)
+    console.log('[Gmail] Post-service email sent to:', email, 'Service:', service, 'Message ID:', result.messageId)
+    return true
+
+  } catch (error) {
+    console.error('[Gmail] Failed to send post-service email:', error)
+    return false
+  }
+}

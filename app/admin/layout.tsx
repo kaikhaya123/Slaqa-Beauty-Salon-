@@ -19,15 +19,11 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={rethinkSans.variable}>
-      <body className="font-sans antialiased bg-cream-50">
-        <div className="flex h-screen overflow-hidden">
-          <AdminSidebar />
-          <main className="flex-1 overflow-y-auto">
-            {children}
-          </main>
-        </div>
-      </body>
-    </html>
+    <div className={`${rethinkSans.variable} flex flex-col lg:flex-row h-screen overflow-hidden bg-cream-50`}>
+      <AdminSidebar />
+      <main className="flex-1 overflow-y-auto">
+        {children}
+      </main>
+    </div>
   )
 }

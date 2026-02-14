@@ -190,9 +190,9 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="w-full h-full flex flex-col bg-white">
       {/* Page Header */}
-      <div className="sticky top-0 z-30 bg-white border-b-2 border-white shadow-sm">
+      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
         <div className="px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
@@ -220,11 +220,11 @@ export default function AdminDashboard() {
               <button
                 onClick={handleManualRefresh}
                 disabled={loading}
-                className="px-3 py-2 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+                className="px-3 py-2 bg-white hover:bg-white text-black font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
                 title="Refresh data"
               >
                 <Image
-                  src="/Icons/refresh-page-option.png"
+                  src="/Icons/refresh-buttons.png"
                   alt="Refresh"
                   width={16}
                   height={16}
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <main className="p-3 sm:p-4 lg:p-6">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
         <div className="space-y-4 sm:space-y-6">
           {/* Error Message */}
           {error && (

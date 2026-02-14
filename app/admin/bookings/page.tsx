@@ -36,9 +36,11 @@ export default function BookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [filter, setFilter] = useState<'all' | 'today' | 'upcoming' | 'pending' | 'confirmed' | 'completed'>('all')
+  const [filter, setFilter] = useState<'all' | 'today' | 'upcoming' | 'pending' | 'confirmed' | 'completed' | 'cancelled'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [lastRefresh, setLastRefresh] = useState(new Date())
+  const [updatingIds, setUpdatingIds] = useState<string[]>([])
+  const [successMessage, setSuccessMessage] = useState('')
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -65,6 +67,45 @@ export default function BookingsPage() {
     }
   }, [isAuthenticated])
 
+  const updateBookingStatus = async (bookingId: string, newStatus: Booking['status']) => {
+    try {
+      console.log('Updating booking:', bookingId, 'to status:', newStatus)
+      setUpdatingIds((prev: string[]) => (prev.includes(bookingId) ? prev : [...prev, bookingId]))
+      
+      const res = await fetch('/api/admin/bookings/update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId, status: newStatus }),
+      })
+
+      if (!res.ok) throw new Error('Failed to update booking')
+
+      // Update local state immediately
+      setBookings(prev =>
+        prev.map(b => (b.id === bookingId ? { ...b, status: newStatus } : b))
+      )
+      console.log('Local state updated for booking:', bookingId, 'new status:', newStatus)
+
+      // Set appropriate success message
+      if (newStatus === 'confirmed') {
+        setSuccessMessage(`Booking confirmed! Thank you email sent to customer.`)
+      } else if (newStatus === 'completed') {
+        setSuccessMessage(`Booking completed! "See you next time" email sent to customer.`)
+      } else if (newStatus === 'cancelled') {
+        setSuccessMessage(`Booking cancelled`)
+      } else {
+        setSuccessMessage(`Booking ${newStatus}`)
+      }
+      
+      setTimeout(() => setSuccessMessage(''), 4000)
+      setError('')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update booking')
+    } finally {
+      setUpdatingIds((prev: string[]) => prev.filter(id => id !== bookingId))
+    }
+  }
+
   const handleManualRefresh = async () => {
     setLoading(true)
     try {
@@ -89,10 +130,10 @@ export default function BookingsPage() {
     const today = format(new Date(), 'yyyy-MM-dd')
     switch (filter) {
       case 'today':
-        filtered = filtered.filter(b => b.date === today)
+        filtered = filtered.filter(b => b.date === today && (b.status === 'pending' || b.status === 'confirmed'))
         break
       case 'upcoming':
-        filtered = filtered.filter(b => b.date && b.date >= today && b.status !== 'cancelled')
+        filtered = filtered.filter(b => b.date && b.date >= today && (b.status === 'pending' || b.status === 'confirmed'))
         break
       case 'pending':
         filtered = filtered.filter(b => b.status === 'pending')
@@ -102,6 +143,13 @@ export default function BookingsPage() {
         break
       case 'completed':
         filtered = filtered.filter(b => b.status === 'completed')
+        break
+      case 'cancelled':
+        filtered = filtered.filter(b => b.status === 'cancelled')
+        break
+      case 'all':
+        // Only show active bookings in 'all' view
+        filtered = filtered.filter(b => b.status === 'pending' || b.status === 'confirmed')
         break
     }
 
@@ -209,6 +257,22 @@ export default function BookingsPage() {
             </div>
           )}
 
+          {/* Success Message */}
+          {successMessage && (
+            <div className="bg-green-50 border-2 border-green-300 rounded-xl p-3 sm:p-4 shadow-lg">
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/Icons/check.png"
+                  alt="Success"
+                  width={20}
+                  height={20}
+                  className="object-contain flex-shrink-0 sm:w-6 sm:h-6"
+                />
+                <p className="text-sm sm:text-base font-bold text-green-900">✓ Booking {successMessage}</p>
+              </div>
+            </div>
+          )}
+
           {/* Filters and Search */}
           <div className="bg-white border-2 border-cream-300 rounded-xl shadow-lg p-3 sm:p-4">
             <div className="space-y-4">
@@ -233,7 +297,7 @@ export default function BookingsPage() {
                       : 'bg-cream-200 text-dark-900 hover:bg-cream-300'
                   }`}
                 >
-                  All ({bookings.length})
+                  All ({bookings.filter(b => b.status !== 'cancelled').length})
                 </button>
                 <button
                   onClick={() => setFilter('today')}
@@ -284,6 +348,16 @@ export default function BookingsPage() {
                   }`}
                 >
                   Completed
+                </button>
+                <button
+                  onClick={() => setFilter('cancelled')}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-xl font-bold transition-all ${
+                    filter === 'cancelled'
+                      ? 'bg-dark-900 text-cream-50 shadow-lg transform scale-105'
+                      : 'bg-red-100 text-red-900 hover:bg-red-200 border-2 border-red-300'
+                  }`}
+                >
+                  Cancelled ({bookings.filter(b => b.status === 'cancelled').length})
                 </button>
               </div>
             </div>
@@ -371,6 +445,81 @@ export default function BookingsPage() {
                       <p className="text-xs text-dark-400 text-center mt-2 font-semibold">
                         ID: {booking.bookingid.substring(0, 8)}
                       </p>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-2 lg:flex-col">
+                      {booking.status === 'pending' && (
+                        <button
+                          onClick={() => updateBookingStatus(booking.id, 'confirmed')}
+                          disabled={updatingIds.includes(booking.id)}
+                          className="px-4 py-2 bg-black hover:bg-black text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm whitespace-nowrap flex items-center justify-center gap-2"
+                          title="Confirm this booking"
+                        >
+                          {updatingIds.includes(booking.id) ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                          ) : (
+                            <>
+                              <Image
+                                src="/Icons/verified.png"
+                                alt="Confirm"
+                                width={16}
+                                height={16}
+                                className="object-contain brightness-0 invert"
+                              />
+                              <span className="hidden sm:inline">Confirm</span>
+                            </>
+                          )}
+                        </button>
+                      )}
+
+                      {(booking.status === 'pending' || booking.status === 'confirmed') && (
+                        <button
+                          onClick={() => updateBookingStatus(booking.id, 'completed')}
+                          disabled={updatingIds.includes(booking.id)}
+                          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm whitespace-nowrap flex items-center justify-center gap-2"
+                          title="Mark as completed"
+                        >
+                          {updatingIds.includes(booking.id) ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                          ) : (
+                            <>
+                              <Image
+                                src="/Icons/check (2).png"
+                                alt="Complete"
+                                width={16}
+                                height={16}
+                                className="object-contain brightness-0 invert"
+                              />
+                              <span className="hidden sm:inline">Complete</span>
+                            </>
+                          )}
+                        </button>
+                      )}
+
+                      {booking.status !== 'cancelled' && (
+                        <button
+                          onClick={() => updateBookingStatus(booking.id, 'cancelled')}
+                          disabled={updatingIds.includes(booking.id)}
+                          className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm whitespace-nowrap flex items-center justify-center gap-2"
+                          title="Cancel this booking"
+                        >
+                          {updatingIds.includes(booking.id) ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                          ) : (
+                            <>
+                              <Image
+                                src="/Icons/cancel.png"
+                                alt="Cancel"
+                                width={16}
+                                height={16}
+                                className="object-contain brightness-0 invert"
+                              />
+                              <span className="hidden sm:inline">Cancel</span>
+                            </>
+                          )}
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

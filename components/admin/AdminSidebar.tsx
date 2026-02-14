@@ -41,44 +41,68 @@ export default function AdminSidebar() {
 
   return (
     <>
-      {/* Mobile Menu Button */}
+      {/* Mobile Header - Always visible on mobile */}
       {mounted && (
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-dark-900 text-cream-50 rounded-xl shadow-lg"
-          aria-label="Toggle menu"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        <header className="lg:hidden fixed top-0 left-0 right-0 z-30 h-16 bg-white border-b-2 border-white shadow-md flex items-center justify-between px-4">
+          {/* Logo Section */}
+          <div className="flex items-center space-x-2.5">
+            <div className="relative w-8 h-8">
+              <Image
+                src="/logo/Pro_barbershop_logo.png"
+                alt="Pro Barbershop"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div>
+              <h2 className="text-base font-black text-dark-900">Pro Barbershop</h2>
+              <p className="text-xs text-dark-600 font-bold">Admin</p>
+            </div>
+          </div>
+
+          {/* Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 bg-dark-900 text-cream-50 rounded-xl shadow-lg"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </header>
       )}
 
-      {/* Overlay for mobile */}
+      {/* Full Screen Overlay for mobile menu */}
       {mounted && isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-dark-900/50 z-40"
+          className="lg:hidden fixed inset-0 bg-dark-900/50 z-40 top-16"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar/Menu */}
       <aside
         className={`
-          fixed lg:relative top-0 left-0 z-40 h-full w-full lg:w-64
+          lg:relative lg:translate-x-0 flex-shrink-0 h-full w-64
           bg-white border-r-2 border-white shadow-xl lg:shadow-none
-          transform transition-transform duration-300 ease-in-out
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-          lg:translate-x-0 flex-shrink-0
+          transition-all duration-300 ease-in-out
+          ${
+            mounted && isOpen
+              ? 'fixed top-0 left-0 z-50 pt-20 translate-x-0'
+              : mounted
+                ? 'hidden lg:flex flex-col'
+                : 'flex flex-col'
+          }
         `}
       >
         <div className="flex flex-col h-full">
-          {/* Logo Section */}
-          <div className="p-4 border-b-2 border-white bg-white">
+          {/* Logo Section - Only show on desktop */}
+          <div className="hidden lg:block p-3 border-b-2 border-white bg-white">
             <div className="flex items-center space-x-2.5">
               <div className="relative w-10 h-10">
                 <Image

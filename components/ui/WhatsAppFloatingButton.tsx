@@ -52,7 +52,12 @@ export default function WhatsAppFloatingButton() {
     }
   }, [visible])
 
+  const isAdminRoute = pathname.startsWith('/admin')
 
+  // Hide WhatsApp button on admin routes
+  if (isAdminRoute) {
+    return null
+  }
 
   const openWhatsAppGeneric = () => {
     const message = buildBookingMessage({})
