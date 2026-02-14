@@ -265,16 +265,41 @@ export default function BookingConfirmation({
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Our staff will contact you via WhatsApp to confirm details</span>
+                <span>Click the button below to send your booking details via WhatsApp</span>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
-                <span>You&apos;ll receive a reminder 24 hours before your appointment</span>
+                <span>Our staff will confirm your appointment and send reminders</span>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Please arrive 5 minutes early on your appointment day</span>
               </div>
+            </div>
+          </div>
+
+          {/* WhatsApp Auto-Fill Notice */}
+          <div className="bg-dark-900 text-cream-50 border-2 border-cream-300 rounded-lg p-5 mb-6">
+            <div className="flex items-start gap-3 mb-3">
+              <Image 
+                src="/Icons/whatsapp.png" 
+                alt="WhatsApp" 
+                width={28} 
+                height={28} 
+                className="h-7 w-7 flex-shrink-0 mt-0.5"
+              />
+              <div>
+                <h4 className="font-bold text-cream-50 mb-2">Quick & Easy WhatsApp Confirmation</h4>
+                <p className="text-cream-200 text-sm leading-relaxed">
+                  Click the button below and WhatsApp will open with your booking details <strong className="text-cream-50">already typed for you</strong>. Just press send — no typing required!
+                </p>
+              </div>
+            </div>
+            <div className="bg-cream-50/10 rounded p-3 text-xs text-cream-200 font-mono leading-relaxed">
+              Your message will include:<br/>
+              ✓ Name & Service<br/>
+              ✓ Barber & Date/Time<br/>
+              ✓ Client Number
             </div>
           </div>
         </div>
@@ -292,7 +317,7 @@ export default function BookingConfirmation({
               window.open(link, '_blank')
             }}
           >
-            Open WhatsApp Chat
+            📱 Send Booking via WhatsApp (Auto-Filled)
           </Button>
 
           <div className="grid grid-cols-2 gap-3">

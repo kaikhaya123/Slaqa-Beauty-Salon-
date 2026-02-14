@@ -60,7 +60,7 @@ export const SERVICES = [
     description: 'Precision fade with personalized styling',
     duration: 60,
     price: 150,
-    image: '/Images/1767771187352.jpeg',
+    image: '/Images/download (3).jpg',
     category: 'Adults',
   },
   {
@@ -87,7 +87,7 @@ export const SERVICES = [
     description: 'Modern fade cuts with styling for kids',
     duration: 45,
     price: 150,
-    image: '/Images/1767770857424.jpeg',
+    image: '/Images/10 Trendy Men’s Haircuts to Try This Year.jpg',
     category: 'Kids',
   },
   {
@@ -96,7 +96,7 @@ export const SERVICES = [
     description: 'Classic fade cut with clean finishing',
     duration: 45,
     price: 60,
-    image: '/Images/1767770790764.jpeg',
+    image: '/Images/Cut By @501jpressure.jpg',
     category: 'Adults',
   },
   {

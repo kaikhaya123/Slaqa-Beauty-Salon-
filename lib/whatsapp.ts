@@ -22,16 +22,21 @@ export function buildWhatsAppLink(phone: string, text: string) {
 }
 
 // Keep helpers minimal for the UI button: build a simple default message
-export function buildBookingMessage(opts: { barberName?: string | null; name?: string | null; serviceName?: string | null; dateTime?: string | null; notes?: string | null }) {
-  const { barberName, name, serviceName, dateTime, notes } = opts || {}
+export function buildBookingMessage(opts: { barberName?: string | null; name?: string | null; serviceName?: string | null; dateTime?: string | null; notes?: string | null; queueNumber?: string | null }) {
+  const { barberName, name, serviceName, dateTime, notes, queueNumber } = opts || {}
   const lines: string[] = []
-  lines.push(`Hi${name ? ' ' + name : ''} — I'd like to book an appointment${serviceName ? ' for ' + serviceName : ''}.`)
-  if (barberName) lines.push(`Preferred barber: ${barberName}`)
-  if (dateTime) lines.push(`Preferred time: ${dateTime}`)
+  lines.push(`Hi Pro barbershop_za — I've just booked an appointment through your website.`)
+  lines.push('')
+  if (name) lines.push(`Name: ${name}`)
+  if (serviceName) lines.push(`Service: ${serviceName}`)
+  if (barberName) lines.push(`Barber: ${barberName}`)
+  if (dateTime) lines.push(`Date & Time: ${dateTime}`)
+  if (queueNumber) lines.push(`Client Number: ${queueNumber}`)
   if (notes) {
-    lines.push('', 'Notes:', notes)
+    lines.push('', 'Special Requests:', notes)
   }
-  lines.push('', 'Please let me know available slots. Thanks!')
+  lines.push('')
+  lines.push('My booking is confirmed. Please let me know if you need anything else!')
   return lines.join('\n')
 }
 

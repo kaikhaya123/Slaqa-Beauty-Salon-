@@ -96,6 +96,7 @@ export default function BookPage() {
         name,
         dateTime: `${prettyDate} at ${selectedTime}`,
         notes,
+        queueNumber: booking.queueNumber,
       })
 
       const link = buildWhatsAppLink(BUSINESS_INFO.whatsapp, message)
