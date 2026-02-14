@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useAdminAuth } from '@/lib/useAdminAuth'
 import Image from 'next/image'
 
@@ -48,6 +49,8 @@ export default function CustomersPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState<'name' | 'bookings' | 'spent' | 'recent'>('recent')
   const [lastRefresh, setLastRefresh] = useState(new Date())
+  const [mounted, setMounted] = useState(false)
+  const [refreshSlot, setRefreshSlot] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -134,10 +137,20 @@ export default function CustomersPage() {
       }
     }
 
+    setMounted(true)
+
     if (isAuthenticated) {
       fetchCustomers()
     }
   }, [isAuthenticated, sortBy, searchQuery])
+
+  // Attach refresh button to the mobile header slot when mounted
+  useEffect(() => {
+    if (mounted) {
+      const slot = document.getElementById('refresh-button-slot')
+      setRefreshSlot(slot)
+    }
+  }, [mounted])
 
   const handleManualRefresh = async () => {
     setLoading(true)
@@ -172,8 +185,27 @@ export default function CustomersPage() {
 
   return (
     <div className="w-full h-full flex flex-col bg-white overflow-hidden">
+      {/* Refresh button portal for mobile header */}
+      {refreshSlot && createPortal(
+        <button
+          onClick={handleManualRefresh}
+          disabled={loading}
+          className="lg:hidden flex items-center justify-center h-10 w-10 rounded-lg hover:bg-cream-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+          title="Refresh data"
+        >
+          <Image
+            src="/Icons/refresh-buttons.png"
+            alt="Refresh"
+            width={18}
+            height={18}
+            className={`object-contain ${loading ? 'animate-spin' : ''}`}
+          />
+        </button>,
+        refreshSlot
+      )}
+
       {/* Header */}
-      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
+      <div className="hidden lg:block sticky top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
         <div className="px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4">
           <div className="flex items-center justify-between gap-2 sm:gap-3">
             <div className="min-w-0 flex-1">

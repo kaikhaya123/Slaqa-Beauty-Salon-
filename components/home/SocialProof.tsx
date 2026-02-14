@@ -79,20 +79,26 @@ export default function SocialProof() {
     {
       name: 'Mandla K.',
       rating: 5,
-      text: 'Best barbershop in Durban! Thabo always delivers a perfect fade. The online booking is super convenient.',
-      location: 'Durban Central',
+      text: 'Best barbershop in lamontville! Professional service with seamless online booking. The barber delivers perfect fades every time.',
+      location: 'Lamontville',
     },
     {
       name: 'Jason M.',
       rating: 5,
-      text: 'Finally, a shop that respects my time. I book online, show up, and get straight to my cut. No more waiting around.',
+      text: 'Finally, a barbershop that values my time. I book my appointment online, arrive on schedule, and receive immediate service. No more waiting.',
       location: 'Berea',
     },
     {
       name: 'Sibusiso N.',
       rating: 5,
-      text: 'Professional service every time. The walk-in queue system is brilliant. I can see exactly when to arrive.',
+      text: 'Consistently professional service with reliable scheduling. I can book my appointment conveniently and always know exactly when to arrive.',
       location: 'Morningside',
+    },
+    {
+      name: 'Khayalami Zondi',
+      rating: 5,
+      text: 'Exceptional barbershop with outstanding service. The barber delivers immaculate haircuts with meticulous attention to detail. Highly professional.',
+      location: 'Mobeni heights',
     },
   ]
 

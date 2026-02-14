@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { format } from 'date-fns'
 import { useAdminAuth } from '@/lib/useAdminAuth'
 import Image from 'next/image'
@@ -41,6 +42,8 @@ export default function BookingsPage() {
   const [lastRefresh, setLastRefresh] = useState(new Date())
   const [updatingIds, setUpdatingIds] = useState<string[]>([])
   const [successMessage, setSuccessMessage] = useState('')
+  const [mounted, setMounted] = useState(false)
+  const [refreshSlot, setRefreshSlot] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -60,12 +63,22 @@ export default function BookingsPage() {
       }
     }
 
+    setMounted(true)
+
     if (isAuthenticated) {
       fetchBookings()
       const interval = setInterval(fetchBookings, 30000)
       return () => clearInterval(interval)
     }
   }, [isAuthenticated])
+
+  // Attach refresh button to the mobile header slot when mounted
+  useEffect(() => {
+    if (mounted) {
+      const slot = document.getElementById('refresh-button-slot')
+      setRefreshSlot(slot)
+    }
+  }, [mounted])
 
   const updateBookingStatus = async (bookingId: string, newStatus: Booking['status']) => {
     try {
@@ -204,8 +217,28 @@ export default function BookingsPage() {
 
   return (
     <div className="w-full h-full flex flex-col bg-cream-50 overflow-hidden">
-      {/* Page Header */}
-      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-cream-300 shadow-sm flex-shrink-0">
+      {/* Refresh Button - Positioned in header slot on mobile */}
+      {refreshSlot && createPortal(
+        <button
+          onClick={handleManualRefresh}
+          disabled={loading}
+          className="lg:hidden flex items-center justify-center h-10 w-10 bg-cream-200 hover:bg-cream-300 text-dark-900 rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+          title="Refresh data"
+          aria-label="Refresh bookings"
+        >
+          <Image
+            src="/Icons/refresh-buttons.png"
+            alt="Refresh"
+            width={18}
+            height={18}
+            className={`object-contain flex-shrink-0 ${loading ? 'animate-spin' : ''}`}
+          />
+        </button>,
+        refreshSlot
+      )}
+
+      {/* Page Header (desktop only) */}
+      <div className="hidden lg:block sticky top-0 z-30 bg-white border-b-2 border-cream-300 shadow-sm flex-shrink-0">
         <div className="px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4">
           <div className="flex items-center justify-between gap-2 sm:gap-3">
             <div className="min-w-0 flex-1">
@@ -322,7 +355,7 @@ export default function BookingsPage() {
                   className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'pending'
                       ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
-                      : 'bg-yellow-100 text-yellow-900 hover:bg-yellow-200 border-2 border-yellow-300'
+                      : 'bg-white text-yellow-900 hover:bg-yellow-200 border-2 border-yellow-300'
                   }`}
                 >
                   Pending
@@ -332,7 +365,7 @@ export default function BookingsPage() {
                   className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'confirmed'
                       ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
-                      : 'bg-green-100 text-green-900 hover:bg-green-200 border-2 border-green-300'
+                      : 'bg-white text-green-900 hover:bg-green-200 border-2 border-green-300'
                   }`}
                 >
                   Confirmed
@@ -342,7 +375,7 @@ export default function BookingsPage() {
                   className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'completed'
                       ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
-                      : 'bg-blue-100 text-blue-900 hover:bg-blue-200 border-2 border-blue-300'
+                      : 'bg-white text-blue-900 hover:bg-blue-200 border-2 border-blue-300'
                   }`}
                 >
                   Completed
@@ -352,7 +385,7 @@ export default function BookingsPage() {
                   className={`px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm rounded-lg font-bold transition-all whitespace-nowrap ${
                     filter === 'cancelled'
                       ? 'bg-dark-900 text-cream-50 shadow-lg scale-105'
-                      : 'bg-red-100 text-red-900 hover:bg-red-200 border-2 border-red-300'
+                      : 'bg-white text-red-900 hover:bg-red-200 border-2 border-red-300'
                   }`}
                 >
                   Cancelled

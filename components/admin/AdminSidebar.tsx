@@ -165,7 +165,7 @@ export default function AdminSidebar() {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 overflow-y-auto p-3 space-y-1.5">
+          <nav className="lg:flex-1 overflow-y-auto p-3 space-y-1.5 lg:flex-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href
               return (
@@ -197,10 +197,10 @@ export default function AdminSidebar() {
             })}
           </nav>
 
-          {/* User Section */}
-          <div className="p-3 border-t-2 border-white bg-white">
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2.5 px-3 py-2 bg-white rounded-lg border-2 border-white">
+          {/* User Section - Fixed at bottom on mobile and desktop */}
+          <div className="flex-shrink-0 p-4 lg:p-3 border-t-2 border-white bg-white">
+            <div className="space-y-2.5 lg:space-y-2">
+              <div className="flex items-center space-x-2.5 px-3 py-2.5 lg:py-2 bg-white rounded-lg border-2 border-white">
                 <div className="relative w-9 h-9 bg-dark-900 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-cream-50 font-black text-xs">
                     {adminUser.charAt(0).toUpperCase()}
@@ -216,7 +216,7 @@ export default function AdminSidebar() {
 
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-white hover:bg-cream-100 text-dark-900 font-bold rounded-lg transition-all border-2 border-cream-300 text-sm"
+                className="w-full flex items-center justify-center space-x-2 px-3 py-3 lg:py-2 bg-white hover:bg-cream-100 active:bg-cream-200 text-dark-900 font-bold rounded-lg transition-all border-2 border-cream-300 text-sm min-h-12 lg:min-h-auto"
               >
                 <Image
                   src="/Icons/logout (1).png"
@@ -230,7 +230,7 @@ export default function AdminSidebar() {
 
               <Link
                 href="/"
-                className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-white hover:bg-cream-100 text-dark-900 font-bold rounded-lg transition-all border-2 border-cream-300 text-sm"
+                className="w-full flex items-center justify-center space-x-2 px-3 py-3 lg:py-2 bg-white hover:bg-cream-100 active:bg-cream-200 text-dark-900 font-bold rounded-lg transition-all border-2 border-cream-300 text-sm min-h-12 lg:min-h-auto"
               >
                 <Image
                   src="/Icons/website.png"

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths } from 'date-fns'
 import { useAdminAuth } from '@/lib/useAdminAuth'
 import Image from 'next/image'
@@ -29,6 +30,8 @@ export default function CalendarPage() {
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [lastRefresh, setLastRefresh] = useState(new Date())
+  const [mounted, setMounted] = useState(false)
+  const [refreshSlot, setRefreshSlot] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -47,10 +50,20 @@ export default function CalendarPage() {
       }
     }
 
+    setMounted(true)
+
     if (isAuthenticated) {
       fetchBookings()
     }
   }, [isAuthenticated])
+
+  // Attach refresh button to the mobile header slot when mounted
+  useEffect(() => {
+    if (mounted) {
+      const slot = document.getElementById('refresh-button-slot')
+      setRefreshSlot(slot)
+    }
+  }, [mounted])
 
   const handleManualRefresh = async () => {
     setLoading(true)
@@ -116,8 +129,28 @@ export default function CalendarPage() {
 
   return (
     <div className="w-full h-full flex flex-col bg-white overflow-hidden">
-      {/* Header */}
-      <div className="sticky top-16 lg:top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
+      {/* Refresh Button - Positioned in header slot on mobile */}
+      {refreshSlot && createPortal(
+        <button
+          onClick={handleManualRefresh}
+          disabled={loading}
+          className="lg:hidden flex items-center justify-center h-10 w-10 bg-cream-200 hover:bg-cream-300 text-dark-900 rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+          title="Refresh data"
+          aria-label="Refresh calendar"
+        >
+          <Image
+            src="/Icons/refresh-buttons.png"
+            alt="Refresh"
+            width={18}
+            height={18}
+            className={`object-contain flex-shrink-0 ${loading ? 'animate-spin' : ''}`}
+          />
+        </button>,
+        refreshSlot
+      )}
+
+      {/* Header (desktop only) */}
+      <div className="hidden lg:block sticky top-0 z-30 bg-white border-b-2 border-white shadow-sm flex-shrink-0">
         <div className="px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4">
           <div className="flex items-center justify-between gap-2 sm:gap-3">
             <div className="min-w-0 flex-1">

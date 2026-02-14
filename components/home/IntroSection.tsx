@@ -29,7 +29,7 @@ export default function IntroSection() {
       alt: 'Barber finishing a fade haircut',
     },
     {
-      src: '/Images/download (20).jpg',
+      src: '/Images/@6lory.jpg',
       alt: 'Fresh haircut with clean lineup',
     },
     { src: '/Images/clinton-dube-84lpzy66IZk-unsplash.jpg', alt: 'Add image description' },
@@ -45,7 +45,7 @@ export default function IntroSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % images.length)
-    }, 3500)
+    }, 5000)
 
     return () => clearInterval(interval)
   }, [images.length])
@@ -142,10 +142,10 @@ export default function IntroSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={images[activeIndex].src}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.1 }}
+                  transition={{ duration: 0.8, ease: 'easeInOut' }}
                   className="absolute inset-0"
                 >
                   <Image
