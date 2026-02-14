@@ -24,11 +24,6 @@ export default function AdminSidebar() {
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
 
-  // Don't render sidebar on login page
-  if (pathname === '/admin/login') {
-    return null
-  }
-
   useEffect(() => {
     // Only access localStorage after component mounts on client
     setMounted(true)
@@ -62,6 +57,11 @@ export default function AdminSidebar() {
       document.body.style.overflow = 'unset'
     }
   }, [isOpen])
+
+  // Don't render sidebar on login page
+  if (pathname === '/admin/login') {
+    return null
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('adminAuth')
