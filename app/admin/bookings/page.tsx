@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { format } from 'date-fns'
 import { useAdminAuth } from '@/lib/useAdminAuth'
+import { supabaseClient } from '@/lib/supabase-client'
 import Image from 'next/image'
 
 interface Booking {
@@ -44,33 +45,61 @@ export default function BookingsPage() {
   const [successMessage, setSuccessMessage] = useState('')
   const [mounted, setMounted] = useState(false)
   const [refreshSlot, setRefreshSlot] = useState<HTMLElement | null>(null)
+  
+  // Archive functionality
+  const [archiveDays, setArchiveDays] = useState('30')
+  const [archiveStatus, setArchiveStatus] = useState('')
+  const [previewCount, setPreviewCount] = useState<number | null>(null)
+  const [archiving, setArchiving] = useState(false)
+  const [showArchiveConfirm, setShowArchiveConfirm] = useState(false)
+
+  const fetchBookings = useCallback(async () => {
+    try {
+      setLoading(true)
+      // Add cache-busting parameter to prevent stale data
+      const res = await fetch(`/api/admin/bookings?_=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      })
+      if (!res.ok) throw new Error('Failed to load bookings')
+      
+      const data: Booking[] = await res.json()
+      setBookings(data)
+      setLastRefresh(new Date())
+      setError('')
+    } catch (e: any) {
+      setError(e.message)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        setLoading(true)
-        const res = await fetch('/api/admin/bookings')
-        if (!res.ok) throw new Error('Failed to load bookings')
-        
-        const data: Booking[] = await res.json()
-        setBookings(data)
-        setLastRefresh(new Date())
-        setError('')
-      } catch (e: any) {
-        setError(e.message)
-      } finally {
-        setLoading(false)
-      }
-    }
-
     setMounted(true)
 
     if (isAuthenticated) {
       fetchBookings()
-      const interval = setInterval(fetchBookings, 30000)
-      return () => clearInterval(interval)
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, fetchBookings])
+
+  useEffect(() => {
+    if (!isAuthenticated || !supabaseClient) return
+
+    const channel = supabaseClient
+      .channel('admin-bookings-list-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'bookings' },
+        () => {
+          fetchBookings()
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabaseClient.removeChannel(channel)
+    }
+  }, [isAuthenticated, fetchBookings])
 
   // Attach refresh button to the mobile header slot when mounted
   useEffect(() => {
@@ -118,19 +147,56 @@ export default function BookingsPage() {
   }
 
   const handleManualRefresh = async () => {
-    setLoading(true)
+    await fetchBookings()
+  }
+
+  const handlePreviewArchive = async () => {
     try {
-      const res = await fetch('/api/admin/bookings')
-      if (!res.ok) throw new Error('Failed to load bookings')
-      
-      const data: Booking[] = await res.json()
-      setBookings(data)
-      setLastRefresh(new Date())
+      const params = new URLSearchParams()
+      params.append('olderThanDays', archiveDays)
+      if (archiveStatus) params.append('status', archiveStatus)
+
+      const res = await fetch(`/api/admin/bookings/archive?${params.toString()}`)
+      if (!res.ok) throw new Error('Failed to preview archive')
+
+      const data = await res.json()
+      setPreviewCount(data.count)
       setError('')
     } catch (e: any) {
       setError(e.message)
+      setPreviewCount(null)
+    }
+  }
+
+  const handleArchive = async () => {
+    try {
+      setArchiving(true)
+      setShowArchiveConfirm(false)
+
+      const body: any = { olderThanDays: archiveDays }
+      if (archiveStatus) body.status = archiveStatus
+
+      const res = await fetch('/api/admin/bookings/archive', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+
+      if (!res.ok) throw new Error('Failed to archive bookings')
+
+      const data = await res.json()
+      setSuccessMessage(data.message)
+      setPreviewCount(null)
+      setError('')
+      
+      // Refresh bookings list
+      await handleManualRefresh()
+      
+      setTimeout(() => setSuccessMessage(''), 4000)
+    } catch (e: any) {
+      setError(e.message)
     } finally {
-      setLoading(false)
+      setArchiving(false)
     }
   }
 
@@ -394,9 +460,133 @@ export default function BookingsPage() {
             </div>
           </div>
 
+          {/* Archive Old Bookings Section */}
+          <div className="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-300 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-5 lg:p-6">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
+              <span className="text-xl sm:text-2xl">📦</span>
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-dark-900">
+                Archive Old Bookings
+              </h3>
+            </div>
+            
+            <p className="text-xs sm:text-sm text-dark-600 mb-3 sm:mb-4">
+              Move old bookings to archive to keep your active bookings list clean. Archived bookings are preserved for reporting.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
+              {/* Archive Age Selection */}
+              <div>
+                <label className="block text-xs sm:text-sm font-bold text-dark-700 mb-1.5 sm:mb-2">
+                  Archive bookings older than:
+                </label>
+                <select
+                  value={archiveDays}
+                  onChange={(e) => {
+                    setArchiveDays(e.target.value)
+                    setPreviewCount(null)
+                  }}
+                  className="w-full px-3 py-2 text-sm rounded-lg border-2 border-orange-300 focus:border-orange-500 focus:outline-none"
+                >
+                  <option value="30">30 days</option>
+                  <option value="60">60 days (2 months)</option>
+                  <option value="90">90 days (3 months)</option>
+                  <option value="180">180 days (6 months)</option>
+                  <option value="365">1 year</option>
+                </select>
+              </div>
+
+              {/* Status Filter */}
+              <div>
+                <label className="block text-xs sm:text-sm font-bold text-dark-700 mb-1.5 sm:mb-2">
+                  Status filter (optional):
+                </label>
+                <select
+                  value={archiveStatus}
+                  onChange={(e) => {
+                    setArchiveStatus(e.target.value)
+                    setPreviewCount(null)
+                  }}
+                  className="w-full px-3 py-2 text-sm rounded-lg border-2 border-orange-300 focus:border-orange-500 focus:outline-none"
+                >
+                  <option value="">All statuses</option>
+                  <option value="completed">Completed only</option>
+                  <option value="cancelled">Cancelled only</option>
+                  <option value="pending">Pending only</option>
+                  <option value="confirmed">Confirmed only</option>
+                </select>
+              </div>
+
+              {/* Preview Button */}
+              <div className="flex items-end">
+                <button
+                  onClick={handlePreviewArchive}
+                  disabled={archiving}
+                  className="w-full px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold rounded-lg transition-colors disabled:opacity-50"
+                >
+                  Preview
+                </button>
+              </div>
+
+              {/* Archive Button */}
+              <div className="flex items-end">
+                <button
+                  onClick={() => setShowArchiveConfirm(true)}
+                  disabled={previewCount === null || previewCount === 0 || archiving}
+                  className="w-full px-4 py-2 bg-dark-900 hover:bg-dark-800 text-cream-50 text-sm font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {archiving ? 'Archiving...' : 'Archive'}
+                </button>
+              </div>
+            </div>
+
+            {/* Preview Results */}
+            {previewCount !== null && (
+              <div className={`p-3 rounded-lg ${previewCount > 0 ? 'bg-orange-100 border border-orange-300' : 'bg-gray-100 border border-gray-300'}`}>
+                <p className="text-sm font-bold text-dark-900">
+                  {previewCount === 0 ? (
+                    '✓ No bookings found matching these criteria'
+                  ) : (
+                    <>
+                      📦 {previewCount} booking{previewCount !== 1 ? 's' : ''} will be archived
+                      {archiveStatus && ` (${archiveStatus} only)`}
+                    </>
+                  )}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Archive Confirmation Modal */}
+          {showArchiveConfirm && (
+            <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4">
+              <div className="bg-black rounded-xl shadow-2xl p-6 max-w-md w-full">
+                <h3 className="text-xl font-bold text-dark-900 mb-3">Confirm Archive</h3>
+                <p className="text-dark-600 mb-4">
+                  Are you sure you want to archive <strong>{previewCount}</strong> booking{previewCount !== 1 ? 's' : ''}?
+                </p>
+                <p className="text-sm text-dark-500 mb-6">
+                  Bookings will be moved to the archive table. They can be accessed later for reporting but will not appear in your active bookings.
+                </p>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setShowArchiveConfirm(false)}
+                    className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-dark-900 font-bold rounded-lg transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleArchive}
+                    className="flex-1 px-4 py-2 bg-black hover:bg-black text-white font-bold rounded-lg transition-colors"
+                  >
+                    Archive Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Bookings List */}
-          <div className="space-y-2 sm:space-y-2.5 lg:space-y-3">
-            {filteredBookings.length === 0 ? (
+          <div className="space-y-2 sm:space-y-2.5 lg:space-y-3">{filteredBookings.length === 0 ? (
               <div className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 text-center">
                 <Image
                   src="/Icons/appointment.png"

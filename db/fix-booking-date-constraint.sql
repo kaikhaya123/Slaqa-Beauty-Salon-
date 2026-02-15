@@ -1,0 +1,61 @@
+-- ============================================================================
+-- FIX BOOKING DATE CONSTRAINT
+-- ============================================================================
+-- The check_booking_date constraint prevents updates to past bookings.
+-- This is too strict - we need to allow marking yesterday's bookings as 
+-- completed or cancelled.
+-- 
+-- Solution: Drop the strict date constraint
+-- ============================================================================
+
+-- Drop the existing constraint that blocks past dates
+ALTER TABLE public.bookings 
+  DROP CONSTRAINT IF EXISTS check_booking_date;
+
+-- ============================================================================
+-- RATIONALE
+-- ============================================================================
+-- The original constraint: CHECK (date >= CURRENT_DATE)
+-- 
+-- This prevented:
+-- ❌ Updating yesterday's bookings (marking as completed/cancelled)
+-- ❌ Managing historical data
+-- ❌ Archiving old bookings
+-- 
+-- Without the constraint:
+-- ✅ Can update any booking status regardless of date
+-- ✅ Can mark past bookings as completed/cancelled
+-- ✅ Can archive old data
+-- ✅ Frontend validation still prevents users from booking past dates
+-- ============================================================================
+
+-- Optional: Add a more flexible constraint that only applies to new INSERTs
+-- Uncomment if you want to prevent NEW bookings in the past while allowing updates:
+-- 
+-- CREATE OR REPLACE FUNCTION check_new_booking_date()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--   -- Only check date for new inserts, not updates
+--   IF TG_OP = 'INSERT' AND NEW.date < CURRENT_DATE THEN
+--     RAISE EXCEPTION 'Cannot create bookings in the past';
+--   END IF;
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+-- 
+-- CREATE TRIGGER enforce_future_booking_date
+--   BEFORE INSERT ON public.bookings
+--   FOR EACH ROW
+--   EXECUTE FUNCTION check_new_booking_date();
+
+-- ============================================================================
+-- VERIFICATION
+-- ============================================================================
+-- After running, verify the constraint is removed:
+-- 
+-- SELECT constraint_name, constraint_type 
+-- FROM information_schema.table_constraints 
+-- WHERE table_name = 'bookings' AND constraint_name = 'check_booking_date';
+-- 
+-- Should return no rows (constraint removed)
+-- ============================================================================

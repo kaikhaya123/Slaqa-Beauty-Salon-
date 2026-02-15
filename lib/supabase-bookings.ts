@@ -17,7 +17,12 @@ let supabaseClient: any = null
 
 function getSupabase() {
   if (!supabaseClient && SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-    supabaseClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    })
   }
   return supabaseClient
 }

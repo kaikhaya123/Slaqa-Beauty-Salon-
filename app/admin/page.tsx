@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { format } from 'date-fns'
 import { useAdminAuth } from '@/lib/useAdminAuth'
+import { supabaseClient } from '@/lib/supabase-client'
 import Image from 'next/image'
 
 interface Booking {
@@ -51,65 +52,100 @@ export default function AdminDashboard() {
   const [mounted, setMounted] = useState(false)
   const [refreshSlot, setRefreshSlot] = useState<HTMLElement | null>(null)
 
-  useEffect(() => {
-    const fetchTodayData = async () => {
-      try {
-        setLoading(true)
-        const res = await fetch('/api/admin/bookings')
-        if (!res.ok) throw new Error('Failed to load bookings')
-        
-        const allBookings: Booking[] = await res.json()
-        const today = format(new Date(), 'yyyy-MM-dd')
-        const todayBookings = allBookings.filter(booking => booking.date === today)
-        
+  const fetchTodayData = useCallback(async () => {
+    try {
+      setLoading(true)
+      const res = await fetch('/api/admin/bookings', {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' }
+      })
+      if (!res.ok) throw new Error('Failed to load bookings')
+      
+      const allBookings: Booking[] = await res.json()
+      const today = format(new Date(), 'yyyy-MM-dd')
+      const todayBookings = allBookings.filter(booking => booking.date === today)
+      
+        const toMinutes = (time: string) => {
+          const [hours, minutes] = time.split(':')
+          return parseInt(hours, 10) * 60 + parseInt(minutes, 10)
+        }
+
         const sortedBookings = todayBookings
           .filter(b => b.status !== 'cancelled' && b.time)
           .sort((a, b) => (a.time || '').localeCompare(b.time || ''))
         
         const now = new Date()
         const currentTime = format(now, 'HH:mm')
-        const nextAppointment = sortedBookings.find(booking => 
-          booking.time && booking.time > currentTime && booking.status !== 'completed'
-        ) || null
+        const currentMinutes = toMinutes(currentTime)
 
-        const hourlyBookings: { [hour: string]: number } = {}
-        todayBookings.forEach(booking => {
-          if (booking.time && booking.status !== 'cancelled') {
-            const hour = booking.time.split(':')[0] + ':00'
-            hourlyBookings[hour] = (hourlyBookings[hour] || 0) + 1
-          }
+        const upcoming = sortedBookings.filter(booking => {
+          if (!booking.time || booking.status === 'completed') return false
+          const timeMinutes = toMinutes(booking.time)
+          return timeMinutes >= currentMinutes
         })
 
-        const stats: TodayStats = {
-          totalCustomers: todayBookings.filter(b => b.status !== 'cancelled').length,
-          confirmedCuts: todayBookings.filter(b => b.status === 'confirmed').length,
-          pendingCuts: todayBookings.filter(b => b.status === 'pending').length,
-          completedCuts: todayBookings.filter(b => b.status === 'completed').length,
-          nextAppointment,
-          totalRevenue: todayBookings
-            .filter(b => b.status !== 'cancelled')
-            .reduce((sum, b) => sum + (servicePrices[b.service] || 0), 0),
-          hourlyBookings
-        }
-        
-        setTodayStats(stats)
-        setLastRefresh(new Date())
-        setError('')
-      } catch (e: any) {
-        setError(e.message)
-      } finally {
-        setLoading(false)
-      }
-    }
+        const pendingOrConfirmed = sortedBookings.filter(
+          booking => booking.status === 'pending' || booking.status === 'confirmed'
+        )
 
+        const nextAppointment = upcoming[0] || pendingOrConfirmed[0] || null
+
+      const hourlyBookings: { [hour: string]: number } = {}
+      todayBookings.forEach(booking => {
+        if (booking.time && booking.status !== 'cancelled') {
+          const hour = booking.time.split(':')[0] + ':00'
+          hourlyBookings[hour] = (hourlyBookings[hour] || 0) + 1
+        }
+      })
+
+      const stats: TodayStats = {
+        totalCustomers: todayBookings.filter(b => b.status !== 'cancelled').length,
+        confirmedCuts: todayBookings.filter(b => b.status === 'confirmed').length,
+        pendingCuts: todayBookings.filter(b => b.status === 'pending').length,
+        completedCuts: todayBookings.filter(b => b.status === 'completed').length,
+        nextAppointment,
+        totalRevenue: todayBookings
+          .filter(b => b.status !== 'cancelled')
+          .reduce((sum, b) => sum + (servicePrices[b.service] || 0), 0),
+        hourlyBookings
+      }
+      
+      setTodayStats(stats)
+      setLastRefresh(new Date())
+      setError('')
+    } catch (e: any) {
+      setError(e.message)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
     setMounted(true)
 
     if (isAuthenticated) {
       fetchTodayData()
-      const interval = setInterval(fetchTodayData, 30000)
-      return () => clearInterval(interval)
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, fetchTodayData])
+
+  useEffect(() => {
+    if (!isAuthenticated || !supabaseClient) return
+
+    const channel = supabaseClient
+      .channel('admin-bookings-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'bookings' },
+        () => {
+          fetchTodayData()
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabaseClient.removeChannel(channel)
+    }
+  }, [isAuthenticated, fetchTodayData])
 
   // Attach refresh button to the mobile header slot when mounted
   useEffect(() => {
@@ -120,55 +156,6 @@ export default function AdminDashboard() {
   }, [mounted])
 
   const handleManualRefresh = () => {
-    setLoading(true)
-    const fetchTodayData = async () => {
-      try {
-        const res = await fetch('/api/admin/bookings')
-        if (!res.ok) throw new Error('Failed to load bookings')
-        
-        const allBookings: Booking[] = await res.json()
-        const today = format(new Date(), 'yyyy-MM-dd')
-        const todayBookings = allBookings.filter(booking => booking.date === today)
-        
-        const sortedBookings = todayBookings
-          .filter(b => b.status !== 'cancelled' && b.time)
-          .sort((a, b) => (a.time || '').localeCompare(b.time || ''))
-        
-        const now = new Date()
-        const currentTime = format(now, 'HH:mm')
-        const nextAppointment = sortedBookings.find(booking => 
-          booking.time && booking.time > currentTime && booking.status !== 'completed'
-        ) || null
-
-        const hourlyBookings: { [hour: string]: number } = {}
-        todayBookings.forEach(booking => {
-          if (booking.time && booking.status !== 'cancelled') {
-            const hour = booking.time.split(':')[0] + ':00'
-            hourlyBookings[hour] = (hourlyBookings[hour] || 0) + 1
-          }
-        })
-
-        const stats: TodayStats = {
-          totalCustomers: todayBookings.filter(b => b.status !== 'cancelled').length,
-          confirmedCuts: todayBookings.filter(b => b.status === 'confirmed').length,
-          pendingCuts: todayBookings.filter(b => b.status === 'pending').length,
-          completedCuts: todayBookings.filter(b => b.status === 'completed').length,
-          nextAppointment,
-          totalRevenue: todayBookings
-            .filter(b => b.status !== 'cancelled')
-            .reduce((sum, b) => sum + (servicePrices[b.service] || 0), 0),
-          hourlyBookings
-        }
-        
-        setTodayStats(stats)
-        setLastRefresh(new Date())
-        setError('')
-      } catch (e: any) {
-        setError(e.message)
-      } finally {
-        setLoading(false)
-      }
-    }
     fetchTodayData()
   }
 
@@ -376,7 +363,7 @@ export default function AdminDashboard() {
                       <div className="space-y-2 sm:space-y-3 lg:space-y-4">
                         <div className="flex items-center justify-between flex-wrap gap-2">
                           <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900">
-                            {todayStats.nextAppointment.time}
+                            {todayStats.nextAppointment.time ? todayStats.nextAppointment.time.slice(0, 5) : '--:--'}
                           </span>
                           <span className="px-2.5 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 bg-green-100 text-green-800 text-xs font-bold rounded-lg sm:rounded-xl border-2 border-green-300 uppercase">
                             {todayStats.nextAppointment.status}

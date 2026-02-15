@@ -17,13 +17,23 @@ export default function AdminLogin() {
     setError('')
     setLoading(true)
 
-    // Admin authentication
-    if (username === 'Goodhope' && password === 'Probarbershoponlypassword@2026') {
-      localStorage.setItem('adminAuth', 'true')
-      localStorage.setItem('adminUser', username)
+    try {
+      const res = await fetch('/api/admin/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        setError(data?.error || 'Invalid credentials. Please try again.')
+        setLoading(false)
+        return
+      }
+
       router.push('/admin')
-    } else {
-      setError('Invalid credentials. Please try again.')
+    } catch (err) {
+      setError('Login failed. Please try again.')
       setLoading(false)
     }
   }

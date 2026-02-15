@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useAdminAuth } from '@/lib/useAdminAuth'
 
 interface NavItem {
   name: string
@@ -27,19 +28,12 @@ const getGreeting = () => {
 
 export default function AdminSidebar() {
   const [isOpen, setIsOpen] = useState(false)
-  const [adminUser, setAdminUser] = useState('Admin')
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
+  const { adminUser, logout } = useAdminAuth()
 
   useEffect(() => {
-    // Only access localStorage after component mounts on client
     setMounted(true)
-    const user = localStorage.getItem('adminUser')
-    if (user) {
-      setAdminUser(user)
-    }
-    
-    // Close menu when route changes
     setIsOpen(false)
   }, [pathname])
 
@@ -70,10 +64,8 @@ export default function AdminSidebar() {
     return null
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminAuth')
-    localStorage.removeItem('adminUser')
-    window.location.href = '/admin/login'
+  const handleLogout = async () => {
+    await logout()
   }
 
   return (

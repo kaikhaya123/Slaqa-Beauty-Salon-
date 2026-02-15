@@ -1,8 +1,13 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase-bookings'
 import { sendServiceCompletionEmail, sendPostServiceEmail } from '@/lib/gmail'
+import { requireAdmin } from '@/lib/adminAuth'
+import { logAdminAction } from '@/lib/adminAudit'
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
+  const authError = requireAdmin(request)
+  if (authError) return authError
+
   try {
     const { bookingId, status } = await request.json()
     console.log('Update request received:', { bookingId, status })
@@ -51,10 +56,13 @@ export async function PUT(request: Request) {
     console.log('Found booking:', bookingData.id, 'current status:', bookingData.status)
     console.log('Attempting to update status to:', status)
 
-    // Update booking status in Supabase
+    // Update booking status in Supabase with updatedat timestamp
     const { data, error } = await supabase
       .from('bookings')
-      .update({ status })
+      .update({ 
+        status,
+        updatedat: new Date().toISOString()
+      })
       .eq('id', bookingId)
       .select()
 
@@ -67,6 +75,19 @@ export async function PUT(request: Request) {
     }
 
     console.log('Successfully updated booking:', data)
+    console.log('✅ DATABASE UPDATED - New status:', data[0]?.status, 'for booking:', bookingId)
+
+    // Verify the update persisted by fetching again
+    const { data: verifyData } = await supabase
+      .from('bookings')
+      .select('id, status')
+      .eq('id', bookingId)
+      .single()
+    console.log('🔍 VERIFICATION READ - Status in DB:', verifyData?.status)
+
+    await logAdminAction(request, 'update_status', 'booking', bookingId, {
+      status,
+    })
 
     // Send thank you email when status is confirmed
     if (status === 'confirmed' && bookingData && bookingData.email) {

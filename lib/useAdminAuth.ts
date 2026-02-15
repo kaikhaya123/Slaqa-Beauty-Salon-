@@ -6,31 +6,38 @@ import { useRouter, usePathname } from 'next/navigation'
 export function useAdminAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [adminUser, setAdminUser] = useState('Admin')
   const router = useRouter()
   const pathname = usePathname()
 
   useEffect(() => {
-    const checkAuth = () => {
-      const authToken = localStorage.getItem('adminAuth')
-      const adminUser = localStorage.getItem('adminUser')
-      
-      if (authToken === 'true' && adminUser) {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/admin/auth/me', { cache: 'no-store' })
+        if (!res.ok) throw new Error('Not authenticated')
+
+        const data = await res.json()
         setIsAuthenticated(true)
-      } else if (pathname !== '/admin/login') {
-        // Only redirect if not already on login page
-        router.push('/admin/login')
+        if (data?.user?.username) {
+          setAdminUser(data.user.username)
+        }
+      } catch {
+        setIsAuthenticated(false)
+        if (pathname !== '/admin/login') {
+          router.push('/admin/login')
+        }
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     checkAuth()
   }, [router, pathname])
 
-  const logout = () => {
-    localStorage.removeItem('adminAuth')
-    localStorage.removeItem('adminUser')
+  const logout = async () => {
+    await fetch('/api/admin/auth/logout', { method: 'POST' })
     router.push('/admin/login')
   }
 
-  return { isAuthenticated, loading, logout }
+  return { isAuthenticated, loading, adminUser, logout }
 }
