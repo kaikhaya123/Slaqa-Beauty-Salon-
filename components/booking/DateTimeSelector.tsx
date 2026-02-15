@@ -21,6 +21,10 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
   const [takenSlots, setTakenSlots] = useState<string[]>([])
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [isLoadingSlots, setIsLoadingSlots] = useState(false)
+  const [isVerifying, setIsVerifying] = useState(false)
+  const [slotUnavailableError, setSlotUnavailableError] = useState(false)
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   // Generate next 7 days
   useEffect(() => {
@@ -89,12 +93,59 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       
       // Set available slots (excluding taken ones)
       setAvailableSlots(availableToday)
+      setLastUpdated(new Date())
 
       setSelectedTime(null)
+      setSlotUnavailableError(false)
     }
 
     loadSlots()
   }, [selectedDate, barber.id])
+
+  // Manual refresh handler
+  const handleRefreshAvailability = async () => {
+    setIsRefreshing(true)
+    try {
+      const taken = await fetchAvailability(selectedDate, barber.id)
+      setTakenSlots(taken)
+      setLastUpdated(new Date())
+      setSlotUnavailableError(false)
+    } finally {
+      setIsRefreshing(false)
+    }
+  }
+
+  // Pre-submit verification: Check if selected slot is still available
+  const verifySlotAvailability = async (): Promise<boolean> => {
+    if (!selectedTime || !selectedDate) return false
+
+    try {
+      setIsVerifying(true)
+      const dateString = format(selectedDate, 'yyyy-MM-dd')
+      const response = await fetch(
+        `/api/availability?date=${dateString}&barberId=${barber.id}`
+      )
+
+      if (!response.ok) return false
+
+      const data = await response.json()
+      const currentlyTaken = data.takenSlots || []
+      const slotIsTaken = currentlyTaken.includes(selectedTime)
+
+      if (slotIsTaken) {
+        setSlotUnavailableError(true)
+        setTakenSlots(currentlyTaken)
+        return false
+      }
+
+      return true
+    } catch (error) {
+      console.error('Error verifying slot:', error)
+      return true // Continue on error
+    } finally {
+      setIsVerifying(false)
+    }
+  }
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date)
@@ -104,8 +155,12 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
     setSelectedTime(time)
   }
 
-  const handleContinue = () => {
-    if (selectedDate && selectedTime && !takenSlots.includes(selectedTime)) {
+  const handleContinue = async () => {
+    if (!selectedDate || !selectedTime) return
+
+    // Verify slot is still available before proceeding
+    const isAvailable = await verifySlotAvailability()
+    if (isAvailable) {
       onSelect(selectedDate, selectedTime)
     }
   }
@@ -142,8 +197,8 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
                 onClick={() => handleDateSelect(date)}
                 className={`p-3 rounded-lg text-center transition-all ${
                   isSelected
-                    ? 'bg-accent-600 text-white shadow-lg'
-                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                    ? 'bg-white text-black shadow-lg'
+                    : 'bg-black hover:bg-black text-white'
                 }`}
               >
                 <div className="text-xs font-semibold">{getDateLabel(date)}</div>
@@ -157,18 +212,32 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
 
       {/* Time Selection */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-primary-900 mb-4">
-          Choose a Time
-          {isLoadingSlots ? (
-            <span className="ml-2 text-sm text-gray-600 font-normal">
-              Loading availability...
-            </span>
-          ) : (
-            <span className="ml-2 text-sm text-gray-600 font-normal">
-              ({availableSlots.filter(slot => !takenSlots.includes(slot)).length} slots available)
-            </span>
-          )}
-        </h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-primary-900">
+            Choose a Time
+            {isLoadingSlots ? (
+              <span className="ml-2 text-sm text-gray-600 font-normal">
+                Loading availability...
+              </span>
+            ) : (
+              <span className="ml-2 text-sm text-gray-600 font-normal">
+                ({availableSlots.filter(slot => !takenSlots.includes(slot)).length} slots available)
+              </span>
+            )}
+          </h3>
+          <button
+            onClick={handleRefreshAvailability}
+            disabled={isRefreshing || isLoadingSlots}
+            className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded transition-colors disabled:opacity-50"
+          >
+            {isRefreshing ? 'Refreshing...' : 'Refresh'}
+          </button>
+        </div>
+        {lastUpdated && (
+          <p className="text-xs text-gray-500 mb-3">
+            Last updated: {format(lastUpdated, 'HH:mm:ss')}
+          </p>
+        )}
         
         {isLoadingSlots ? (
           <div className="text-center py-8 text-gray-500">
@@ -189,16 +258,20 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
                     disabled={isTaken}
                     className={`p-3 rounded-lg text-center font-semibold transition-all relative ${
                       isTaken
-                        ? 'bg-red-50 text-red-400 cursor-not-allowed border border-red-200'
+                        ? 'bg-red-500 text-white cursor-not-allowed border border-red-200'
                         : isSelected
                         ? 'bg-accent-600 text-white shadow-lg'
-                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                        : 'bg-black hover:bg-black text-white'
                     }`}
                   >
                     <div className="text-sm">{time}</div>
-                    {isTaken && (
-                      <div className="text-xs text-red-500 font-normal">Taken</div>
-                    )}
+                    <div
+                      className={`text-xs font-normal ${
+                        isTaken ? 'text-white' : isSelected ? 'text-white' : 'text-white'
+                      }`}
+                    >
+                      {isTaken ? 'Taken' : 'Available'}
+                    </div>
                   </button>
                 )
               })}
@@ -207,11 +280,11 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
             {takenSlots.length > 0 && (
               <div className="mt-4 flex items-center justify-center gap-4 text-xs text-gray-600">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-gray-100 rounded border"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded border"></div>
                   <span>Available</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-50 border border-red-200 rounded"></div>
+                  <div className="w-3 h-3 bg-red-500 border border-red-200 rounded"></div>
                   <span>Taken</span>
                 </div>
               </div>
@@ -226,8 +299,18 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
         )}
       </div>
 
+      {/* Error: Slot became unavailable */}
+      {slotUnavailableError && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+          <p className="text-red-700 font-semibold">⚠️ This time slot was just booked!</p>
+          <p className="text-red-600 text-sm mt-1">
+            Sorry, {selectedTime} is no longer available. Please select another time.
+          </p>
+        </div>
+      )}
+
       {/* Summary & Continue */}
-      {selectedTime && !takenSlots.includes(selectedTime) && (
+      {selectedTime && !takenSlots.includes(selectedTime) && !slotUnavailableError && (
         <div className="bg-primary-50 rounded-lg p-4 mb-6">
           <div className="flex items-center justify-between">
             <div>
@@ -249,9 +332,9 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
         size="lg"
         fullWidth
         onClick={handleContinue}
-        disabled={!selectedTime || takenSlots.includes(selectedTime) || isLoadingSlots}
+        disabled={!selectedTime || takenSlots.includes(selectedTime) || isLoadingSlots || isVerifying}
       >
-        {isLoadingSlots ? 'Loading...' : 'Continue to Details'}
+        {isLoadingSlots ? 'Loading...' : isVerifying ? 'Verifying slot...' : 'Continue to Details'}
       </Button>
     </div>
   )

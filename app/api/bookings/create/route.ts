@@ -16,8 +16,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Service is required' }, { status: 400 })
     }
 
-    // STEP 1: Check slot availability if date and time are provided (TEMPORARILY DISABLED)
-    if (date && time && barberId && false) { // Added && false to disable availability check
+    // STEP 1: Check slot availability if date and time are provided
+    if (date && time && barberId) {
       const { data: existingBooking, error } = await supabase
         .from('bookings')
         .select('id, bookingid')

@@ -38,7 +38,10 @@ export async function GET(req: NextRequest) {
     }
 
     // Extract taken time slots
-    const takenSlots = existingBookings?.map((booking: BookingSlot) => booking.time).filter(Boolean) || []
+    const takenSlots = existingBookings
+      ?.map((booking: BookingSlot) => booking.time)
+      .filter(Boolean)
+      .map((time) => (time && time.length >= 5 ? time.slice(0, 5) : time)) || []
 
     return NextResponse.json({
       date,
