@@ -274,16 +274,16 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
                     disabled={isTaken}
                     className={`p-3 rounded-lg text-center font-semibold transition-all relative ${
                       isTaken
-                        ? 'bg-red-600 text-white cursor-not-allowed border border-red-200'
+                        ? 'bg-white text-black cursor-not-allowed border border-black'
                         : isSelected
                         ? 'bg-black text-white shadow-lg'
-                        : 'bg-blue-600 hover:bg-blue-600 text-white'
+                        : 'bg-black hover:bg-black text-white'
                     }`}
                   >
                     <div className="text-sm">{time}</div>
                     <div
                       className={`text-xs font-normal ${
-                        isTaken ? 'text-white' : isSelected ? 'text-white' : 'text-white'
+                        isTaken ? 'text-black' : isSelected ? 'text-white' : 'text-white'
                       }`}
                     >
                       {isTaken ? 'Taken' : 'Available'}
@@ -294,13 +294,13 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
             </div>
             
             {takenSlots.length > 0 && (
-              <div className="mt-4 flex items-center justify-center gap-4 text-xs text-gray-600">
+              <div className="mt-4 flex items-center justify-center gap-4 text-xs text-black">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-blue-600 rounded border"></div>
+                  <div className="w-3 h-3 bg-black rounded border"></div>
                   <span>Available</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-600 border border-red-200 rounded"></div>
+                  <div className="w-3 h-3 bg-white border border-outline-black rounded"></div>
                   <span>Taken</span>
                 </div>
               </div>
