@@ -38,7 +38,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
           <Image
-            src={encodeURI("/Images/download_women.jpg")}
+            src={encodeURI("/Images/Gemini_Generated_Image_pbg9bcpbg9bcpbg9.png")}
             alt="Short Haircut for Women"
             fill
             className="object-cover object-center md:object-left brightness-90 contrast-110"
