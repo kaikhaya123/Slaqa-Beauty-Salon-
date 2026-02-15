@@ -54,7 +54,14 @@ export async function generateQueueNumber(bookingDate: string, barberName: strin
       // Only count pending or confirmed bookings
       const isRelevantStatus = b.status === 'pending' || b.status === 'confirmed' || !b.status
       
-      return isSameDate && isSameBarber && isRelevantStatus
+      // IMPORTANT: Only count recent bookings (created within last 30 days)
+      // This prevents old test bookings from affecting queue numbers
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+      const createdDate = new Date(b.createdat)
+      const isRecentBooking = createdDate >= thirtyDaysAgo
+      
+      return isSameDate && isSameBarber && isRelevantStatus && isRecentBooking
     })
     
     // Queue number is count + 1, padded to 3 digits

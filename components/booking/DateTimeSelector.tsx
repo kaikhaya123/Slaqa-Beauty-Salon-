@@ -6,6 +6,8 @@ import Button from '@/components/ui/Button'
 import { ChevronLeft, ChevronRight, Clock } from 'lucide-react'
 import { format, addDays, isToday, isTomorrow, startOfDay } from 'date-fns'
 import { TIME_SLOTS, OPERATING_HOURS } from '@/lib/constants'
+import { subscribeToSlotUpdates, unsubscribeFromSlotUpdates, SlotUpdate } from '@/lib/supabase-realtime'
+import type { RealtimeChannel } from '@supabase/supabase-js'
 
 interface DateTimeSelectorProps {
   service: Service
@@ -24,7 +26,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
   const [isVerifying, setIsVerifying] = useState(false)
   const [slotUnavailableError, setSlotUnavailableError] = useState(false)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
-  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [isRealtimeConnected, setIsRealtimeConnected] = useState(false)
 
   // Generate next 7 days
   useEffect(() => {
@@ -48,14 +50,14 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       
       if (!response.ok) {
         console.error('Availability API failed:', response.status)
-        return [] // Fallback to empty array if API fails
+        return { slots: [], changes: [] }
       }
 
       const data = await response.json()
       return data.takenSlots || []
     } catch (error) {
       console.error('Error fetching availability:', error)
-      return [] // Fallback to empty array on error
+      return []
     } finally {
       setIsLoadingSlots(false)
     }
@@ -102,18 +104,46 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
     loadSlots()
   }, [selectedDate, barber.id])
 
-  // Manual refresh handler
-  const handleRefreshAvailability = async () => {
-    setIsRefreshing(true)
-    try {
-      const taken = await fetchAvailability(selectedDate, barber.id)
-      setTakenSlots(taken)
+  // Subscribe to real-time slot updates via WebSocket
+  useEffect(() => {
+    if (!selectedDate) return
+
+    const dateString = format(selectedDate, 'yyyy-MM-dd')
+    
+    const handleSlotUpdate = (update: SlotUpdate) => {
+      console.log('📡 Received slot update:', update)
       setLastUpdated(new Date())
-      setSlotUnavailableError(false)
-    } finally {
-      setIsRefreshing(false)
+      
+      // Update taken slots based on status
+      if (update.status === 'taken') {
+        setTakenSlots(prev => {
+          if (!prev.includes(update.time)) {
+            return [...prev, update.time]
+          }
+          return prev
+        })
+        
+        // If user's selected slot was just taken, show error
+        if (selectedTime === update.time) {
+          setSlotUnavailableError(true)
+        }
+      } else if (update.status === 'released') {
+        setTakenSlots(prev => prev.filter(t => t !== update.time))
+      }
     }
-  }
+
+    const channel = subscribeToSlotUpdates(dateString, barber.id, handleSlotUpdate)
+    
+    if (channel) {
+      setIsRealtimeConnected(true)
+    }
+
+    return () => {
+      unsubscribeFromSlotUpdates(channel)
+      setIsRealtimeConnected(false)
+    }
+  }, [selectedDate, barber.id, selectedTime])
+
 
   // Pre-submit verification: Check if selected slot is still available
   const verifySlotAvailability = async (): Promise<boolean> => {
@@ -212,32 +242,18 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
 
       {/* Time Selection */}
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-primary-900">
-            Choose a Time
-            {isLoadingSlots ? (
-              <span className="ml-2 text-sm text-gray-600 font-normal">
-                Loading availability...
-              </span>
-            ) : (
-              <span className="ml-2 text-sm text-gray-600 font-normal">
-                ({availableSlots.filter(slot => !takenSlots.includes(slot)).length} slots available)
-              </span>
-            )}
-          </h3>
-          <button
-            onClick={handleRefreshAvailability}
-            disabled={isRefreshing || isLoadingSlots}
-            className="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 rounded transition-colors disabled:opacity-50"
-          >
-            {isRefreshing ? 'Refreshing...' : 'Refresh'}
-          </button>
-        </div>
-        {lastUpdated && (
-          <p className="text-xs text-gray-500 mb-3">
-            Last updated: {format(lastUpdated, 'HH:mm:ss')}
-          </p>
-        )}
+        <h3 className="text-lg font-semibold text-primary-900 mb-4">
+          Choose a Time
+          {isLoadingSlots ? (
+            <span className="ml-2 text-sm text-gray-600 font-normal">
+              Loading availability...
+            </span>
+          ) : (
+            <span className="ml-2 text-sm text-gray-600 font-normal">
+              ({availableSlots.filter(slot => !takenSlots.includes(slot)).length} slots available)
+            </span>
+          )}
+        </h3>
         
         {isLoadingSlots ? (
           <div className="text-center py-8 text-gray-500">
@@ -258,10 +274,10 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
                     disabled={isTaken}
                     className={`p-3 rounded-lg text-center font-semibold transition-all relative ${
                       isTaken
-                        ? 'bg-red-500 text-white cursor-not-allowed border border-red-200'
+                        ? 'bg-red-600 text-white cursor-not-allowed border border-red-200'
                         : isSelected
-                        ? 'bg-accent-600 text-white shadow-lg'
-                        : 'bg-black hover:bg-black text-white'
+                        ? 'bg-black text-white shadow-lg'
+                        : 'bg-blue-600 hover:bg-blue-600 text-white'
                     }`}
                   >
                     <div className="text-sm">{time}</div>
@@ -280,11 +296,11 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
             {takenSlots.length > 0 && (
               <div className="mt-4 flex items-center justify-center gap-4 text-xs text-gray-600">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded border"></div>
+                  <div className="w-3 h-3 bg-blue-600 rounded border"></div>
                   <span>Available</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-500 border border-red-200 rounded"></div>
+                  <div className="w-3 h-3 bg-red-600 border border-red-200 rounded"></div>
                   <span>Taken</span>
                 </div>
               </div>

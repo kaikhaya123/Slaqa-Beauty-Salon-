@@ -43,11 +43,22 @@ export async function GET(req: NextRequest) {
       .filter(Boolean)
       .map((time: string) => (time && time.length >= 5 ? time.slice(0, 5) : time)) || []
 
+    // Get recent slot changes (last 5 minutes) for real-time updates
+    const { data: recentChanges, error: changesError } = await supabase
+      .from('slot_updates')
+      .select('time, status, createdat')
+      .eq('date', date)
+      .eq('barberid', barberId ? parseInt(barberId) : null)
+      .gt('createdat', new Date(Date.now() - 5 * 60 * 1000).toISOString()) // Last 5 minutes
+      .order('createdat', { ascending: false })
+
     return NextResponse.json({
       date,
       barberId,
       takenSlots,
-      totalBookings: existingBookings?.length || 0
+      totalBookings: existingBookings?.length || 0,
+      recentChanges: recentChanges || [], // Recent slot changes with timestamps
+      lastUpdated: new Date().toISOString()
     })
 
   } catch (error) {
