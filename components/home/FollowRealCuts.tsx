@@ -39,7 +39,7 @@ export default function FollowRealBarbershop() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             Fresh fades. Sharp beards. Real work from the chair.
-            See today's cuts and book faster on WhatsApp.
+            See today&apos;s cuts and book faster on WhatsApp.
           </motion.p>
 
           {/* SOCIAL CTA */}
