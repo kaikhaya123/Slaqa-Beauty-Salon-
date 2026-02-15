@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase-bookings'
 
+export const dynamic = 'force-dynamic'
+
 interface UnavailableSlot {
   time: string
   barber: string | null
@@ -14,7 +16,7 @@ interface BookingData {
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url)
+    const { searchParams } = req.nextUrl
     const barberId = searchParams.get('barberId')
     const date = searchParams.get('date')
     const time = searchParams.get('time')
