@@ -21,28 +21,52 @@ export default function FollowRealBarbershop() {
             Stay connected
           </span>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-dark-900 leading-tight">
+          <motion.h2 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-dark-900 leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
             Follow Pro Barbershop
-          </h2>
+          </motion.h2>
 
-          <p className="text-lg md:text-xl text-dark-700 leading-relaxed max-w-lg">
+          <motion.p 
+            className="text-lg md:text-xl text-dark-700 leading-relaxed max-w-lg"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Fresh fades. Sharp beards. Real work from the chair.
-            See today’s cuts and book faster on WhatsApp.
-          </p>
+            See today's cuts and book faster on WhatsApp.
+          </motion.p>
 
           {/* SOCIAL CTA */}
-          <div className="mt-10 flex items-center gap-6">
+          <motion.div 
+            className="mt-10 flex items-center gap-6"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+          >
             {[
               { name: 'Instagram', url: 'https://www.instagram.com/pro_barber_shop.za/', icon: '/Images/instagram.png' },
               { name: 'WhatsApp', url: 'https://wa.me/27682188679', icon: '/Images/whatsapp.png' },
             ].map((social, idx) => (
-              <a
+              <motion.a
                 key={idx}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-16 h-16 flex items-center justify-center rounded-full bg-dark-900 hover:bg-dark-800 active:scale-95 transition shadow-lg transform duration-200 hover:scale-108"
                 aria-label={social.name}
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 + 0.3 }}
               >
                 <Image
                   src={social.icon}
@@ -51,34 +75,51 @@ export default function FollowRealBarbershop() {
                   height={28}
                   className="invert"
                 />
-              </a>
+              </motion.a>
             ))}
-          </div>
+          </motion.div>
 
           {/* MICRO TRUST */}
-          <p className="text-sm text-dark-600 font-medium">
+          <motion.p 
+            className="text-sm text-dark-600 font-medium"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             Stay Updated daily
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* RIGHT VISUAL */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.96, x: 20 }}
+          whileInView={{ opacity: 1, scale: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           className="flex justify-center items-center min-h-[600px]"
         >
-          <div className="relative w-full max-w-sm h-auto">
-            <Image
-              src="/Images/70 New Black Men Haircuts And Hairstyles In 2025-left.png"
-              alt="Pro Barbershop haircut showcase"
-              width={400}
-              height={600}
-              className="object-contain w-full h-auto"
-              priority
-            />
-          </div>
+          <motion.div 
+            className="relative w-full max-w-sm h-auto"
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <Image
+                src="/Images/70 New Black Men Haircuts And Hairstyles In 2025-left.png"
+                alt="Pro Barbershop haircut showcase"
+                width={400}
+                height={600}
+                className="object-contain w-full h-auto"
+                priority
+              />
+            </motion.div>
+          </motion.div>
         </motion.div>
 
       </div>

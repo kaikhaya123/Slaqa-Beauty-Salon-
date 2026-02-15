@@ -1,6 +1,7 @@
 'use client'
 
 import { Star, Quote } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Section from '@/components/ui/Section'
 import Card from '@/components/ui/Card'
 import { useEffect, useState, useRef } from "react";
@@ -104,55 +105,151 @@ export default function SocialProof() {
 
   return (
     <Section background="black">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+      <motion.div 
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h2 
+          className="text-3xl md:text-4xl font-heading font-bold text-white mb-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           Trusted by Durban
-        </h2>
-        <p className="text-lg text-white max-w-2xl mx-auto">
+        </motion.h2>
+        <motion.p 
+          className="text-lg text-white max-w-2xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Reviews from our clients
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{
+          staggerChildren: 0.1,
+          delayChildren: 0.2,
+        }}
+      >
         {testimonials.map((testimonial, index) => (
-          <Card key={index}>
-            <div className="flex items-center mb-4">
-              {[...Array(testimonial.rating)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-              ))}
-            </div>
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            whileHover={{ scale: 1.05, y: -10 }}
+          >
+            <Card>
+              <motion.div 
+                className="flex items-center mb-4"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 + 0.1 }}
+              >
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.1 + 0.1 + i * 0.05 }}
+                  >
+                    <Star className="h-5 w-5 text-yellow-400 fill-current" />
+                  </motion.div>
+                ))}
+              </motion.div>
 
-            <Quote className="h-8 w-8 text-accent-200 mb-3" />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
+              >
+                <Quote className="h-8 w-8 text-accent-200 mb-3" />
+              </motion.div>
 
-            <p className="text-black mb-4 italic">
-              &quot;{testimonial.text}&quot;
-            </p>
+              <motion.p 
+                className="text-black mb-4 italic"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.25 }}
+              >
+                &quot;{testimonial.text}&quot;
+              </motion.p>
 
-            <div className="pt-4 border-t border-gray-200">
-              <p className="font-semibold text-black">{testimonial.name}</p>
-              <p className="text-sm text-black">{testimonial.location}</p>
-            </div>
-          </Card>
+              <motion.div 
+                className="pt-4 border-t border-gray-200"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+              >
+                <p className="font-semibold text-black">{testimonial.name}</p>
+                <p className="text-sm text-black">{testimonial.location}</p>
+              </motion.div>
+            </Card>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Stats Bar */}
-      <div className="mt-16 bg-black text-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto">
+      <motion.div 
+        className="mt-16 bg-black text-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div className="col-span-full md:col-span-1 mb-6 md:mb-0">
-          <StatCounter value={98} suffix="%" label="Client Satisfaction" />
+          <motion.div 
+            className="col-span-full md:col-span-1 mb-6 md:mb-0"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <StatCounter value={98} suffix="%" label="Client Satisfaction" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <StatCounter value={1000} suffix="+" label="Monthly Clients" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <StatCounter value={4.9} suffix="★" label="Average Rating" decimals={1} />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <StatCounter value={5} suffix="+" label="Years Trusted" />
+          </motion.div>
         </div>
-        <div>
-          <StatCounter value={1000} suffix="+" label="Monthly Clients" />
-        </div>
-        <div>
-          <StatCounter value={4.9} suffix="★" label="Average Rating" decimals={1} />
-        </div>
-        <div>
-          <StatCounter value={5} suffix="+" label="Years Trusted" />
-        </div>
-        </div>
-      </div>
+      </motion.div>
     </Section>
   )
 }

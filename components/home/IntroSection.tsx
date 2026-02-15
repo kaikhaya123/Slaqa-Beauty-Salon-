@@ -89,24 +89,42 @@ export default function IntroSection() {
 
             {/* Key Points */}
             <ul className="space-y-3 max-w-md">
-              <li className="flex items-start gap-3">
+              <motion.li 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
                 <span className="w-2 h-2 bg-dark-900 rounded-full mt-2" />
                 <span className="text-dark-800 font-medium">
                   Experienced professional barbers
                 </span>
-              </li>
-              <li className="flex items-start gap-3">
+              </motion.li>
+              <motion.li 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
                 <span className="w-2 h-2 bg-dark-900 rounded-full mt-2" />
                 <span className="text-dark-800 font-medium">
                   Premium tools and products
                 </span>
-              </li>
-              <li className="flex items-start gap-3">
+              </motion.li>
+              <motion.li 
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
                 <span className="w-2 h-2 bg-dark-900 rounded-full mt-2" />
                 <span className="text-dark-800 font-medium">
                   Comfortable, welcoming space
                 </span>
-              </li>
+              </motion.li>
             </ul>
 
             {/* CTAs */}

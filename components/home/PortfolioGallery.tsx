@@ -7,14 +7,33 @@ const PortfolioGallery = () => {
   return (
     <div className="bg-black mt-24 md:mt-32 lg:mt-40">
       <div className="flex min-h-32 sm:min-h-40 md:min-h-48 lg:min-h-56 xl:min-h-64 items-center justify-center px-4 py-8 md:py-12 lg:py-16">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-wide text-center leading-tight transform hover:scale-105 transition-all duration-300 drop-shadow-2xl">
-          <span className="text-white">
-            OUR
-          </span>{" "}
-          <span className="text-white">
-            PRO BARBER SHOP HAIRCUTS
-          </span>
-        </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-wide text-center leading-tight transform hover:scale-105 transition-all duration-300 drop-shadow-2xl">
+            <motion.span 
+              className="text-white"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              OUR
+            </motion.span>{" "}
+            <motion.span 
+              className="text-white"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              PRO BARBER SHOP HAIRCUTS
+            </motion.span>
+          </h2>
+        </motion.div>
       </div>
       <HorizontalScrollCarousel />
     </div>
@@ -53,23 +72,32 @@ const HorizontalScrollCarousel = () => {
 interface CardType {
   id: number
   url: string
-  title: string
-  service: string
-  description: string
 }
 
 const Card = ({ card }: { card: CardType }) => {
   return (
-    <div className="group relative h-[400px] w-[350px] overflow-hidden bg-cream-100 rounded-xl shadow-lg">
-      <div
+    <motion.div 
+      className="group relative h-[400px] w-[350px] overflow-hidden bg-cream-100 rounded-xl shadow-lg"
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6 }}
+      whileHover={{ scale: 1.05 }}
+    >
+      <motion.div
         style={{
           backgroundImage: `url(${card.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
         className="absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110"
-      ></div>
-    </div>
+        initial={{ scale: 1.2, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8 }}
+      ></motion.div>
+      
+    </motion.div>
   )
 }
 
@@ -78,65 +106,38 @@ export default PortfolioGallery
 const portfolioCards: CardType[] = [
   {
     url: "/Images/1767770754149.jpeg",
-    title: "#1",
-    service: "Classic Fade",
-    description: "Perfect blend, smooth finish",
     id: 1,
   },
   {
     url: "/Images/1767770724602.jpeg",
-    title: "#2",
-    service: "Beard Trim",
-    description: "Precision grooming artistry",
     id: 2,
   },
   {
     url: "/Images/1767770814779.jpeg",
-    title: "#3",
-    service: "Full Service",
-    description: "Complete style transformation",
     id: 3,
   },
   {
     url: "/Images/1767770899302.jpeg",
-    title: "#4",
-    service: "Modern Cut",
-    description: "Contemporary edge styling",
     id: 4,
   },
   {
     url: "/Images/1767770830465.jpeg",
-    title: "#5",
-    service: "Hot Towel",
-    description: "Premium relaxation experience",
     id: 5,
   },
   {
     url: "/Images/1767770936409.jpeg",
-    title: "#6",
-    service: "Straight Razor",
-    description: "Traditional craftsmanship",
     id: 6,
   },
   {
     url: "/Images/1767771103496.jpeg",
-    title: "#7",
-    service: "Styling Finish",
-    description: "Perfect final touches",
     id: 7,
   },
   {
     url: "/Images/1767770857424.jpeg",
-    title: "#8",
-    service: "Premium Cut",
-    description: "Luxury barbering experience",
     id: 8,
   },
   {
     url: "/Images/1767771187352.jpeg",
-    title: "#9",
-    service: "Classic Style",
-    description: "Timeless elegance redefined",
     id: 9,
   },
 ]
