@@ -97,7 +97,7 @@ export default function BookingsPage() {
       .subscribe()
 
     return () => {
-      supabaseClient.removeChannel(channel)
+      supabaseClient!.removeChannel(channel)
     }
   }, [isAuthenticated, fetchBookings])
 

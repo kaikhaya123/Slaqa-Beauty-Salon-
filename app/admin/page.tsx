@@ -143,7 +143,7 @@ export default function AdminDashboard() {
       .subscribe()
 
     return () => {
-      supabaseClient.removeChannel(channel)
+      supabaseClient!.removeChannel(channel)
     }
   }, [isAuthenticated, fetchTodayData])
 
