@@ -105,7 +105,7 @@ export const SERVICES = [
     description: 'Fade with custom designs and artistic touch',
     duration: 45,
     price: 200,
-    image: '/Images/WhatsApp Image 2026-01-07 at 10.20.34.jpeg',
+    image: '/Images/download (4) (1).jpg',
     category: 'Design',
   },
 ]
@@ -117,7 +117,7 @@ export const BARBERS = [
     name: 'Fuze Ngcobo',
     title: 'Professional Barber',
     experience: '7+ years',
-    specialties: ['Professional Haircuts', 'Modern Fades', 'Beard Grooming'],
+    specialties: ['Professional Haircuts', 'Modern Fades'],
     bio: 'Fuze is the professional barber at Pro Barber Shop ZA, dedicated to delivering sharp, clean cuts with professional precision. With over 7 years of experience, he specializes in modern fades, traditional cuts, and expert beard sculpting. Every client receives personalized attention and consistent quality service.',
     image: '/Images/Fuze Ngcobo.jpeg',
   },

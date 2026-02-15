@@ -45,7 +45,7 @@ export default function ServicesGrid({ services }: Props) {
           <div key={service.id} className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
             {/* Service Image */}
             {service.image && (
-              <div className="relative w-full h-48 sm:h-56 lg:h-96 overflow-hidden bg-gray-100">
+              <div className="relative w-full h-48 sm:h-56 lg:h-96 overflow-hidden bg-white">
                 <Image
                   src={service.image}
                   alt={service.name}
