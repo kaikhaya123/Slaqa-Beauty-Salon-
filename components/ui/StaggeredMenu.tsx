@@ -213,8 +213,8 @@ export default function StaggeredMenu({
             </div>
           )}
         </div>
-      )}
       </aside>
+      )}
     </>
   );
 }
