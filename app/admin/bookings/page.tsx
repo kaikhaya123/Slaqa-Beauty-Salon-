@@ -677,7 +677,7 @@ export default function BookingsPage() {
                         <button
                           onClick={() => updateBookingStatus(booking.id, 'confirmed')}
                           disabled={updatingIds.includes(booking.id)}
-                          className="flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-2 bg-dark-900 hover:bg-dark-800 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm flex items-center justify-center gap-1 min-w-max"
+                          className="flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-2 bg-dark-900 hover:bg-dark text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm flex items-center justify-center gap-1 min-w-max"
                           title="Confirm booking"
                         >
                           {updatingIds.includes(booking.id) ? (

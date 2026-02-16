@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     try {
       const bookingDate = date || new Date().toISOString().split('T')[0]
       const barberName = barber || 'Any Available'
-      queueNumber = await generateQueueNumber(bookingDate, barberName, barberId)
+      queueNumber = await generateQueueNumber(bookingDate, barberName, barberId, time)
     } catch (err) {
       console.error('[Web Booking] Failed to generate queue number:', err)
       // Continue with booking even if queue number fails
