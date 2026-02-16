@@ -1,4 +1,5 @@
 import { loadBookings } from './bookings'
+import { OPERATING_HOURS, TIME_SLOTS } from './constants'
 
 /**
  * Booking object from database
@@ -27,7 +28,11 @@ interface DbBooking {
  * 
  * Example: 001, 002, 003, etc.
  */
-export async function generateQueueNumber(bookingDate: string, barberName: string): Promise<string> {
+export async function generateQueueNumber(
+  bookingDate: string,
+  barberName: string,
+  barberId?: number | null
+): Promise<string> {
   try {
     const bookings = await loadBookings() as DbBooking[]
     
@@ -40,6 +45,15 @@ export async function generateQueueNumber(bookingDate: string, barberName: strin
     }
     
     const normalizedSelectedBarber = normalizeBarber(barberName)
+    const selectedBarberId = typeof barberId === 'number' ? barberId : null
+
+    const dateObj = new Date(`${bookingDate}T00:00:00`)
+    const dayOfWeek = dateObj.getDay() as keyof typeof OPERATING_HOURS
+    const hours = OPERATING_HOURS[dayOfWeek]
+
+    const totalSlotsForDay = TIME_SLOTS.filter(slot => {
+      return slot >= hours.open && slot <= hours.close
+    }).length
     
     // Get bookings for the same date and barber (only pending/confirmed)
     const sameDay = bookings.filter((b: DbBooking) => {
@@ -49,7 +63,9 @@ export async function generateQueueNumber(bookingDate: string, barberName: strin
       const isSameDate = b.date === bookingDate
       
       const normalizedBookingBarber = normalizeBarber(b.barber)
-      const isSameBarber = normalizedBookingBarber === normalizedSelectedBarber
+      const isSameBarberByName = normalizedBookingBarber === normalizedSelectedBarber
+      const isSameBarberById = selectedBarberId !== null ? b.barberid === selectedBarberId : false
+      const isSameBarber = selectedBarberId !== null ? isSameBarberById : isSameBarberByName
       
       // Only count pending or confirmed bookings
       const isRelevantStatus = b.status === 'pending' || b.status === 'confirmed' || !b.status
@@ -64,6 +80,14 @@ export async function generateQueueNumber(bookingDate: string, barberName: strin
       return isSameDate && isSameBarber && isRelevantStatus && isRecentBooking
     })
     
+    if (totalSlotsForDay === 0) {
+      throw new Error('No available slots for the selected day')
+    }
+
+    if (sameDay.length >= totalSlotsForDay) {
+      throw new Error('All slots for the selected day are fully booked')
+    }
+
     // Queue number is count + 1, padded to 3 digits
     const queueNumber = sameDay.length + 1
     const queueNumberStr = String(queueNumber).padStart(3, '0')
@@ -72,6 +96,7 @@ export async function generateQueueNumber(bookingDate: string, barberName: strin
       bookingDate,
       barberName: normalizedSelectedBarber || '(no barber)',
       existingBookingsThatDay: sameDay.length,
+      totalSlotsForDay,
       assignedQueueNumber: queueNumberStr,
       matchedBookings: sameDay.map(b => ({
         id: b.id,

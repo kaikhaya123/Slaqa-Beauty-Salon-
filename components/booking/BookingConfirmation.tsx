@@ -233,7 +233,7 @@ export default function BookingConfirmation({
             <div className="bg-accent-50 border border-accent-200 rounded-lg p-6 mb-6">
               <div className="flex items-start space-x-4">
                 <Image 
-                  src="/Icons/text.png" 
+                  src="/Icons/interview.png" 
                   alt="Special Requests" 
                   width={24} 
                   height={24} 
@@ -268,8 +268,8 @@ export default function BookingConfirmation({
           </div>
 
           {/* What Happens Next */}
-          <div className="bg-cream-50 border border-cream-300 rounded-lg p-6 mb-6">
-            <h4 className="font-bold text-dark-900 mb-4 flex items-center gap-3">
+          <div className="bg-cream-50 border border-cream-50 rounded-lg p-6 mb-6">
+            <h4 className="font-bold text-black mb-4 flex items-center gap-3">
               <Image 
                 src="/Icons/chatting.png" 
                 alt="Next Steps" 
@@ -279,7 +279,7 @@ export default function BookingConfirmation({
               />
               What Happens Next?
             </h4>
-            <div className="space-y-3 text-sm text-dark-700">
+            <div className="space-y-3 text-sm text-black">
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Your booking has been saved to our system</span>
@@ -331,14 +331,17 @@ export default function BookingConfirmation({
             variant="secondary"
             size="lg"
             fullWidth
-            className="bg-cream-200 text-dark-900 hover:bg-cream-300 border-0 font-semibold"
+            className="bg-green-500 text-black hover:bg-green-500 border-0 font-semibold"
             onClick={() => {
               const link = whatsappLink || (window as any).__WHATSAPP_LINK || ("https://wa.me/" + (BUSINESS_INFO.whatsapp || ''))
               try { trackEvent('whatsapp_cta_click', { location: 'booking_confirmation', path: pathname || '/' }) } catch (e) {}
               window.open(link, '_blank')
             }}
           >
-            📱 Send Booking via WhatsApp (Auto-Filled)
+            <span className="inline-flex items-center justify-center gap-2">
+              <Image src="/Icons/whatsapp (1).png" alt="WhatsApp" width={18} height={18} className="h-4 w-4" />
+              <span>Send Booking via WhatsApp (Auto-Filled)</span>
+            </span>
           </Button>
 
           <div className="grid grid-cols-2 gap-3">
@@ -346,10 +349,13 @@ export default function BookingConfirmation({
               variant="outline"
               size="md"
               fullWidth
-              className="border-cream-50 text-cream-50 hover:bg-cream-50 hover:text-dark-900"
+              className="border-white text-black hover:bg-white hover:text-black"
               onClick={onStartOver}
             >
-              Book Another
+              <span className="inline-flex items-center justify-center gap-2">
+                <Image src="/Icons/refresh-buttons.png" alt="Book Another" width={18} height={18} className="h-4 w-4" />
+                <span>Book Another</span>
+              </span>
             </Button>
 
             <Button
@@ -358,9 +364,12 @@ export default function BookingConfirmation({
               variant="outline"
               size="md"
               fullWidth
-              className="border-cream-50 text-cream-50 hover:bg-cream-50 hover:text-dark-900"
+              className="border-white text-black hover:bg-white hover:text-black"
             >
-              Back to Home
+              <span className="inline-flex items-center justify-center gap-2">
+                <Image src="/Icons/home (1).png" alt="Back to Home" width={18} height={18} className="h-4 w-4" />
+                <span>Back to Home</span>
+              </span>
             </Button>
           </div>
         </div>

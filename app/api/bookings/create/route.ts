@@ -41,7 +41,18 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // STEP 2: Save booking (availability confirmed)
+    // STEP 2: Generate queue number BEFORE saving
+    let queueNumber = null
+    try {
+      const bookingDate = date || new Date().toISOString().split('T')[0]
+      const barberName = barber || 'Any Available'
+      queueNumber = await generateQueueNumber(bookingDate, barberName, barberId)
+    } catch (err) {
+      console.error('[Web Booking] Failed to generate queue number:', err)
+      // Continue with booking even if queue number fails
+    }
+
+    // STEP 3: Save booking (availability confirmed)
     const booking = await saveBooking({
       source: 'web',
       from: phone ? sanitizePhone(phone) : '+0000000000',
@@ -58,20 +69,14 @@ export async function POST(req: NextRequest) {
 
     console.log('[Web Booking] Booking saved:', { bookingId: booking.bookingid, service, name, barber })
     
-    // STEP 3: Generate and assign queue number
-    let queueNumber = null
-    try {
-      const bookingDate = date || new Date().toISOString().split('T')[0]
-      const barberName = barber || 'Any Available'
-      queueNumber = await generateQueueNumber(bookingDate, barberName)
-      
-      // Update booking with queue number
-      await updateBookingQueueNumber(booking.bookingid, queueNumber)
-      
-      console.log('[Web Booking] Queue number assigned:', { bookingId: booking.bookingid, queueNumber })
-    } catch (err) {
-      console.error('[Web Booking] Failed to assign queue number:', err)
-      // Continue with booking even if queue number fails
+    // STEP 4: Assign queue number to the saved booking
+    if (queueNumber) {
+      try {
+        await updateBookingQueueNumber(booking.bookingid, queueNumber)
+        console.log('[Web Booking] Queue number assigned:', { bookingId: booking.bookingid, queueNumber })
+      } catch (err) {
+        console.error('[Web Booking] Failed to assign queue number:', err)
+      }
     }
     
     let confirmationSent = false

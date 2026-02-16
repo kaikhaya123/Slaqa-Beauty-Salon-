@@ -463,22 +463,22 @@ export default function BookingsPage() {
           </div>
 
           {/* Archive Old Bookings Section */}
-          <div className="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-300 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-5 lg:p-6">
+          <div className="bg-dark-900 border-black rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-5 lg:p-6">
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
               <span className="text-xl sm:text-2xl">📦</span>
-              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-dark-900">
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">
                 Archive Old Bookings
               </h3>
             </div>
             
-            <p className="text-xs sm:text-sm text-dark-600 mb-3 sm:mb-4">
+            <p className="text-xs sm:text-sm text-white mb-3 sm:mb-4">
               Move old bookings to archive to keep your active bookings list clean. Archived bookings are preserved for reporting.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
               {/* Archive Age Selection */}
               <div>
-                <label className="block text-xs sm:text-sm font-bold text-dark-700 mb-1.5 sm:mb-2">
+                <label className="block text-xs sm:text-sm font-bold text-white mb-1.5 sm:mb-2">
                   Archive bookings older than:
                 </label>
                 <select
@@ -534,7 +534,7 @@ export default function BookingsPage() {
                 <button
                   onClick={() => setShowArchiveConfirm(true)}
                   disabled={previewCount === null || previewCount === 0 || archiving}
-                  className="w-full px-4 py-2 bg-dark-900 hover:bg-dark-800 text-cream-50 text-sm font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2 bg-white hover:bg-white text-black text-sm font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {archiving ? 'Archiving...' : 'Archive'}
                 </button>
@@ -645,15 +645,15 @@ export default function BookingsPage() {
 
                     {/* Date & Time & Barber */}
                     <div className="grid grid-cols-3 gap-2 sm:gap-2 lg:gap-3">
-                      <div className="bg-cream-100 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
-                        <p className="text-xs font-bold text-dark-600 uppercase">Date</p>
-                        <p className="text-xs sm:text-sm lg:text-base font-black text-dark-900 break-words">
+                      <div className="bg-dark-900 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
+                        <p className="text-xs font-bold text-cream-50 uppercase">Date</p>
+                        <p className="text-xs sm:text-sm lg:text-base font-black text-cream-50 break-words">
                           {booking.date ? format(new Date(booking.date), 'MMM dd') : 'Not set'}
                         </p>
                       </div>
-                      <div className="bg-cream-100 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
-                        <p className="text-xs font-bold text-dark-600 uppercase">Time</p>
-                        <p className="text-xs sm:text-sm lg:text-base font-black text-dark-900">
+                      <div className="bg-dark-900 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
+                        <p className="text-xs font-bold text-cream-50 uppercase">Time</p>
+                        <p className="text-xs sm:text-sm lg:text-base font-black text-cream-50">
                           {booking.time || '-'}
                         </p>
                       </div>
