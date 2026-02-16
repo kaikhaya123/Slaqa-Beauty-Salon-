@@ -18,6 +18,7 @@ interface BookingConfirmationProps {
   barber: Barber
   date: Date
   time: string
+  specialRequests?: string | null
   whatsappLink?: string | null
   onStartOver: () => void
 }
@@ -29,6 +30,7 @@ export default function BookingConfirmation({
   barber,
   date,
   time,
+  specialRequests = null,
   whatsappLink = null,
   onStartOver,
 }: BookingConfirmationProps) {
@@ -225,6 +227,25 @@ export default function BookingConfirmation({
               </div>
             </div>
           </div>
+
+          {/* Special Requests Section - if provided */}
+          {specialRequests && (
+            <div className="bg-accent-50 border border-accent-200 rounded-lg p-6 mb-6">
+              <div className="flex items-start space-x-4">
+                <Image 
+                  src="/Icons/text.png" 
+                  alt="Special Requests" 
+                  width={24} 
+                  height={24} 
+                  className="h-6 w-6 mt-1 flex-shrink-0"
+                />
+                <div className="flex-1">
+                  <h4 className="font-bold text-dark-900 mb-2">Special Requests</h4>
+                  <p className="text-dark-700 text-sm whitespace-pre-wrap break-words">{specialRequests}</p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Location Details */}
           <div className="bg-cream-50 border border-cream-300 rounded-lg p-6 mb-6">

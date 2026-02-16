@@ -9,7 +9,7 @@ import { supabase } from '@/lib/supabase-bookings'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { name, service, date, time, barber, barberId, phone, email } = body
+    const { name, service, date, time, barber, barberId, phone, email, notes } = body
 
     // Validate required fields
     if (!service) {
@@ -51,7 +51,8 @@ export async function POST(req: NextRequest) {
       time: time || new Date().toTimeString().split(' ')[0],
       barber: barber || undefined,
       barberId: barberId || null,
-      raw: JSON.stringify({ name, service, date, time, barber, phone, email }),
+      notes: notes || null,
+      raw: JSON.stringify({ name, service, date, time, barber, phone, email, notes }),
       status: 'pending',
     })
 

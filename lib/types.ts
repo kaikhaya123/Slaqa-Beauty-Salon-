@@ -34,6 +34,7 @@ export interface Booking {
   date: string
   time: string
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled'
+  specialRequests?: string
   createdAt: string
 }
 

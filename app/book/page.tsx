@@ -22,6 +22,7 @@ export default function BookPage() {
   const [bookingId, setBookingId] = useState<string | null>(null)
   const [queueNumber, setQueueNumber] = useState<string | null>(null)
   const [whatsappLink, setWhatsappLink] = useState<string | null>(null)
+  const [specialRequests, setSpecialRequests] = useState<string | null>(null)
 
   const handleServiceSelect = (service: Service) => {
     setSelectedService(service)
@@ -74,6 +75,9 @@ export default function BookPage() {
       const { booking } = await res.json()
       console.log('Booking saved:', booking)
 
+      // Store special requests
+      setSpecialRequests(notes || null)
+
       // Store queue number if provided
       if (booking.queueNumber) {
         setQueueNumber(booking.queueNumber)
@@ -119,6 +123,7 @@ export default function BookPage() {
     setSelectedTime(null)
     setBookingId(null)
     setQueueNumber(null)
+    setSpecialRequests(null)
   }
 
   return (
@@ -207,6 +212,7 @@ export default function BookPage() {
               barber={selectedBarber}
               date={selectedDate}
               time={selectedTime}
+              specialRequests={specialRequests}
               whatsappLink={whatsappLink ?? null}
               onStartOver={handleStartOver}
             />
