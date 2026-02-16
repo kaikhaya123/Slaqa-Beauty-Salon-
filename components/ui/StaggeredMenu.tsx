@@ -52,15 +52,21 @@ export default function StaggeredMenu({
   onMenuClose,
 }: StaggeredMenuProps) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const panelRef = useRef<HTMLElement>(null);
 
+  // Hydration fix: Wait for client-side mount before rendering menu
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useLayoutEffect(() => {
-    if (!panelRef.current) return;
+    if (!panelRef.current || !mounted) return;
 
     gsap.set(panelRef.current, {
       xPercent: position === 'left' ? -100 : 100,
     });
-  }, [position]);
+  }, [position, mounted]);
 
   const toggleMenu = useCallback(() => {
     if (!panelRef.current) return;
@@ -93,6 +99,8 @@ export default function StaggeredMenu({
         style={{ 
           color: changeMenuColorOnOpen && open ? openMenuButtonColor : menuButtonColor,
           position: isFixed ? 'fixed' : 'absolute',
+          opacity: mounted ? 1 : 0,
+          transition: 'opacity 200ms ease-out',
         }}
         aria-label="Toggle menu"
       >
@@ -126,6 +134,7 @@ export default function StaggeredMenu({
       </button>
 
       {/* Menu Panel */}
+      {mounted && (
       <aside
         ref={panelRef}
         className="fixed top-0 right-0 w-full h-screen z-40 overflow-hidden"
@@ -204,6 +213,7 @@ export default function StaggeredMenu({
             </div>
           )}
         </div>
+      )}
       </aside>
     </>
   );
