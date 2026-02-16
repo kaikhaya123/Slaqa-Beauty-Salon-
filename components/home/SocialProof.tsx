@@ -96,7 +96,7 @@ export default function SocialProof() {
       location: 'Morningside',
     },
     {
-      name: 'Khayalami Zondi',
+      name: 'Khayalami Z.',
       rating: 5,
       text: 'Exceptional barbershop with outstanding service. The barber delivers immaculate haircuts with meticulous attention to detail. Highly professional.',
       location: 'Mobeni heights',
