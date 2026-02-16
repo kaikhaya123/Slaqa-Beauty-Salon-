@@ -43,20 +43,21 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       setIsLoadingSlots(true)
       const dateString = format(date, 'yyyy-MM-dd')
       
-      // Debug barber ID
-      console.log('Fetching availability for barberId:', barberId, 'type:', typeof barberId)
+      console.log('🔍 Fetching availability for:', { date: dateString, barberId, type: typeof barberId })
       
       const response = await fetch(`/api/availability?date=${dateString}&barberId=${barberId}`)
       
       if (!response.ok) {
-        console.error('Availability API failed:', response.status)
-        return { slots: [], changes: [] }
+        console.error('❌ Availability API failed:', response.status)
+        return []
       }
 
       const data = await response.json()
+      console.log('📊 API Response:', data)
+      console.log('📊 Taken slots:', data.takenSlots)
       return data.takenSlots || []
     } catch (error) {
-      console.error('Error fetching availability:', error)
+      console.error('❌ Error fetching availability:', error)
       return []
     } finally {
       setIsLoadingSlots(false)
@@ -86,11 +87,11 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
         availableToday = filtered.filter(slot => slot > currentTime)
       }
 
-      // Debug barber.id before making API call
-      console.log('Debug - barber.id:', barber.id, 'type:', typeof barber.id)
+      console.log('📅 Loading slots for date:', format(selectedDate, 'yyyy-MM-dd'), 'barber:', barber.name, 'barber.id:', barber.id)
 
       // Fetch taken slots from database
       const taken = await fetchAvailability(selectedDate, barber.id)
+      console.log('✅ Taken slots set to:', taken)
       setTakenSlots(taken)
       
       // Set available slots (excluding taken ones)
@@ -293,18 +294,16 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
               })}
             </div>
             
-            {takenSlots.length > 0 && (
-              <div className="mt-4 flex items-center justify-center gap-4 text-xs text-black">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-black rounded border"></div>
-                  <span>Available</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-white border border-outline-black rounded"></div>
-                  <span>Taken</span>
-                </div>
+            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-black">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-black rounded border"></div>
+                <span>Available</span>
               </div>
-            )}
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-white border border-black rounded"></div>
+                <span>Taken</span>
+              </div>
+            </div>
           </>
         ) : (
           <div className="text-center py-8 text-gray-500">
