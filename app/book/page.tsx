@@ -142,8 +142,8 @@ export default function BookPage() {
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
                       s <= step
-                        ? 'bg-accent-600 text-white'
-                        : 'bg-gray-300 text-gray-600'
+                        ? 'bg-gray-500 text-white'
+                        : 'bg-black text-white'
                     }`}
                   >
                     {s}
@@ -151,7 +151,7 @@ export default function BookPage() {
                   {s < 4 && (
                     <div
                       className={`w-16 md:w-24 h-1 ${
-                        s < step ? 'bg-accent-600' : 'bg-gray-300'
+                        s < step ? 'bg-accent-600' : 'bg-black'
                       }`}
                     />
                   )}
