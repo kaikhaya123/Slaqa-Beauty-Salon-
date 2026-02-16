@@ -17,6 +17,7 @@ interface Booking {
   date: string | null
   time: string | null
   barber: string | null
+  notes: string | null
   queuenumber: string | null
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled'
   source: string
@@ -238,7 +239,8 @@ export default function BookingsPage() {
         b.phone.includes(query) ||
         b.email?.toLowerCase().includes(query) ||
         b.bookingid.toLowerCase().includes(query) ||
-        b.service.toLowerCase().includes(query)
+        b.service.toLowerCase().includes(query) ||
+        b.notes?.toLowerCase().includes(query)
       )
     }
 
@@ -660,6 +662,14 @@ export default function BookingsPage() {
                         <p className="text-xs sm:text-sm lg:text-base font-black break-words">{booking.barber || 'Any'}</p>
                       </div>
                     </div>
+
+                    {/* Special Requests / Notes */}
+                    {booking.notes && (
+                      <div className="bg-accent-50 border-2 border-accent-200 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4">
+                        <p className="text-xs font-bold text-dark-600 uppercase mb-1 sm:mb-1.5">Special Requests</p>
+                        <p className="text-xs sm:text-sm text-dark-900 whitespace-pre-wrap break-words">{booking.notes}</p>
+                      </div>
+                    )}
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
