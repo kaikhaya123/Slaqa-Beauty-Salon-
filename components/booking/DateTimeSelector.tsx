@@ -103,6 +103,10 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
     }
 
     loadSlots()
+
+    return () => {
+      // Cleanup if needed
+    }
   }, [selectedDate, barber.id])
 
   // Subscribe to real-time slot updates via WebSocket
@@ -243,18 +247,25 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
 
       {/* Time Selection */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-primary-900 mb-4">
-          Choose a Time
-          {isLoadingSlots ? (
-            <span className="ml-2 text-sm text-gray-600 font-normal">
-              Loading availability...
-            </span>
-          ) : (
-            <span className="ml-2 text-sm text-gray-600 font-normal">
-              ({availableSlots.filter(slot => !takenSlots.includes(slot)).length} slots available)
-            </span>
-          )}
-        </h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-primary-900">
+            Choose a Time
+            {isLoadingSlots ? (
+              <span className="ml-2 text-sm text-gray-600 font-normal">
+                Loading availability...
+              </span>
+            ) : (
+              <span className="ml-2 text-sm text-gray-600 font-normal">
+                ({availableSlots.filter(slot => !takenSlots.includes(slot)).length} slots available)
+              </span>
+            )}
+          </h3>
+          {/* Real-time connection status */}
+          <div className="flex items-center gap-2 text-xs">
+            <div className={`w-2 h-2 rounded-full ${isRealtimeConnected ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+            <span className="text-gray-600">{isRealtimeConnected ? 'Live' : 'Checking...'}</span>
+          </div>
+        </div>
         
         {isLoadingSlots ? (
           <div className="text-center py-8 text-gray-500">
@@ -277,14 +288,14 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
                       isTaken
                         ? 'bg-white text-black cursor-not-allowed border border-black'
                         : isSelected
-                        ? 'bg-black text-white shadow-lg'
+                        ? 'bg-white text-black shadow-lg'
                         : 'bg-black hover:bg-black text-white'
                     }`}
                   >
                     <div className="text-sm">{time}</div>
                     <div
                       className={`text-xs font-normal ${
-                        isTaken ? 'text-black' : isSelected ? 'text-white' : 'text-white'
+                        isTaken ? 'text-black' : isSelected ? 'text-black' : 'text-white'
                       }`}
                     >
                       {isTaken ? 'Taken' : 'Available'}
