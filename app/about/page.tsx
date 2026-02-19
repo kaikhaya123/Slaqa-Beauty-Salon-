@@ -69,7 +69,7 @@ export default function AboutPage() {
               We believe that looking good is about feeling good. Our team of skilled professionals specializes in modern barbering, hair styling, beauty services, and special event work. Every client is treated with care and attention to detail.
             </p>
             <p className="text-black leading-relaxed">
-              Today, with a strong social presence (61.4K Instagram followers) and partnerships with local businesses, Slaqa continues to serve the Durban area with professional services and a commitment to excellence. We're proud of our collaborations with other brands and our growing community of satisfied clients.
+              Today, with a strong social presence (61.4K Instagram followers) and partnerships with local businesses, Slaqa continues to serve the Durban area with professional services and a commitment to excellence. We&apos;re proud of our collaborations with other brands and our growing community of satisfied clients.
             </p> </div> <div className="relative h-80 rounded-lg overflow-hidden shadow-lg bg-white">
             {/* Hero Image Placeholder - Replace with your shop image */}
             {/* TODO: Add hero image path to: /public/Images/about-hero.jpg or .png */}
