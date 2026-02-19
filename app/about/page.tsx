@@ -42,7 +42,7 @@ export default function AboutPage() {
             className="max-w-3xl"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              About Pro Barber Shop
+              About Slaqa
             </h1>
           </motion.div>
         </div>
@@ -63,19 +63,19 @@ export default function AboutPage() {
           <div>
             <h2 className="text-2xl font-bold text-black mb-4">Our Story</h2>
             <p className="text-black mb-4 leading-relaxed">
-              Pro Barber Shop was founded with a simple mission: to bring world-class barbering 
-              services to Durban, in the township of lamontiville. We believe that a fresh haircut is more than just clean fade&mdash;it&apos;s 
-              about confidence, style, and self-expression.
+              Slaqa was founded in 2015 with a vision to create a premium beauty, hair and barbering brand serving the Durban community. We started in one location and have grown to three thriving salons in KwaMashu, Waterloo, and Umlazi, building a reputation for quality service and excellence.
             </p>
             <p className="text-black mb-4 leading-relaxed">
-              From our establishment in the township of lamontiville, we&apos;ve built a loyal community of clients who 
-              appreciate quality craftsmanship, attention to detail, and genuine customer care. 
-Every barber on our team is hand-picked for their skill and passion for the craft. </p> <p className="text-black leading-relaxed"> Today, we&apos;re proud to offer both traditional walk-in services and modern digital booking solutions, making it easier than ever to get the cut you deserve. </p> </div> <div className="relative h-80 rounded-lg overflow-hidden shadow-lg bg-white">
+              We believe that looking good is about feeling good. Our team of skilled professionals specializes in modern barbering, hair styling, beauty services, and special event work. Every client is treated with care and attention to detail.
+            </p>
+            <p className="text-black leading-relaxed">
+              Today, with a strong social presence (61.4K Instagram followers) and partnerships with local businesses, Slaqa continues to serve the Durban area with professional services and a commitment to excellence. We're proud of our collaborations with other brands and our growing community of satisfied clients.
+            </p> </div> <div className="relative h-80 rounded-lg overflow-hidden shadow-lg bg-white">
             {/* Hero Image Placeholder - Replace with your shop image */}
             {/* TODO: Add hero image path to: /public/Images/about-hero.jpg or .png */}
             <Image
               src="/Images/pexels-rdne-7697476.jpg"
-              alt="Pro Barber Shop  - Our Story"
+              alt="Slaqa - Our Story"
               fill
               className="object-cover"
               onError={(e) => {
@@ -136,7 +136,7 @@ Every barber on our team is hand-picked for their skill and passion for the craf
           animate="visible"
           custom={3}
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Choose Pro Barber Shop?</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Choose Slaqa?</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
@@ -176,8 +176,8 @@ Every barber on our team is hand-picked for their skill and passion for the craf
                 icon: '/Icons/money.png',
               },
               {
-                title: 'Convenient Location',
-                description: 'Convenient Lamontville location in Chatsworth, Durban',
+                title: 'Multiple Locations',
+                description: 'Three convenient locations in Durban (KwaMashu, Waterloo, Umlazi)',
                 // TODO: Add icon image path - icon_location.svg or .png
                 icon: '/Icons/location (2).png',
               },
@@ -243,9 +243,9 @@ Every barber on our team is hand-picked for their skill and passion for the craf
             custom={5}
             className="max-w-2xl"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Look Fresh?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Experience Slaqa?</h2>
             <p className="text-base md:text-lg text-gray-100 mb-8">
-              Get the sharp, professional look you deserve. Book your appointment today and experience Pro Barber Shop excellence.
+              Get premium beauty and barbering services. Book your appointment today and experience Slaqa excellence across our three locations.
             </p>
             <a
               href="/book"

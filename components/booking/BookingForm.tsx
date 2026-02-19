@@ -67,10 +67,10 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
   return (
     <div>
       <div className="mb-6">
-        <button onClick={onBack} className="text-accent-600 hover:text-accent-700 mb-3 pointer-events-auto">
+        <button onClick={onBack} className="text-gold-600 hover:text-gold-700 mb-3 pointer-events-auto">
           ← Back to date & time
         </button>
-        <h2 className="text-2xl font-bold text-primary-900 mb-2">
+        <h2 className="text-2xl font-bold text-black-900 mb-2">
           Your Details
         </h2>
         <p className="text-gray-600">
@@ -79,8 +79,8 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
       </div>
 
       {/* Booking Summary */}
-      <div className="bg-primary-50 rounded-lg p-6 mb-6">
-        <h3 className="font-semibold text-primary-900 mb-4">Booking Summary</h3>
+      <div className="bg-white rounded-lg p-6 mb-6">
+        <h3 className="font-semibold text-black-900 mb-4">Booking Summary</h3>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">Service:</span>

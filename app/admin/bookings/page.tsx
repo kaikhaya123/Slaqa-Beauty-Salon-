@@ -268,10 +268,10 @@ export default function BookingsPage() {
 
   if (authLoading || loading && bookings.length === 0) {
     return (
-      <div className="min-h-screen bg-cream-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-white flex items-center justify-center p-4">
         <div className="flex flex-col items-center space-y-4">
-          <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-dark-900 border-t-transparent"></div>
-          <div className="text-lg sm:text-xl font-bold text-dark-900 text-center">Loading bookings...</div>
+          <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-black-900 border-t-transparent"></div>
+          <div className="text-lg sm:text-xl font-bold text-black-900 text-center">Loading bookings...</div>
         </div>
       </div>
     )
@@ -284,13 +284,13 @@ export default function BookingsPage() {
   const filteredBookings = getFilteredBookings()
 
   return (
-    <div className="w-full h-full flex flex-col bg-cream-50 overflow-hidden">
+    <div className="w-full h-full flex flex-col bg-white overflow-hidden">
       {/* Refresh Button - Positioned in header slot on mobile */}
       {refreshSlot && createPortal(
         <button
           onClick={handleManualRefresh}
           disabled={loading}
-          className="lg:hidden flex items-center justify-center h-10 w-10 bg-cream-200 hover:bg-cream-300 text-dark-900 rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+          className="lg:hidden flex items-center justify-center h-10 w-10 bg-gray-200 hover:bg-gray-300 text-black-900 rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
           title="Refresh data"
           aria-label="Refresh bookings"
         >
@@ -306,21 +306,21 @@ export default function BookingsPage() {
       )}
 
       {/* Page Header (desktop only) */}
-      <div className="hidden lg:block sticky top-0 z-30 bg-white border-b-2 border-cream-300 shadow-sm flex-shrink-0">
+      <div className="hidden lg:block sticky top-0 z-30 bg-white border-b-2 border-gray-300 shadow-sm flex-shrink-0">
         <div className="px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3 lg:py-4">
           <div className="flex items-center justify-between gap-2 sm:gap-3">
             <div className="min-w-0 flex-1">
-              <h1 className="text-lg sm:text-xl lg:text-2xl font-black text-dark-900 truncate">All Bookings</h1>
-              <p className="text-xs text-dark-600 font-semibold mt-0.5">{filteredBookings.length} bookings found</p>
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-black text-black-900 truncate">All Bookings</h1>
+              <p className="text-xs text-gray-600 font-semibold mt-0.5">{filteredBookings.length} bookings found</p>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-              <div className="hidden sm:block text-xs text-dark-600 font-medium">
+              <div className="hidden sm:block text-xs text-gray-600 font-medium">
                 {lastRefresh.toLocaleTimeString()}
               </div>
               <button
                 onClick={handleManualRefresh}
                 disabled={loading}
-                className="px-2 sm:px-3 py-1.5 sm:py-2 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
+                className="px-2 sm:px-3 py-1.5 sm:py-2 bg-gray-200 hover:bg-gray-300 text-black-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
                 title="Refresh data"
               >
                 <Image
@@ -373,7 +373,7 @@ export default function BookingsPage() {
           )}
 
           {/* Filters and Search */}
-          <div className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg p-2.5 sm:p-3 lg:p-4">
+          <div className="bg-white border-2 border-gray-300 rounded-lg sm:rounded-xl shadow-lg p-2.5 sm:p-3 lg:p-4">
             <div className="space-y-3 sm:space-y-4">
               {/* Search Bar */}
               <div>
@@ -382,7 +382,7 @@ export default function BookingsPage() {
                   placeholder="Search bookings..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm border-2 border-cream-300 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-dark-900 focus:border-transparent font-semibold text-dark-900 placeholder:text-dark-400"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm border-2 border-gray-300 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-black-900 focus:border-transparent font-semibold text-black-900 placeholder:text-gray-400"
                 />
               </div>
 
@@ -463,7 +463,7 @@ export default function BookingsPage() {
           </div>
 
           {/* Archive Old Bookings Section */}
-          <div className="bg-dark-900 border-black rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-5 lg:p-6">
+          <div className="bg-black-900 border-black rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-5 lg:p-6">
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
               <span className="text-xl sm:text-2xl">📦</span>
               <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">
@@ -499,7 +499,7 @@ export default function BookingsPage() {
 
               {/* Status Filter */}
               <div>
-                <label className="block text-xs sm:text-sm font-bold text-dark-700 mb-1.5 sm:mb-2">
+                <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-1.5 sm:mb-2">
                   Status filter (optional):
                 </label>
                 <select
@@ -544,7 +544,7 @@ export default function BookingsPage() {
             {/* Preview Results */}
             {previewCount !== null && (
               <div className={`p-3 rounded-lg ${previewCount > 0 ? 'bg-orange-100 border border-orange-300' : 'bg-gray-100 border border-gray-300'}`}>
-                <p className="text-sm font-bold text-dark-900">
+                <p className="text-sm font-bold text-black-900">
                   {previewCount === 0 ? (
                     '✓ No bookings found matching these criteria'
                   ) : (
@@ -562,17 +562,17 @@ export default function BookingsPage() {
           {showArchiveConfirm && (
             <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4">
               <div className="bg-black rounded-xl shadow-2xl p-6 max-w-md w-full">
-                <h3 className="text-xl font-bold text-dark-900 mb-3">Confirm Archive</h3>
-                <p className="text-dark-600 mb-4">
+                <h3 className="text-xl font-bold text-black-900 mb-3">Confirm Archive</h3>
+                <p className="text-gray-600 mb-4">
                   Are you sure you want to archive <strong>{previewCount}</strong> booking{previewCount !== 1 ? 's' : ''}?
                 </p>
-                <p className="text-sm text-dark-500 mb-6">
+                <p className="text-sm text-gray-500 mb-6">
                   Bookings will be moved to the archive table. They can be accessed later for reporting but will not appear in your active bookings.
                 </p>
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowArchiveConfirm(false)}
-                    className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-dark-900 font-bold rounded-lg transition-colors"
+                    className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-black-900 font-bold rounded-lg transition-colors"
                   >
                     Cancel
                   </button>
@@ -589,7 +589,7 @@ export default function BookingsPage() {
 
           {/* Bookings List */}
           <div className="space-y-2 sm:space-y-2.5 lg:space-y-3">{filteredBookings.length === 0 ? (
-              <div className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 text-center">
+              <div className="bg-white border-2 border-gray-300 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 text-center">
                 <Image
                   src="/Icons/appointment.png"
                   alt="No bookings"
@@ -597,24 +597,24 @@ export default function BookingsPage() {
                   height={40}
                   className="object-contain mx-auto mb-2 sm:mb-3 lg:mb-4 opacity-50"
                 />
-                <p className="text-sm sm:text-lg lg:text-xl font-bold text-dark-600">No bookings found</p>
-                <p className="text-xs sm:text-sm text-dark-400 mt-1.5">Try adjusting your filters</p>
+                <p className="text-sm sm:text-lg lg:text-xl font-bold text-gray-600">No bookings found</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1.5">Try adjusting your filters</p>
               </div>
             ) : (
               filteredBookings.map((booking) => (
                 <div
                   key={booking.id}
-                  className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg p-2.5 sm:p-3 lg:p-4 hover:shadow-xl transition-all"
+                  className="bg-white border-2 border-gray-300 rounded-lg sm:rounded-xl shadow-lg p-2.5 sm:p-3 lg:p-4 hover:shadow-xl transition-all"
                 >
                   <div className="flex flex-col gap-2 sm:gap-3 lg:gap-4">
                     {/* Booking Info */}
                     <div className="space-y-1.5 sm:space-y-2">
                       <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                        <h3 className="text-sm sm:text-base lg:text-lg font-black text-dark-900 break-words">
+                        <h3 className="text-sm sm:text-base lg:text-lg font-black text-black-900 break-words">
                           {booking.name || 'Walk-in Customer'}
                         </h3>
                         {booking.queuenumber && (
-                          <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-black bg-dark-900 text-cream-50 border-2 border-cream-300 whitespace-nowrap">
+                          <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-black bg-black-900 text-white border-2 border-gray-300 whitespace-nowrap">
                             Client no.{booking.queuenumber}
                           </span>
                         )}
@@ -623,41 +623,41 @@ export default function BookingsPage() {
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
                         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                          <span className="font-bold text-dark-600 flex-shrink-0">Phone:</span>
-                          <span className="text-dark-900 break-all">{booking.phone}</span>
+                          <span className="font-bold text-gray-600 flex-shrink-0">Phone:</span>
+                          <span className="text-black-900 break-all">{booking.phone}</span>
                         </div>
                         {booking.email && (
                           <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                            <span className="font-bold text-dark-600 flex-shrink-0">Email:</span>
-                            <span className="text-dark-900 truncate">{booking.email}</span>
+                            <span className="font-bold text-gray-600 flex-shrink-0">Email:</span>
+                            <span className="text-black-900 truncate">{booking.email}</span>
                           </div>
                         )}
                         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                          <span className="font-bold text-dark-600 flex-shrink-0">Service:</span>
+                          <span className="font-bold text-gray-600 flex-shrink-0">Service:</span>
                           <span className="text-dark-900 break-words">{booking.service}</span>
                         </div>
                         <div className="flex items-center gap-1.5 sm:gap-2">
-                          <span className="font-bold text-dark-600 flex-shrink-0">Price:</span>
-                          <span className="text-dark-900">R{servicePrices[booking.service] || 0}</span>
+                          <span className="font-bold text-gray-600 flex-shrink-0">Price:</span>
+                          <span className="text-black-900">R{servicePrices[booking.service] || 0}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Date & Time & Barber */}
                     <div className="grid grid-cols-3 gap-2 sm:gap-2 lg:gap-3">
-                      <div className="bg-dark-900 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
-                        <p className="text-xs font-bold text-cream-50 uppercase">Date</p>
-                        <p className="text-xs sm:text-sm lg:text-base font-black text-cream-50 break-words">
+                      <div className="bg-black-900 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
+                        <p className="text-xs font-bold text-white uppercase">Date</p>
+                        <p className="text-xs sm:text-sm lg:text-base font-black text-white break-words">
                           {booking.date ? format(new Date(booking.date), 'MMM dd') : 'Not set'}
                         </p>
                       </div>
-                      <div className="bg-dark-900 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
-                        <p className="text-xs font-bold text-cream-50 uppercase">Time</p>
-                        <p className="text-xs sm:text-sm lg:text-base font-black text-cream-50">
+                      <div className="bg-black-900 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl">
+                        <p className="text-xs font-bold text-white uppercase">Time</p>
+                        <p className="text-xs sm:text-sm lg:text-base font-black text-white">
                           {booking.time || '-'}
                         </p>
                       </div>
-                      <div className="bg-dark-900 text-cream-50 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-center">
+                      <div className="bg-black-900 text-white px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-center">
                         <p className=" text-xs font-bold uppercase">Barber</p>
                         <p className="text-xs sm:text-sm lg:text-base font-black break-words">{booking.barber || 'Any'}</p>
                       </div>
@@ -665,9 +665,9 @@ export default function BookingsPage() {
 
                     {/* Special Requests / Notes */}
                     {booking.notes && (
-                      <div className="bg-accent-50 border-2 border-accent-200 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4">
-                        <p className="text-xs font-bold text-dark-600 uppercase mb-1 sm:mb-1.5">Special Requests</p>
-                        <p className="text-xs sm:text-sm text-dark-900 whitespace-pre-wrap break-words">{booking.notes}</p>
+                      <div className="bg-gold-50 border-2 border-gold-200 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4">
+                        <p className="text-xs font-bold text-gray-600 uppercase mb-1 sm:mb-1.5">Special Requests</p>
+                        <p className="text-xs sm:text-sm text-black-900 whitespace-pre-wrap break-words">{booking.notes}</p>
                       </div>
                     )}
 
@@ -677,7 +677,7 @@ export default function BookingsPage() {
                         <button
                           onClick={() => updateBookingStatus(booking.id, 'confirmed')}
                           disabled={updatingIds.includes(booking.id)}
-                          className="flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-2 bg-dark-900 hover:bg-dark text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm flex items-center justify-center gap-1 min-w-max"
+                          className="flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-2 bg-black-900 hover:bg-gray-900 text-white font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm flex items-center justify-center gap-1 min-w-max"
                           title="Confirm booking"
                         >
                           {updatingIds.includes(booking.id) ? (

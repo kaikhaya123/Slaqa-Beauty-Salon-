@@ -130,7 +130,7 @@ export default function BookPage() {
     <Section background="gray" padding="lg">
       <div className="max-w-4xl mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-3xl md:text-4xl font-heading font-bold text-primary-900 mb-3">
+        <h1 className="text-3xl md:text-4xl font-heading font-bold text-black-900 mb-3">
         Book Your Appointment
         </h1>
         <p className="text-gray-600">
@@ -156,7 +156,7 @@ export default function BookPage() {
                   {s < 4 && (
                     <div
                       className={`w-16 md:w-24 h-1 ${
-                        s < step ? 'bg-accent-600' : 'bg-black'
+                        s < step ? 'bg-gold-600' : 'bg-black'
                       }`}
                     />
                   )}

@@ -16,7 +16,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-white text-dark-900">
+    <footer className="bg-white text-black-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -30,9 +30,9 @@ export default function Footer() {
                 className="h-40 w-auto"
               />
             </div>
-            <p className="text-dark-600 mb-4">
-              Premium Haircut services in the heart of Durban. 
-              Experience professional cuts, traditional shaves, and expert styling.
+            <p className="text-gray-600 mb-4">
+              Slaqa is a multi-location beauty, hair and barbering brand operating across Durban. 
+              Experience professional services at our locations in KwaMashu, Waterloo, and Umlazi.
             </p>
             
             {/* Social Media Links */}
@@ -72,7 +72,7 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/book" className="text-dark-700 hover:text-dark-900 transition-colors">
+                <Link href="/book" className="text-gray-700 hover:text-black-900 transition-colors">
                   Book Appointment
                 </Link>
               </li>
@@ -80,12 +80,12 @@ export default function Footer() {
 
               </li>
               <li>
-                <Link href="/barbers" className="text-dark-600 hover:text-accent-600 transition-colors">
+                <Link href="/barbers" className="text-gray-600 hover:text-gold-600 transition-colors">
                   Our Barbers
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-dark-600 hover:text-accent-600 transition-colors">
+                <Link href="/contact" className="text-gray-600 hover:text-gold-600 transition-colors">
                   Contact Us
                 </Link>
               </li>
@@ -104,7 +104,7 @@ export default function Footer() {
                   height={20} 
                   className="h-5 w-5 mt-0.5 flex-shrink-0"
                 />
-                <span className="text-dark-600 text-sm">{BUSINESS_INFO.address}</span>
+                <span className="text-gray-600 text-sm">{BUSINESS_INFO.address}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Image 
@@ -114,7 +114,7 @@ export default function Footer() {
                   height={20} 
                   className="h-5 w-5 flex-shrink-0"
                 />
-                <a href={`tel:${BUSINESS_INFO.phone}`} className="text-dark-600 hover:text-accent-600 text-sm">
+                <a href={`tel:${BUSINESS_INFO.phone}`} className="text-gray-600 hover:text-gold-600 text-sm">
                   {BUSINESS_INFO.phone}
                 </a>
               </li>
@@ -126,7 +126,7 @@ export default function Footer() {
                   height={20} 
                   className="h-5 w-5 flex-shrink-0"
                 />
-                <a href={`mailto:${BUSINESS_INFO.email}`} className="text-dark-600 hover:text-accent-600 text-sm">
+                <a href={`mailto:${BUSINESS_INFO.email}`} className="text-gray-600 hover:text-gold-600 text-sm">
                   {BUSINESS_INFO.email}
                 </a>
               </li>
@@ -138,7 +138,7 @@ export default function Footer() {
                   height={20} 
                   className="h-5 w-5 mt-0.5 flex-shrink-0"
                 />
-                <div className="text-dark-600 text-sm">
+                <div className="text-gray-600 text-sm">
                   <div>Mon-Fri: {BUSINESS_INFO.hours.weekdays}</div>
                   <div>Sat: {BUSINESS_INFO.hours.saturday}</div>
                   <div>Sun: {BUSINESS_INFO.hours.sunday}</div>
@@ -149,8 +149,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-200">
-          <p className="text-center text-dark-500 text-sm">
-            © {new Date().getFullYear()} Pro Barber Shop. All rights reserved.
+          <p className="text-center text-gray-500 text-sm">
+            © {new Date().getFullYear()} Slaqa. All rights reserved.
           </p>
         </div>
       </div>

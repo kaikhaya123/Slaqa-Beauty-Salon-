@@ -99,29 +99,29 @@ export default function BookingConfirmation({
   }, [lottieLoaded]);
 
   return (
-    <div className="min-h-screen bg-cream-50 p-4">
+    <div className="min-h-screen bg-white p-4">
       <div className="max-w-2xl mx-auto">
         {/* Header Section */}
-        <div className="bg-dark-900 text-center py-8 px-6 mb-0 relative overflow-hidden">
+        <div className="bg-black-900 text-center py-8 px-6 mb-0 relative overflow-hidden">
           <div className="relative z-10">
-            <div className="w-20 h-20 bg-cream-50/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" onLoad={() => setLottieLoaded(true)} />
               <div ref={lottieRef} className="h-12 w-12" />
             </div>
-            <h1 className="text-4xl font-bold text-cream-50 mb-3 font-sans">
+            <h1 className="text-4xl font-bold text-white mb-3 font-sans">
               Your Appointment
             </h1>
-            <h2 className="text-4xl font-bold text-cream-50 mb-2 font-sans">
+            <h2 className="text-4xl font-bold text-white mb-2 font-sans">
               Awaits!
             </h2>
-            <p className="text-cream-200 text-sm max-w-md mx-auto leading-relaxed">
+            <p className="text-gray-300 text-sm max-w-md mx-auto leading-relaxed">
               Your appointment has been confirmed and saved to our system. We&apos;ll contact you shortly via WhatsApp to finalize details.
             </p>
           </div>
         </div>
 
         {/* Main Content Card */}
-        <div className="bg-cream-50 border-l-[10px] border-r-[10px] border-dark-900 p-6">
+        <div className="bg-white border-l-[10px] border-r-[10px] border-black-900 p-6">
           {/* Success Icon & Title */}
           <div className="text-center mb-6">
             <Image 
@@ -131,15 +131,15 @@ export default function BookingConfirmation({
               height={60} 
               className="h-15 w-15 mx-auto mb-4"
             />
-            <h2 className="text-2xl font-bold text-dark-900 font-sans">
+            <h2 className="text-2xl font-bold text-black-900 font-sans">
               Appointment Confirmed
             </h2>
-            <p className="text-dark-600 text-sm mt-2">
-              Reference: <span className="font-mono font-bold text-dark-900">{bookingId}</span>
+            <p className="text-gray-700 text-sm mt-2">
+              Reference: <span className="font-mono font-bold text-black-900">{bookingId}</span>
             </p>
             {queueNumber && (
               <div className="mt-3">
-                <span className="inline-block px-4 py-2 bg-dark-900 text-cream-50 rounded-full text-sm font-bold">
+                <span className="inline-block px-4 py-2 bg-gold-300 text-black-900 rounded-full text-sm font-bold">
                   Client no.{queueNumber}
                 </span>
               </div>
@@ -149,29 +149,29 @@ export default function BookingConfirmation({
           {/* Date & Time Section - Prominent */}
           <div className="grid grid-cols-3 gap-0 mb-6">
             {/* Date Display */}
-            <div className="bg-cream-50 border-l-[1px] border-dark-900 text-center p-4">
-              <h3 className="text-3xl font-bold text-dark-900 font-sans leading-none">
+            <div className="bg-white border-l-[1px] border-black-900 text-center p-4">
+              <h3 className="text-3xl font-bold text-black-900 font-sans leading-none">
                 {format(date, 'd')}
               </h3>
-              <h4 className="text-lg font-bold text-dark-900 font-sans">
+              <h4 className="text-lg font-bold text-black-900 font-sans">
                 {format(date, 'MMM').toUpperCase()}
               </h4>
             </div>
             
             {/* Appointment Details */}
             <div className="col-span-2 p-4 text-left">
-              <div className="text-dark-600 text-sm mb-1">
+              <div className="text-gray-700 text-sm mb-1">
                 {format(date, 'EEEE, MMMM d, yyyy')}
               </div>
-              <div className="font-semibold text-dark-900 text-lg mb-2">{time}</div>
-              <div className="text-sm text-dark-600">
+              <div className="font-semibold text-black-900 text-lg mb-2">{time}</div>
+              <div className="text-sm text-gray-700">
                 Please arrive 5 minutes early for your appointment.
               </div>
             </div>
           </div>
 
           {/* Service Details Section */}
-          <div className="bg-dark-900 text-cream-50 p-6 mb-6 rounded-lg">
+          <div className="bg-black-900 text-white p-6 mb-6 rounded-lg">
             <div className="grid grid-cols-3 gap-4">
               {/* Service Image */}
               <div className="text-center">
@@ -186,10 +186,10 @@ export default function BookingConfirmation({
               
               {/* Service Details */}
               <div className="col-span-2">
-                <h3 className="text-xl font-bold mb-2 text-cream-50">
+                <h3 className="text-xl font-bold mb-2 text-white">
                   {service.name}
                 </h3>
-                <p className="text-cream-200 text-sm mb-2">
+                <p className="text-gray-300 text-sm mb-2">
                   {service.duration} minutes • R{service.price}
                 </p>
                 <p className="text-cream-200 text-sm leading-relaxed">
@@ -200,7 +200,7 @@ export default function BookingConfirmation({
           </div>
 
           {/* Barber Details Section */}
-          <div className="bg-dark-900 text-cream-50 p-6 mb-6 rounded-lg border-t border-cream-50/20">
+          <div className="bg-black-900 text-white p-6 mb-6 rounded-lg border-t border-white/20">
             <div className="grid grid-cols-3 gap-4">
               {/* Barber Image */}
               <div className="text-center">
@@ -215,10 +215,10 @@ export default function BookingConfirmation({
               
               {/* Barber Details */}
               <div className="col-span-2">
-                <h3 className="text-xl font-bold mb-2 text-cream-50">
+                <h3 className="text-xl font-bold mb-2 text-white">
                   {barber.name}
                 </h3>
-                <p className="text-cream-200 text-sm mb-2">
+                <p className="text-gray-300 text-sm mb-2">
                   {barber.title}
                 </p>
                 <p className="text-cream-200 text-sm leading-relaxed">
@@ -230,7 +230,7 @@ export default function BookingConfirmation({
 
           {/* Special Requests Section - if provided */}
           {specialRequests && (
-            <div className="bg-accent-50 border border-accent-200 rounded-lg p-6 mb-6">
+            <div className="bg-gold-50 border border-gold-200 rounded-lg p-6 mb-6">
               <div className="flex items-start space-x-4">
                 <Image 
                   src="/Icons/interview.png" 
@@ -240,15 +240,15 @@ export default function BookingConfirmation({
                   className="h-6 w-6 mt-1 flex-shrink-0"
                 />
                 <div className="flex-1">
-                  <h4 className="font-bold text-dark-900 mb-2">Special Requests</h4>
-                  <p className="text-dark-700 text-sm whitespace-pre-wrap break-words">{specialRequests}</p>
+                  <h4 className="font-bold text-black-900 mb-2">Special Requests</h4>
+                  <p className="text-gray-700 text-sm whitespace-pre-wrap break-words">{specialRequests}</p>
                 </div>
               </div>
             </div>
           )}
 
           {/* Location Details */}
-          <div className="bg-cream-50 border border-cream-300 rounded-lg p-6 mb-6">
+          <div className="bg-gray-100 border border-gray-300 rounded-lg p-6 mb-6">
             <div className="flex items-start space-x-4">
               <Image 
                 src="/Icons/location.png" 
@@ -258,9 +258,9 @@ export default function BookingConfirmation({
                 className="h-6 w-6 mt-1 flex-shrink-0"
               />
               <div>
-                <h4 className="font-bold text-dark-900 mb-2">Visit Us At</h4>
-                <p className="text-dark-700 font-medium">{BUSINESS_INFO.address}</p>
-                <p className="text-sm text-dark-600 mt-2">
+                <h4 className="font-bold text-black-900 mb-2">Visit Us At</h4>
+                <p className="text-gray-700 font-medium">{BUSINESS_INFO.address}</p>
+                <p className="text-sm text-gray-600 mt-2">
                   Located conveniently in Durban for all your grooming needs.
                 </p>
               </div>
@@ -268,8 +268,8 @@ export default function BookingConfirmation({
           </div>
 
           {/* What Happens Next */}
-          <div className="bg-cream-50 border border-cream-50 rounded-lg p-6 mb-6">
-            <h4 className="font-bold text-black mb-4 flex items-center gap-3">
+          <div className="bg-gray-100 border border-gray-100 rounded-lg p-6 mb-6">
+            <h4 className="font-bold text-black-900 mb-4 flex items-center gap-3">
               <Image 
                 src="/Icons/chatting.png" 
                 alt="Next Steps" 
@@ -279,7 +279,7 @@ export default function BookingConfirmation({
               />
               What Happens Next?
             </h4>
-            <div className="space-y-3 text-sm text-black">
+            <div className="space-y-3 text-sm text-gray-900">
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-cream-400 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Your booking has been saved to our system</span>
@@ -300,7 +300,7 @@ export default function BookingConfirmation({
           </div>
 
           {/* WhatsApp Auto-Fill Notice */}
-          <div className="bg-dark-900 text-cream-50 border-2 border-cream-300 rounded-lg p-5 mb-6">
+          <div className="bg-black-900 text-white border-2 border-gold-300 rounded-lg p-5 mb-6">
             <div className="flex items-start gap-3 mb-3">
               <Image 
                 src="/Icons/whatsapp.png" 
@@ -310,13 +310,13 @@ export default function BookingConfirmation({
                 className="h-7 w-7 flex-shrink-0 mt-0.5"
               />
               <div>
-                <h4 className="font-bold text-cream-50 mb-2">Quick & Easy WhatsApp Confirmation</h4>
-                <p className="text-cream-200 text-sm leading-relaxed">
-                  Click the button below and WhatsApp will open with your booking details <strong className="text-cream-50">already typed for you</strong>. Just press send — no typing required!
+                <h4 className="font-bold text-white mb-2">Quick & Easy WhatsApp Confirmation</h4>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Click the button below and WhatsApp will open with your booking details <strong className="text-white">already typed for you</strong>. Just press send — no typing required!
                 </p>
               </div>
             </div>
-            <div className="bg-cream-50/10 rounded p-3 text-xs text-cream-200 font-mono leading-relaxed">
+            <div className="bg-white/10 rounded p-3 text-xs text-gray-300 font-mono leading-relaxed">
               Your message will include:<br/>
               ✓ Name & Service<br/>
               ✓ Barber & Date/Time<br/>
@@ -377,19 +377,19 @@ export default function BookingConfirmation({
         </div>
 
         {/* Bottom Contact */}
-        <div className="bg-cream-50 text-center py-6">
-          <p className="text-sm text-dark-600 mb-3">Need Immediate Help?</p>
+        <div className="bg-gray-100 text-center py-6">
+          <p className="text-sm text-gray-700 mb-3">Need Immediate Help?</p>
           <div className="flex justify-center space-x-6">
             <a
               href={`tel:${BUSINESS_INFO.phone}`}
-              className="flex items-center space-x-2 text-dark-900 hover:text-dark-700"
+              className="flex items-center space-x-2 text-black-900 hover:text-gray-700"
             >
               <Image src="/Icons/phone-call(1).png" alt="Call" width={18} height={18} className="h-4 w-4" />
               <span className="text-sm font-medium">Call Us</span>
             </a>
             <a
               href={`https://wa.me/${BUSINESS_INFO.whatsapp}`}
-              className="flex items-center space-x-2 text-dark-900 hover:text-dark-700"
+              className="flex items-center space-x-2 text-black-900 hover:text-gray-700"
             >
               <Image src="/Icons/whatsapp.png" alt="WhatsApp" width={18} height={18} className="h-4 w-4" />
               <span className="text-sm font-medium">WhatsApp</span>

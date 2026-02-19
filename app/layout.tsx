@@ -23,12 +23,12 @@ const rethinkSans = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Pro Barber Shop ZA | Professional Barber Services in Durban',
-  description: 'Pro Barber Shop ZA — Professional grooming in Durban. Book online or join our walk-in queue for reliable, modern barber services.',
-  keywords: 'barbershop, Durban, KZN, grooming, haircut, beard trim, barber services',
+  title: 'Slaqa | Beauty, Hair & Barbering Services in Durban',
+  description: 'Slaqa — Multi-location beauty, hair and barbering services in Durban. Professional haircuts, fades, beard trims, hot towel shaves and hair styling. Visit us in KwaMashu, Waterloo or Umlazi.',
+  keywords: 'barber, hair salon, beauty services, Durban, KZN, haircut, beard trim, hair styling, fades',
   openGraph: {
-    title: 'Pro Barber Shop ZA | Professional Barber Services in Durban',
-    description: 'Pro Barber Shop ZA — Professional grooming in Durban.',
+    title: 'Slaqa | Beauty, Hair & Barbering Services in Durban',
+    description: 'Slaqa — Professional beauty, hair and barbering services in Durban with three convenient locations.',
     type: 'website',
   },
 } 

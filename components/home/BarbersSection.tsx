@@ -47,7 +47,7 @@ export default function BarbersSection() {
           transition={{ duration: 0.6 }}
         >
           <Link href="/barbers" className="hover:underline">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-dark-900 mb-12">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-black-900 mb-12">
               MEET YOUR BARBER
             </h2>
           </Link>
@@ -98,7 +98,7 @@ export default function BarbersSection() {
                     </motion.div>
                   ) : (
                     <motion.div 
-                      className="w-full h-full bg-gradient-to-br from-accent-500 to-accent-700 flex flex-col items-center justify-center text-white"
+                      className="w-full h-full bg-gradient-to-br from-gold-500 to-gold-700 flex flex-col items-center justify-center text-white"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
@@ -135,8 +135,8 @@ export default function BarbersSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
                   >
-                    <h3 className="text-2xl font-extrabold text-cream-50 drop-shadow-lg">{b.name}</h3>
-                    <p className="text-cream-100 text-sm mt-1">{b.title}</p>
+                    <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">{b.name}</h3>
+                    <p className="text-gray-100 text-sm mt-1">{b.title}</p>
                   </motion.div>
 
                   {/* Plus Icon */}
@@ -148,7 +148,7 @@ export default function BarbersSection() {
                     transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
                     whileHover={{ scale: 1.2, rotate: 90 }}
                   >
-                    <div className="h-8 w-8 rounded-full bg-white/90 flex items-center justify-center text-dark-900 shadow">
+                    <div className="h-8 w-8 rounded-full bg-white/90 flex items-center justify-center text-black-900 shadow">
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
                       </svg>

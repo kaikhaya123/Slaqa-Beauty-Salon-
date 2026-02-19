@@ -31,7 +31,7 @@ export default function ServicesGrid({ services }: Props) {
             key={cat}
             onClick={() => setActive(cat)}
             className={`px-6 py-3 rounded-full text-sm font-semibold tracking-wide transition-colors ${
-              active === cat ? 'bg-black text-white shadow-lg' : 'bg-transparent text-primary-900 hover:bg-gray-50'
+              active === cat ? 'bg-black text-white shadow-lg' : 'bg-transparent text-black-900 hover:bg-gray-50'
             }`}
             aria-pressed={active === cat}
           >
@@ -64,10 +64,10 @@ export default function ServicesGrid({ services }: Props) {
                 {(service.category || 'Uncategorized').toUpperCase()}
               </div>
 
-              <h3 className="text-sm sm:text-base lg:text-2xl font-bold text-primary-900 mb-1 lg:mb-3 line-clamp-2">
+              <h3 className="text-sm sm:text-base lg:text-2xl font-bold text-black-900 mb-1 lg:mb-3 line-clamp-2">
                 <Link
                   href={`/book?service=${service.id}#appointment`}
-                  className="hover:text-accent-600 transition-colors"
+                  className="hover:text-gold-600 transition-colors"
                 >
                   {service.name}
                 </Link>
@@ -91,7 +91,7 @@ export default function ServicesGrid({ services }: Props) {
               <div className="flex items-center justify-between pt-2 sm:pt-3 lg:pt-4 border-t border-gray-200 mt-auto gap-2">
                 <div>
                   <div className="text-xs lg:text-sm text-gray-500 uppercase tracking-wide">Price</div>
-                  <div className="text-lg sm:text-xl lg:text-3xl font-black text-primary-900">
+                  <div className="text-lg sm:text-xl lg:text-3xl font-black text-black-900">
                     {service.price != null ? 'R' + service.price : '—'}
                   </div>
                 </div>

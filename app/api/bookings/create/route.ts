@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
           date: date,
           time: time,
           barber: barber || 'Any available',
-          location: '35 Nyakata St, Lamontville, Chatsworth, 4027, South Africa',
+          location: 'Slaqa - Please contact us for location details',
         })
         if (emailSent) {
           console.log('[Web Booking] ✅ Email confirmation sent successfully to:', email)

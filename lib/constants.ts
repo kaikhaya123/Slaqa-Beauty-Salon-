@@ -1,21 +1,22 @@
 // Business information
 export const BUSINESS_INFO = {
-  name: 'Pro Barber Shop ZA',
-  tagline: 'Sharp Cuts. Fresh Looks. Professional Service.',
-  address: '35 Nyakata St, Lamontville, Chatsworth, 4027, South Africa',
-  phone: '+27 68 218 8679',
-  whatsapp: '27682188679',
-  email: 'goodhopengcobo5@gmail.com',
-  instagram: '@pro_barber_shop.za',
-  instagramStats: { posts: 42, followers: 217 },
+  name: 'Slaqa',
+  tagline: 'Beauty, Hair & Lifestyle Brand',
+  address: '1 Swazi Rd, Umlazi A, Umlazi 4089, South Africa',
+  phone: '+27 65 686 6171',
+  whatsapp: '27656866171',
+  email: 'contact@slaqa.co.za',
+  instagram: '@slaqa_salon',
+  instagramStats: { posts: 150, followers: 61400 },
   hours: {
-    weekdays: '08:00 - 18:00',
-    saturday: '08:00 - 20:00',
-    sunday: 'Closed or by special arrangement',
+    weekdays: '08:00 - 20:00',
+    friday: '08:00 - 21:00',
+    saturday: '08:00 - 21:00',
+    sunday: '11:00 - 18:00',
   },
   coordinates: {
-    lat: -29.9353649,
-    lng: 30.9367593,
+    lat: -30.0195,
+    lng: 31.0067,
   },
 } 
 
@@ -46,64 +47,64 @@ export function getBaseUrl(): string {
 // Services offered
 export const SERVICES = [
   {
-    id: 'drop-fade-dye',
-    name: 'DROP FADE & DYE',
-    description: 'Traditional haircut with modern finishing touches',
-    duration: 45,
+    id: 'haircut-fade',
+    name: 'HAIRCUT & FADE',
+    description: 'Professional haircuts with modern fades and clean lines',
+    duration: 60,
     price: 150,
     image: '/Images/1767772041818.jpeg',
-    category: 'Adults',
+    category: 'Barbering',
   },
   {
-    id: 'taper-fade-dye',
-    name: 'TAPER FADE & DYE',
-    description: 'Precision fade with personalized styling',
-    duration: 60,
-    price: 150,
+    id: 'beard-trim',
+    name: 'BEARD TRIM & SHAPING',
+    description: 'Expert beard sculpting and professional grooming',
+    duration: 45,
+    price: 120,
     image: '/Images/download (3).jpg',
-    category: 'Adults',
+    category: 'Barbering',
   },
   {
-    id: 'fade-dye',
-    name: 'FADE & DYE',
-    description: 'Precision fade with personalized styling',
-    duration: 60,
-    price: 150,
+    id: 'hot-towel-shave',
+    name: 'HOT TOWEL SHAVE',
+    description: 'Traditional wet shave with hot towel treatment',
+    duration: 45,
+    price: 100,
     image: '/Images/Dye cut .jpeg',
-    category: 'Adults',
+    category: 'Barbering',
   },
   {
-    id: 'kiddies-cut-style',
-    name: 'KIDDIES CUT & STYLE',
-    description: 'Professional and friendly haircuts for kids',
-    duration: 30,
-    price: 150,
+    id: 'hair-styling',
+    name: 'HAIR STYLING',
+    description: 'Expert hair styling for events, occasions and everyday looks',
+    duration: 60,
+    price: 180,
     image: '/Images/1767771103496.jpeg',
-    category: 'Kids',
+    category: 'Hair Styling',
   },
   {
-    id: 'kiddies-fade-dye',
-    name: 'KIDDIES FADE & DYE',
-    description: 'Modern fade cuts with styling for kids',
+    id: 'beauty-treatment',
+    name: 'BEAUTY & GROOMING',
+    description: 'Complete beauty and grooming services for men and women',
     duration: 45,
-    price: 150,
-    image: '/Images/10 Trendy Men’s Haircuts to Try This Year.jpg',
-    category: 'Kids',
+    price: 160,
+    image: '/Images/10 Trendy Men\'s Haircuts to Try This Year.jpg',
+    category: 'Beauty',
   },
   {
-    id: 'plain-fade',
-    name: 'PLAIN FADE',
-    description: 'Classic fade cut with clean finishing',
-    duration: 45,
-    price: 60,
+    id: 'head-shave',
+    name: 'HEAD SHAVE',
+    description: 'Clean, professional head shave with precision finish',
+    duration: 40,
+    price: 80,
     image: '/Images/Cut By @501jpressure.jpg',
-    category: 'Adults',
+    category: 'Barbering',
   },
   {
-    id: 'fade-dye-designs',
-    name: 'FADE DYE WITH DESIGNS',
-    description: 'Fade with custom designs and artistic touch',
-    duration: 45,
+    id: 'design-cut',
+    name: 'DESIGN CUT & STYLE',
+    description: 'Custom haircut with artistic designs and creative styling',
+    duration: 60,
     price: 200,
     image: '/Images/download (4) (1).jpg',
     category: 'Design',
@@ -114,12 +115,12 @@ export const SERVICES = [
 export const BARBERS = [
   {
     id: 1,
-    name: 'Fuze Ngcobo',
-    title: 'Professional Barber',
-    experience: '7+ years',
-    specialties: ['Professional Haircuts', 'Modern Fades'],
-    bio: 'Fuze is the professional barber at Pro Barber Shop ZA, dedicated to delivering sharp, clean cuts with professional precision. With over 7 years of experience, he specializes in modern fades, traditional cuts, and expert beard sculpting. Every client receives personalized attention and consistent quality service.',
-    image: '/Images/Fuze Ngcobo.jpeg',
+    name: 'Slaqa Team',
+    title: 'Beauty & Barber Professionals',
+    experience: '5+ years',
+    specialties: ['Barbering', 'Hair Styling', 'Beauty Services', 'Hot Towel Shaves'],
+    bio: 'The Slaqa team consists of experienced beauty and barber professionals dedicated to delivering premium services across all three locations. With expertise in modern fades, traditional haircuts, beard sculpting, hair styling for events, and complete grooming services, we ensure every client receives personalized attention and professional excellence.',
+    image: '/Images/1767772041818.jpeg',
   },
 ]
 
@@ -135,11 +136,11 @@ export const MAX_BOOKINGS_PER_SLOT = 40
 
 // Operating hours by day
 export const OPERATING_HOURS = {
-  0: { open: '00:00', close: '00:00' }, // Sunday - closed / by arrangement
-  1: { open: '08:00', close: '18:00' }, // Monday
-  2: { open: '08:00', close: '18:00' }, // Tuesday
-  3: { open: '08:00', close: '18:00' }, // Wednesday
-  4: { open: '08:00', close: '18:00' }, // Thursday
-  5: { open: '08:00', close: '18:00' }, // Friday
-  6: { open: '08:00', close: '20:00' }, // Saturday
+  0: { open: '11:00', close: '18:00' }, // Sunday
+  1: { open: '08:00', close: '20:00' }, // Monday
+  2: { open: '08:00', close: '20:00' }, // Tuesday
+  3: { open: '08:00', close: '20:00' }, // Wednesday
+  4: { open: '08:00', close: '20:00' }, // Thursday
+  5: { open: '08:00', close: '21:00' }, // Friday
+  6: { open: '08:00', close: '21:00' }, // Saturday
 }

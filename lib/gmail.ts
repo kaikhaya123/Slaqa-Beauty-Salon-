@@ -265,7 +265,7 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData): Prom
                                                         <tr>
                                                             <td class="pad" style="padding-bottom:10px;padding-left:60px;padding-right:60px;padding-top:10px;">
                                                                 <div style="color:#ffffff;direction:ltr;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;font-size:20px;font-weight:300;letter-spacing:0px;line-height:1.2;text-align:center;mso-line-height-alt:24px;">
-                                                                    <p style=\"margin: 0;\">Your haircut appointment has been successfully booked at Pro Barber Shop ZA.<br><br>Please arrive on time for your scheduled appointment at our Lamontville location</p>
+                                                                    <p style=\"margin: 0;\">Your appointment has been successfully booked at Slaqa.<br><br>Please arrive on time for your scheduled appointment.</p>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -354,8 +354,8 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData): Prom
                                                             <td class="pad" style="padding-bottom:20px;padding-left:30px;padding-right:30px;padding-top:15px;">
                                                                 <div style="color:#ffffff;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:16px;font-weight:300;letter-spacing:0px;line-height:1.2;text-align:left;mso-line-height-alt:19px;">
                                                                     <p style="margin: 0 0 8px 0;">© ${new Date().getFullYear()} Pro Barber Shop ZA</p>
-                                                                    <p style="margin: 0 0 8px 0; font-size: 14px; color: #bea287;">35 Nyakata St, Lamontville</p>
-                                                                    <p style="margin: 0; font-size: 14px; color: #bea287;">Chatsworth, 4027, South Africa</p>
+                                                                    <p style="margin: 0 0 8px 0; font-size: 14px; color: #bea287;">Slaqa - Umlazi</p>
+                                                                    <p style="margin: 0; font-size: 14px; color: #bea287;">1 Swazi Rd, Umlazi A, Umlazi 4089</p>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -714,7 +714,7 @@ export async function sendPostServiceEmail(data: BookingEmailData): Promise<bool
             </div>
 
             <div class="message">
-                Whether you need a maintenance trim, want to try a new style, or just want to come back to the best barber shop in Chatsworth – we're here for you.
+                Whether you need a maintenance trim, want to try a new style, or just want to come back to Slaqa – we're here for you.
             </div>
 
             <div style="text-align: center;">

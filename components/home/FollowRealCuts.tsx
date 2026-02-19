@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export default function FollowRealBarbershop() {
   return (
-    <Section className="py-20 md:py-28 bg-cream-50">
+    <Section className="py-20 md:py-28 bg-white">
       <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         
         {/* LEFT CONTENT */}
@@ -17,29 +17,28 @@ export default function FollowRealBarbershop() {
           transition={{ duration: 0.6 }}
           className="space-y-8"
         >
-          <span className="text-sm uppercase tracking-widest font-medium text-dark-600">
+          <span className="text-sm uppercase tracking-widest font-medium text-gray-600">
             Stay connected
           </span>
 
           <motion.h2 
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-dark-900 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black-900 leading-tight"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            Follow Pro Barbershop
+            Follow Slaqa
           </motion.h2>
 
           <motion.p 
-            className="text-lg md:text-xl text-dark-700 leading-relaxed max-w-lg"
+            className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-lg"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Fresh fades. Sharp beards. Real work from the chair.
-            See today&apos;s cuts and book faster on WhatsApp.
+            Follow our journey across three locations. See our latest cuts, styling work and special collaborations. Join our growing community of satisfied clients.
           </motion.p>
 
           {/* SOCIAL CTA */}
@@ -51,15 +50,15 @@ export default function FollowRealBarbershop() {
             transition={{ duration: 0.6, delay: 0.25 }}
           >
             {[
-              { name: 'Instagram', url: 'https://www.instagram.com/pro_barber_shop.za/', icon: '/Images/instagram.png' },
-              { name: 'WhatsApp', url: 'https://wa.me/27682188679', icon: '/Images/whatsapp.png' },
+              { name: 'Instagram', url: 'https://www.instagram.com/slaqa_salon/', icon: '/Images/instagram.png' },
+              { name: 'WhatsApp', url: 'https://wa.me/27656866171', icon: '/Images/whatsapp.png' },
             ].map((social, idx) => (
               <motion.a
                 key={idx}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 flex items-center justify-center rounded-full bg-dark-900 hover:bg-dark-800 active:scale-95 transition shadow-lg transform duration-200 hover:scale-108"
+                className="w-16 h-16 flex items-center justify-center rounded-full bg-black-900 hover:bg-gray-900 active:scale-95 transition shadow-lg transform duration-200 hover:scale-108"
                 aria-label={social.name}
                 whileHover={{ scale: 1.15, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
@@ -81,7 +80,7 @@ export default function FollowRealBarbershop() {
 
           {/* MICRO TRUST */}
           <motion.p 
-            className="text-sm text-dark-600 font-medium"
+            className="text-sm text-gray-600 font-medium"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

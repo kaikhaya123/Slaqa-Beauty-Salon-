@@ -16,8 +16,8 @@ export default function Section({
   const backgrounds = {
     white: 'bg-white',
     gray: 'bg-gray-50',
-    primary: 'bg-primary-50',
-    cream: 'bg-cream-50',
+    primary: 'bg-white',
+    cream: 'bg-white',
     black: 'bg-black',
   }
   

@@ -5,7 +5,7 @@ import { useRef } from "react"
 
 const PortfolioGallery = () => {
   return (
-    <div className="bg-black mt-24 md:mt-32 lg:mt-40">
+    <div className="bg-[#FFD400]  mt-24 md:mt-32 lg:mt-40">
       <div className="flex min-h-32 sm:min-h-40 md:min-h-48 lg:min-h-56 xl:min-h-64 items-center justify-center px-4 py-8 md:py-12 lg:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -15,22 +15,22 @@ const PortfolioGallery = () => {
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-wide text-center leading-tight transform hover:scale-105 transition-all duration-300 drop-shadow-2xl">
             <motion.span 
-              className="text-white"
+              className="text-black"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              OUR
+              SIGNTURE CUTS
             </motion.span>{" "}
             <motion.span 
-              className="text-white"
+              className="text-black"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              PRO BARBER SHOP HAIRCUTS
+              BY SLAQ SALON
             </motion.span>
           </h2>
         </motion.div>
@@ -52,8 +52,8 @@ const HorizontalScrollCarousel = () => {
     <section ref={targetRef} className="relative h-[250vh] bg-black -mt-8">
       {/* Background decorative elements */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-80 right-20 text-4xl font-bold text-white transform rotate-12">CUTS</div>
-        <div className="absolute bottom-40 left-20 text-5xl font-bold text-white transform -rotate-6">STYLE</div>
+        <div className="absolute top-80 right-20 text-4xl font-bold text-black transform rotate-12"></div>
+        <div className="absolute bottom-40 left-20 text-5xl font-bold text-black transform -rotate-6"></div>
       </div>
       
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
@@ -77,7 +77,7 @@ interface CardType {
 const Card = ({ card }: { card: CardType }) => {
   return (
     <motion.div 
-      className="group relative h-[400px] w-[350px] overflow-hidden bg-cream-100 rounded-xl shadow-lg"
+      className="group relative h-[400px] w-[350px] overflow-hidden bg-[#FFD400]  rounded-xl shadow-lg"
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -105,39 +105,43 @@ export default PortfolioGallery
 
 const portfolioCards: CardType[] = [
   {
-    url: "/Images/1767770754149.jpeg",
+    url: "/Images/1771341907168.jpeg",
     id: 1,
   },
   {
-    url: "/Images/1767770724602.jpeg",
+    url: "/Images/slaqa_salon_1771343144242.jpeg",
     id: 2,
   },
   {
-    url: "/Images/1767770814779.jpeg",
+    url: "/Images/1771342250271.jpeg",
     id: 3,
   },
   {
-    url: "/Images/1767770899302.jpeg",
+    url: "/Images/slaqa_salon_1771343202061.jpeg",
     id: 4,
   },
   {
-    url: "/Images/1767770830465.jpeg",
+    url: "/Images/slaqa_salon_1771343429789.jpeg",
     id: 5,
   },
   {
-    url: "/Images/1767770936409.jpeg",
+    url: "/Images/1771341949554.jpeg",
     id: 6,
   },
   {
-    url: "/Images/1767771103496.jpeg",
+    url: "/Images/1771342519304.jpeg",
     id: 7,
   },
   {
-    url: "/Images/1767770857424.jpeg",
+    url: "/Images/1771342149544.jpeg",
     id: 8,
   },
   {
-    url: "/Images/1767771187352.jpeg",
+    url: "/Images/1771342602428.jpeg",
     id: 9,
+  },
+  {
+    url: "/Images/1771342549447.jpeg",
+    id: 10,
   },
 ]

@@ -1,187 +1,116 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
-import Button from '@/components/ui/Button'
+import Link from 'next/link'
 
 export default function IntroSection() {
-  type IntroImage = {
-    src: string
-    alt: string
-  }
-
-  const images: IntroImage[] = [
-    {
-      src: '/Images/pexels-rafael-quaty-37077235-13450758.jpg',
-      alt: 'Barber performing a clean fade haircut',
-    },
-    {
-      src: '/Images/pexels-sephina-cornwall-759251776-32351047.jpg',
-      alt: 'Barber shop interior with tools and mirrors',
-    },
-    {
-      src: '/Images/pexels-rdne-7697383.jpg',
-      alt: 'Barber shaping a haircut with clippers',
-    },
-    {
-      src: '/Images/bapesidechick (1).jpg',
-      alt: 'Barber finishing a fade haircut',
-    },
-    {
-      src: '/Images/@6lory.jpg',
-      alt: 'Fresh haircut with clean lineup',
-    },
-    { src: '/Images/clinton-dube-84lpzy66IZk-unsplash.jpg', alt: 'Add image description' },
-    { src: '/Images/download (1).jpg', alt: 'Add image description' },
-    // Add or replace images here.
-    // Add or replace images here.
-    // Example:
-    // { src: '/Images/your-image.jpg', alt: 'Describe the image' },
-  ]
-
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length)
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [images.length])
-
-
   return (
     <section
-      className="bg-cream-50 py-20 md:py-28 font-sans"
+      className="relative pt-24 pb-32 px-6 overflow-hidden bg-black text-yellow-400"
       role="region"
       aria-labelledby="intro-heading"
     >
-      <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
+      <div className="max-w-7xl mx-auto">
 
-        {/* Main Grid */}
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center min-h-[75vh]">
+        {/* Top grid */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-10"
-          >
-            <div className="space-y-5">
+          {/* Left — heading + copy + CTA */}
+          <div className="space-y-10">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
+            >
               <h2
                 id="intro-heading"
-                className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-dark-900 leading-tight"
+                className="text-7xl md:text-8xl font-black tracking-tighter leading-none"
               >
-                More than a haircut.
-                <span className="block text-gray-600 text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold">
-                  It&#39;s a culture.
-                </span>
+                Our story. <br />
+                <span className="text-black">SLAQA SALON.</span>
               </h2>
+            </motion.div>
 
-              <p className="text-lg md:text-xl text-dark-700 leading-relaxed max-w-lg">
-                Premium haircuts by skilled barbers in Lamontville. Clean fades,
-                precise grooming, modern style.
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
+              className="space-y-6"
+            >
+              <p className="text-xl md:text-2xl text-white max-w-xl leading-relaxed">
+                Slaqa Salon was born from a dream to redefine grooming and
+                self-expression in South Africa — a lifestyle brand with
+                thriving branches in Kwamashu, Waterloo, and Umlazi.
               </p>
-            </div>
+              <p className="text-lg text-white max-w-lg leading-relaxed">
+                Each location is a space where style, culture, and confidence
+                come alive. We honour African beauty traditions while
+                collaborating with brands and culture to keep grooming fresh
+                and relevant.
+              </p>
 
-            {/* Key Points */}
-            <ul className="space-y-3 max-w-md">
-              <motion.li 
-                className="flex items-start gap-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <span className="w-2 h-2 bg-dark-900 rounded-full mt-2" />
-                <span className="text-dark-800 font-medium">
-                  Experienced professional barbers
-                </span>
-              </motion.li>
-              <motion.li 
-                className="flex items-start gap-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <span className="w-2 h-2 bg-dark-900 rounded-full mt-2" />
-                <span className="text-dark-800 font-medium">
-                  Premium tools and products
-                </span>
-              </motion.li>
-              <motion.li 
-                className="flex items-start gap-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <span className="w-2 h-2 bg-dark-900 rounded-full mt-2" />
-                <span className="text-dark-800 font-medium">
-                  Comfortable, welcoming space
-                </span>
-              </motion.li>
-            </ul>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <Button
-                href="/book"
-                size="lg"
-                variant="primary"
-                className="w-full sm:w-auto"
-              >
-                Book Appointment
-              </Button>
-              <Button
-                href="/barbers"
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto"
-              >
-                Meet the Barbers
-              </Button>
-            </div>
-          </motion.div>
-
-          {/* Right Visual */}
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            <div className="relative h-[520px] md:h-[650px] rounded-2xl overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={images[activeIndex].src}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.8, ease: 'easeInOut' }}
-                  className="absolute inset-0"
+              <div className="pt-4">
+                <Link
+                  href="/book"
+                  className="inline-flex items-center h-12 px-8 bg-black text-white rounded-full font-bold text-sm hover:bg-white transition-all duration-200 active:scale-95"
                 >
-                  <Image
-                    src={images[activeIndex].src}
-                    alt={images[activeIndex].alt}
-                    fill
-                    priority
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </motion.div>
-              </AnimatePresence>
-            </div>
+                  Book Appointment
+                </Link>
+              </div>
+            </motion.div>
+          </div>
 
+          {/* Right — image with spinning badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
+            className="relative aspect-[4/5] lg:aspect-square overflow-hidden rounded-3xl shadow-2xl"
+          >
+            <video
+              src="/Images/3653955551751148469.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out w-full h-full"
+            />
+            {/* Spinning badge */}
+            <div className="absolute top-8 right-8">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                className="size-28 rounded-full bg-black/30 backdrop-blur-md border border-white flex items-center justify-center p-4 text-center"
+              >
+                <span className="text-[10px] font-black uppercase text-white tracking-[0.2em] leading-tight">
+                  Style · Culture · Confidence
+                </span>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
 
-        {/* Community Impact Gallery removed */}
+        {/* Bottom quote strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-32 pt-16 border-t border-white flex flex-col md:flex-row justify-between gap-12"
+        >
+          <p className="text-3xl md:text-4xl font-medium text-white leading-[1.15] max-w-3xl">
+            Founded with a vision to redefine grooming through culture and
+            community — we&apos;re more than a salon; we&apos;re a movement
+            built on authenticity, innovation, and belonging.
+          </p>
+          <div className="text-sm font-bold text-white uppercase tracking-widest pt-2 shrink-0">
+            Your style.<br />Your identity.<br />Your SLAQA SALON.
+          </div>
+        </motion.div>
 
       </div>
     </section>

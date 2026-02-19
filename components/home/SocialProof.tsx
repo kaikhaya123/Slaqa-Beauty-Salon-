@@ -66,7 +66,7 @@ function StatCounter({ value, suffix = "", label, decimals = 0 }: StatCounterPro
 
   return (
     <div ref={ref}>
-      <div className="text-4xl font-bold text-accent-600 mb-2">
+      <div className="text-4xl font-bold text-gold-600 mb-2">
         {display}
         {suffix}
       </div>
@@ -80,20 +80,20 @@ export default function SocialProof() {
     {
       name: 'Mandla K.',
       rating: 5,
-      text: 'Best barbershop in lamontville! Professional service with seamless online booking. The barber delivers perfect fades every time.',
-      location: 'Lamontville',
+      text: 'Love Slaqa! Professional service across all three locations. The team delivers perfect fades and styling every time.',
+      location: 'Umlazi',
     },
     {
       name: 'Jason M.',
       rating: 5,
-      text: 'Finally, a barbershop that values my time. I book my appointment online, arrive on schedule, and receive immediate service. No more waiting.',
-      location: 'Berea',
+      text: 'Finally, a multi-location salon that values my time. I book online, arrive on schedule, and receive immediate professional service.',
+      location: 'KwaMashu',
     },
     {
       name: 'Sibusiso N.',
       rating: 5,
-      text: 'Consistently professional service with reliable scheduling. I can book my appointment conveniently and always know exactly when to arrive.',
-      location: 'Morningside',
+      text: 'Slaqa is exceptional! Professional barbers and stylists with reliable scheduling. The hot towel shaves are amazing.',
+      location: 'Waterloo',
     },
     {
       name: 'Khayalami Z.',
@@ -178,7 +178,7 @@ export default function SocialProof() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
               >
-                <Quote className="h-8 w-8 text-accent-200 mb-3" />
+                <Quote className="h-8 w-8 text-gold-200 mb-3" />
               </motion.div>
 
               <motion.p 

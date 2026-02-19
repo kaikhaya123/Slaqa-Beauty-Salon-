@@ -163,8 +163,8 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center p-4">
         <div className="flex flex-col items-center space-y-4">
-          <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-dark-900 border-t-transparent"></div>
-          <div className="text-lg sm:text-xl font-bold text-dark-900 text-center">Loading dashboard...</div>
+            <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-black-900 border-t-transparent"></div>
+          <div className="text-lg sm:text-xl font-bold text-black-900 text-center">Loading dashboard...</div>
         </div>
       </div>
     )
@@ -196,7 +196,7 @@ export default function AdminDashboard() {
         <button
           onClick={handleManualRefresh}
           disabled={loading}
-          className="lg:hidden flex items-center justify-center h-10 w-10 bg-cream-200 hover:bg-cream-300 text-dark-900 rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+          className="lg:hidden flex items-center justify-center h-10 w-10 bg-gray-200 hover:bg-gray-300 text-black-900 rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
           title="Refresh data"
           aria-label="Refresh dashboard"
         >
@@ -216,13 +216,13 @@ export default function AdminDashboard() {
         <div className="px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-4">
           <div className="flex items-center justify-end">
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <div className="hidden sm:block text-xs text-dark-600 font-medium">
+              <div className="hidden sm:block text-xs text-gray-600 font-medium">
                 {lastRefresh.toLocaleTimeString()}
               </div>
               <button
                 onClick={handleManualRefresh}
                 disabled={loading}
-                className="px-2.5 sm:px-3 py-2 sm:py-2.5 bg-cream-200 hover:bg-cream-300 text-dark-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
+                className="px-2.5 sm:px-3 py-2 sm:py-2.5 bg-gray-200 hover:bg-gray-300 text-black-900 font-bold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-sm"
                 title="Refresh data"
               >
                 <Image
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-2.5 sm:p-3 lg:p-6 pt-16 lg:pt-3 bg-cream-50">
+      <main className="flex-1 overflow-y-auto p-2.5 sm:p-3 lg:p-6 pt-16 lg:pt-3 bg-white">
         <div className="space-y-3 sm:space-y-4 lg:space-y-6">
           {/* Error Message */}
           {error && (
@@ -355,32 +355,32 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-4">
                 {/* Next Appointment */}
                 <div className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg overflow-hidden">
-                  <div className="px-3 sm:px-4 lg:px-4 py-2 sm:py-2.5 lg:py-3 bg-cream-100 border-b-2 border-cream-300">
-                    <h3 className="text-xs sm:text-sm lg:text-base font-black text-dark-900">Next Appointment</h3>
+                  <div className="px-3 sm:px-4 lg:px-4 py-2 sm:py-2.5 lg:py-3 bg-gray-100 border-b-2 border-gray-300">
+                    <h3 className="text-xs sm:text-sm lg:text-base font-black text-black-900">Next Appointment</h3>
                   </div>
                   <div className="p-3 sm:p-3 lg:p-4">
                     {todayStats.nextAppointment ? (
                       <div className="space-y-2 sm:space-y-3 lg:space-y-4">
                         <div className="flex items-center justify-between flex-wrap gap-2">
-                          <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-dark-900">
+                          <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-black-900">
                             {todayStats.nextAppointment.time ? todayStats.nextAppointment.time.slice(0, 5) : '--:--'}
                           </span>
                           <span className="px-2.5 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 bg-green-100 text-green-800 text-xs font-bold rounded-lg sm:rounded-xl border-2 border-green-300 uppercase">
                             {todayStats.nextAppointment.status}
                           </span>
                         </div>
-                        <div className="space-y-1.5 sm:space-y-2 bg-cream-50 rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 border-2 border-cream-200">
+                        <div className="space-y-1.5 sm:space-y-2 bg-white rounded-lg sm:rounded-xl p-2.5 sm:p-3 lg:p-4 border-2 border-gray-200">
                           <div className="flex items-center gap-2 flex-wrap">
                             <p className="font-bold text-dark-900 text-sm sm:text-base lg:text-lg break-words">
                               {todayStats.nextAppointment.name || 'Walk-in Customer'}
                             </p>
                             {todayStats.nextAppointment.queuenumber && (
-                              <span className="px-2 py-0.5 rounded-full text-xs font-black bg-dark-900 text-cream-50 whitespace-nowrap">
+                              <span className="px-2 py-0.5 rounded-full text-xs font-black bg-black-900 text-white whitespace-nowrap">
                                 Client no.{todayStats.nextAppointment.queuenumber}
                               </span>
                             )}
                           </div>
-                          <p className="text-xs sm:text-sm text-dark-700 font-semibold break-words">
+                          <p className="text-xs sm:text-sm text-gray-700 font-semibold break-words">
                             {todayStats.nextAppointment.service}
                           </p>
                           <p className="text-xs sm:text-sm text-dark-600 font-medium break-words">
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
                           height={40}
                           className="object-contain mx-auto mb-2 sm:mb-3 lg:mb-4 opacity-40"
                         />
-                        <p className="text-xs sm:text-sm lg:text-base text-dark-600 font-semibold">No appointments remaining</p>
+                        <p className="text-xs sm:text-sm lg:text-base text-gray-600 font-semibold">No appointments remaining</p>
                       </div>
                     )}
                   </div>
@@ -408,8 +408,8 @@ export default function AdminDashboard() {
 
                 {/* Busiest Hours */}
                 <div className="bg-white border-2 border-cream-300 rounded-lg sm:rounded-xl shadow-lg overflow-hidden">
-                  <div className="px-3 sm:px-4 lg:px-4 py-2 sm:py-2.5 lg:py-3 bg-cream-100 border-b-2 border-cream-300">
-                    <h3 className="text-xs sm:text-sm lg:text-base font-black text-dark-900">Peak Hours Today</h3>
+                  <div className="px-3 sm:px-4 lg:px-4 py-2 sm:py-2.5 lg:py-3 bg-gray-100 border-b-2 border-gray-300">
+                    <h3 className="text-xs sm:text-sm lg:text-base font-black text-black-900">Peak Hours Today</h3>
                   </div>
                   <div className="p-3 sm:p-3 lg:p-4">
                     <div className="space-y-1.5 sm:space-y-2 lg:space-y-3">
@@ -423,13 +423,13 @@ export default function AdminDashboard() {
                             </span>
                             <span className="font-black text-dark-900 text-sm sm:text-base lg:text-lg">{hour}</span>
                           </div>
-                          <span className="text-xs sm:text-sm lg:text-base font-bold text-dark-700 whitespace-nowrap flex-shrink-0">
+                          <span className="text-xs sm:text-sm lg:text-base font-bold text-gray-700 whitespace-nowrap flex-shrink-0">
                             {count}
                           </span>
                         </div>
                       ))}
                       {getBusyHours().length === 0 && (
-                        <p className="text-xs sm:text-sm lg:text-base text-dark-600 text-center py-3 sm:py-4 lg:py-6 font-semibold">No bookings recorded</p>
+                        <p className="text-xs sm:text-sm lg:text-base text-gray-600 text-center py-3 sm:py-4 lg:py-6 font-semibold">No bookings recorded</p>
                       )}
                     </div>
                   </div>
@@ -437,18 +437,18 @@ export default function AdminDashboard() {
               </div>
 
               {/* Progress Bars */}
-              <div className="bg-dark-900 border-2 border-dark-800 rounded-lg sm:rounded-xl shadow-lg overflow-hidden">
-                <div className="px-3 sm:px-4 lg:px-4 py-2 sm:py-2.5 lg:py-3 bg-cream-100 border-b-2 border-cream-300">
-                  <h3 className="text-xs sm:text-sm lg:text-base font-black text-dark-900">Today&apos;s Progress</h3>
+              <div className="bg-black-900 border-2 border-black-800 rounded-lg sm:rounded-xl shadow-lg overflow-hidden">
+                <div className="px-3 sm:px-4 lg:px-4 py-2 sm:py-2.5 lg:py-3 bg-gray-100 border-b-2 border-gray-300">
+                  <h3 className="text-xs sm:text-sm lg:text-base font-black text-black-900">Today&apos;s Progress</h3>
                 </div>
                 <div className="p-3 sm:p-3 lg:p-4">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
                     <div>
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-cream-50 mb-1 sm:mb-2">{todayStats.completedCuts}</div>
-                      <div className="text-xs lg:text-sm text-cream-300 font-bold mb-2 lg:mb-3">Completed Cuts</div>
-                      <div className="w-full bg-cream-200 rounded-full h-2 sm:h-2.5 lg:h-3 border-2 border-cream-300">
-                        <div 
-                          className="bg-cream-50 h-full rounded-full transition-all duration-500"
+                      <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2">{todayStats.completedCuts}</div>
+                      <div className="text-xs lg:text-sm text-gray-300 font-bold mb-2 lg:mb-3">Completed Cuts</div>
+                      <div className="w-full bg-gray-200 rounded-full h-2 sm:h-2.5 lg:h-3 border-2 border-gray-300">
+                        <div
+                          className="bg-white h-full rounded-full transition-all duration-500"
                           style={{ 
                             width: `${todayStats.totalCustomers > 0 ? (todayStats.completedCuts / todayStats.totalCustomers) * 100 : 0}%` 
                           }}
@@ -461,7 +461,7 @@ export default function AdminDashboard() {
                     
                     <div>
                       <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-green-300 mb-1 sm:mb-2">{todayStats.confirmedCuts}</div>
-                      <div className="text-xs lg:text-sm text-cream-300 font-bold mb-2 lg:mb-3">Ready to Cut</div>
+                      <div className="text-xs lg:text-sm text-gray-300 font-bold mb-2 lg:mb-3">Ready to Cut</div>
                       <div className="w-full bg-green-100 rounded-full h-2 sm:h-2.5 lg:h-3 border-2 border-green-300">
                         <div 
                           className="bg-green-400 h-full rounded-full transition-all duration-500"
@@ -477,7 +477,7 @@ export default function AdminDashboard() {
                     
                     <div>
                       <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-yellow-300 mb-1 sm:mb-2">{todayStats.pendingCuts}</div>
-                      <div className="text-xs lg:text-sm text-cream-300 font-bold mb-2 lg:mb-3">Awaiting Confirmation</div>
+                      <div className="text-xs lg:text-sm text-gray-300 font-bold mb-2 lg:mb-3">Awaiting Confirmation</div>
                       <div className="w-full bg-yellow-100 rounded-full h-2 sm:h-2.5 lg:h-3 border-2 border-yellow-300">
                         <div 
                           className="bg-yellow-400 h-full rounded-full transition-all duration-500"

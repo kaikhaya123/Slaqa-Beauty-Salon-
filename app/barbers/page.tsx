@@ -9,8 +9,8 @@ export default function BarbersPage() {
 
       <section id="barbers" className="container mx-auto px-6 py-16">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12">
-          <h2 className="col-span-1 text-4xl md:text-5xl font-black tracking-tight text-dark-900">YOUR BARBER</h2>
-          <p className="col-span-2 text-gray-600 text-sm md:text-base leading-relaxed">Meet Fuze, the professional barber behind Pro Barber Shop. With over 7+ years of dedicated experience, he specializes in modern clean fades, traditional cuts. Every client receives personalized attention and the highest standard of professional service.</p>
+          <h2 className="col-span-1 text-4xl md:text-5xl font-black tracking-tight text-black-900">OUR TEAM</h2>
+          <p className="col-span-2 text-gray-600 text-sm md:text-base leading-relaxed">The Slaqa team consists of experienced beauty and barber professionals dedicated to delivering premium services across all three locations. With expertise in modern fades, traditional haircuts, beard sculpting, hot towel shaves, hair styling, and complete beauty and grooming services, we ensure every client receives personalized attention and professional excellence.</p>
         </div>
 
         <div className="mt-8 space-y-8">

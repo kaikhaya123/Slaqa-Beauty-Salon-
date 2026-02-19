@@ -209,10 +209,10 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
   return (
     <div>
       <div className="mb-6">
-        <button onClick={onBack} className="text-accent-600 hover:text-accent-700 mb-3 pointer-events-auto">
+        <button onClick={onBack} className="text-gold-600 hover:text-gold-700 mb-3 pointer-events-auto">
           ← Back to barbers
         </button>
-        <h2 className="text-2xl font-bold text-primary-900 mb-2">
+        <h2 className="text-2xl font-bold text-black-900 mb-2">
           Select Date & Time
         </h2>
         <p className="text-gray-600">
@@ -222,7 +222,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
 
       {/* Date Selection */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-primary-900 mb-4">Choose a Date</h3>
+        <h3 className="text-lg font-semibold text-black-900 mb-4">Choose a Date</h3>
         <div className="grid grid-cols-7 gap-2">
           {availableDates.map((date) => {
             const isSelected = startOfDay(date).getTime() === startOfDay(selectedDate).getTime()
@@ -248,7 +248,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       {/* Time Selection */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-primary-900">
+          <h3 className="text-lg font-semibold text-black-900">
             Choose a Time
             {isLoadingSlots ? (
               <span className="ml-2 text-sm text-gray-600 font-normal">
@@ -337,7 +337,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
 
       {/* Summary & Continue */}
       {selectedTime && !takenSlots.includes(selectedTime) && !slotUnavailableError && (
-        <div className="bg-primary-50 rounded-lg p-4 mb-6">
+        <div className="bg-white rounded-lg p-4 mb-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Your appointment:</p>
@@ -347,7 +347,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-600">Duration:</p>
-              <p className="font-semibold text-primary-900">{service.duration} min</p>
+              <p className="font-semibold text-black-900">{service.duration} min</p>
             </div>
           </div>
         </div>

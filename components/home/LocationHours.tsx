@@ -6,177 +6,173 @@ import Section from '@/components/ui/Section'
 import { BUSINESS_INFO } from '@/lib/constants'
 
 export default function LocationHours() {
+  const locations = [
+    {
+      name: 'Umlazi',
+      address: '1 Swazi Rd, Umlazi A, Umlazi 4089',
+      phone: '+27 65 686 6171',
+      hours: {
+        weekdays: '08:00 - 20:00',
+        friday: '08:00 - 21:00',
+        saturday: '08:00 - 21:00',
+        sunday: '11:00 - 18:00',
+      },
+      coordinates: { lat: -30.0195, lng: 31.0067 },
+    },
+    {
+      name: 'KwaMashu',
+      address: 'F 206 Bhejane Road, KwaMashu',
+      phone: '066 564 1784',
+      hours: {
+        weekdays: '08:00 - 20:00',
+        friday: '08:00 - 21:00',
+        saturday: '08:00 - 21:00',
+        sunday: '11:00 - 18:00',
+      },
+      coordinates: { lat: -29.8476, lng: 30.9147 },
+    },
+    {
+      name: 'Waterloo',
+      address: '46 Pricklepear Road, Waterloo',
+      phone: '+27 65 686 6171',
+      hours: {
+        weekdays: '08:00 - 20:00',
+        friday: '08:00 - 21:00',
+        saturday: '08:00 - 21:00',
+        sunday: '11:00 - 18:00',
+      },
+      coordinates: { lat: -29.9087, lng: 30.8819 },
+    },
+  ]
+
   return (
     <Section background="white">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Location & Hours */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mb-12"
+      >
+        <motion.h2 
+          className="text-3xl font-heading font-bold text-black-900 mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <motion.h2 
-            className="text-3xl font-heading font-bold text-dark-900 mb-6"
-            initial={{ opacity: 0, y: 20 }}
+          Visit our Locations
+        </motion.h2>
+        <p className="text-lg text-gray-600 max-w-2xl">
+          Slaqa operates three convenient locations across Durban. Visit any of our salons for premium beauty, hair, and barbering services.
+        </p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {locations.map((location, index) => (
+          <motion.div
+            key={location.name}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition-shadow"
           >
-            Visit Us
-          </motion.h2>
-
-          <div className="space-y-6">
-            {/* Location */}
-            <motion.div 
-              className="flex items-start space-x-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            {/* Location Name */}
+            <motion.h3 
+              className="text-2xl font-bold text-black-900 mb-6"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              whileHover={{ x: 10 }}
+              transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
             >
-              <motion.div 
-                className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-              >
-                <MapPin className="h-6 w-6 text-accent-600" />
-              </motion.div>
-              <div>
-                <h3 className="font-semibold text-primary-900 mb-1">Location</h3>
-                <p className="text-gray-600">{BUSINESS_INFO.address}</p>
-              </div>
-            </motion.div>
+              {location.name}
+            </motion.h3>
 
-            {/* Hours */}
-            <motion.div 
-              className="flex items-start space-x-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-              whileHover={{ x: 10 }}
-            >
+            <div className="space-y-5">
+              {/* Address */}
               <motion.div 
-                className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center"
-                whileHover={{ scale: 1.1, rotate: -5 }}
-                animate={{ rotate: [0, 5, 0, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
+                className="flex items-start space-x-3"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.15 }}
               >
-                <Clock className="h-6 w-6 text-accent-600" />
-              </motion.div>
-              <div>
-                <h3 className="font-semibold text-primary-900 mb-2">Opening Hours</h3>
-                <div className="space-y-1 text-gray-600">
-                  <motion.div 
-                    className="flex justify-between"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.32 }}
-                  >
-                    <span>Monday - Friday:</span>
-                    <span className="font-medium">{BUSINESS_INFO.hours.weekdays}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex justify-between"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.38 }}
-                  >
-                    <span>Saturday:</span>
-                    <span className="font-medium">{BUSINESS_INFO.hours.saturday}</span>
-                  </motion.div>
-                  <motion.div 
-                    className="flex justify-between"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.44 }}
-                  >
-                    <span>Sunday:</span>
-                    <span className="font-medium">{BUSINESS_INFO.hours.sunday}</span>
-                  </motion.div>
+                <MapPin className="h-5 w-5 text-accent-600 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-black-900 mb-1">Address</p>
+                  <p className="text-gray-600 text-sm">{location.address}</p>
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Contact */}
-            <motion.div 
-              className="flex items-start space-x-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              whileHover={{ x: 10 }}
-            >
-              <motion.div 
-                className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <Phone className="h-6 w-6 text-accent-600" />
               </motion.div>
-              <div>
-                <h3 className="font-semibold text-primary-900 mb-1">Contact</h3>
-                <p className="text-gray-600">
-                  <a href={`tel:${BUSINESS_INFO.phone}`} className="hover:text-accent-600">
-                    {BUSINESS_INFO.phone}
-                  </a>
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
 
-        {/* Map */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div 
-            className="aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-lg"
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3459.6!2d${BUSINESS_INFO.coordinates.lng}!3d${BUSINESS_INFO.coordinates.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0:0x0!2zKPCfj60g${encodeURIComponent('Pro Barber Shop ZA')}!5e0!3m2!1sen!2sza!4v1234567890&q=${encodeURIComponent(BUSINESS_INFO.address)}`}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Pro Barber Shop ZA Location"
-            />
-          </motion.div>
-          
-          {/* View Larger Map Link */}
-          <motion.div 
-            className="mt-4 text-center"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
+              {/* Phone */}
+              <motion.div 
+                className="flex items-start space-x-3"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+              >
+                <Phone className="h-5 w-5 text-accent-600 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-black-900 mb-1">Phone</p>
+                  <a href={`tel:${location.phone.replace(/\s/g, '')}`} className="text-accent-600 hover:text-accent-700 text-sm">
+                    {location.phone}
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* Hours */}
+              <motion.div 
+                className="flex items-start space-x-3"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.25 }}
+              >
+                <Clock className="h-5 w-5 text-accent-600 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-black-900 mb-2">Hours</p>
+                  <div className="space-y-1 text-gray-600 text-sm">
+                    <div className="flex justify-between">
+                      <span>Mon-Thu:</span>
+                      <span className="font-medium">{location.hours.weekdays}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Fri:</span>
+                      <span className="font-medium">{location.hours.friday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Sat:</span>
+                      <span className="font-medium">{location.hours.saturday}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Sun:</span>
+                      <span className="font-medium">{location.hours.sunday}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Google Maps Link */}
             <motion.a
-              href="https://www.google.com/maps/place/35+Nyakata+St,+Lamontville,+Chatsworth,+4027,+South+Africa/@-29.9353602,30.9341844,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef7ab79edf9ca5b:0x6532d3deafb8c6a9!8m2!3d-29.9353649!4d30.9367593!16s%2Fg%2F11c2cnwhwn?hl=en-ZA&entry=ttu&g_ep=EgoyMDI2MDIwOS4wIKXMDSoASAFQAw%3D%3D"
+              href={`https://www.google.com/maps/search/${encodeURIComponent(location.address)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-accent-600 hover:text-accent-700 font-medium"
+              className="inline-flex items-center text-accent-600 hover:text-accent-700 font-medium text-sm mt-6"
               whileHover={{ x: 5 }}
               whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
             >
-              <MapPin className="h-4 w-4 mr-1" />
-              View larger map
+              <MapPin className="h-4 w-4 mr-2" />
+              Get directions
             </motion.a>
           </motion.div>
-        </motion.div>
+        ))}
       </div>
     </Section>
   )
