@@ -80,7 +80,7 @@ export default function Services() {
           >
             <div className="mb-8">
               <motion.h2 
-                className="text-4xl md:text-5xl lg:text-6xl font-black text-[#FFFF00] mb-6 leading-tight tracking-wide"
+                className="text-4xl md:text-5xl lg:text-6xl font-black text-[#FFF44F] mb-6 leading-tight tracking-wide"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -140,7 +140,7 @@ export default function Services() {
                   href="/services"
                   variant="outline"
                   size="md"
-                  className="border-gray-200 text-gray-700 hover:bg-black-900 hover:text-white hover:border-black-900 whitespace-nowrap"
+                  className="border-gray-200 text-white hover:bg-black-900 hover:text-black-900 hover:border-black-900 whitespace-nowrap"
                 >
                   View All Styles
                 </Button>
@@ -174,7 +174,7 @@ export default function Services() {
                   whileHover={{ y: -10 }}
                 >
                   <motion.div 
-                    className="bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] w-full rounded-lg"
+                    className="bg-[#FFF44F] shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] w-full rounded-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -242,7 +242,7 @@ export default function Services() {
                 onClick={prevSlide}
                 variant="outline" 
                 size="sm"
-                className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
+                className="bg-[#FFF44F] border-[#FFF44F] text-[#2e2e2e] hover:brightness-110 font-black"
               >
                 ←
               </Button>
@@ -258,7 +258,7 @@ export default function Services() {
                     key={index}
                     layout
                     className={`w-8 h-2 rounded-full transition-colors ${
-                      index === currentSlide ? 'bg-black-900' : 'bg-gray-300'
+                      index === currentSlide ? 'bg-[#FFF44F]' : 'bg-gray-600'
                     }`}
                     animate={{
                       scale: index === currentSlide ? 1.2 : 1,
@@ -271,7 +271,7 @@ export default function Services() {
                 onClick={nextSlide}
                 variant="outline" 
                 size="sm"
-                className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
+                className="bg-[#FFF44F] border-[#FFF44F] text-[#2e2e2e] hover:brightness-110 font-black"
               >
                 →
               </Button>

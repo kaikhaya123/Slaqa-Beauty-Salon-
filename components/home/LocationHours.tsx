@@ -1,179 +1,166 @@
-'use client'
+﻿'use client'
 
-import { MapPin, Clock, Phone } from 'lucide-react'
+import { MapPin, Phone, Clock, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
-import Section from '@/components/ui/Section'
-import { BUSINESS_INFO } from '@/lib/constants'
+import Image from 'next/image'
+import Link from 'next/link'
+
+const locations = [
+  {
+    name: 'Umlazi',
+    address: '1 Swazi Rd, Umlazi A, Umlazi 4089',
+    phone: '+27 65 686 6171',
+    image: '/Images/slaqa_salon_3d_render.png',
+    hours: [
+      { days: 'Mon – Thu', time: '08:00 – 20:00' },
+      { days: 'Friday',    time: '08:00 – 21:00' },
+      { days: 'Saturday',  time: '08:00 – 21:00' },
+      { days: 'Sunday',    time: '11:00 – 18:00' },
+    ],
+    mapsUrl: 'https://maps.google.com/?q=1+Swazi+Rd,+Umlazi+A,+Umlazi+4089',
+  },
+  {
+    name: 'KwaMashu',
+    address: 'F 206 Bhejane Road, KwaMashu',
+    phone: '+27 66 564 1784',
+    image: '/Images/slaqa_salon_3d_render.png',
+    hours: [
+      { days: 'Mon – Thu', time: '08:00 – 20:00' },
+      { days: 'Friday',    time: '08:00 – 21:00' },
+      { days: 'Saturday',  time: '08:00 – 21:00' },
+      { days: 'Sunday',    time: '11:00 – 18:00' },
+    ],
+    mapsUrl: 'https://maps.google.com/?q=F+206+Bhejane+Road,+KwaMashu',
+  },
+  {
+    name: 'Waterloo',
+    address: '46 Pricklepear Road, Waterloo',
+    phone: '+27 65 686 6171',
+    image: '/Images/slaqa_salon_3d_render.png',
+    hours: [
+      { days: 'Mon – Thu', time: '08:00 – 20:00' },
+      { days: 'Friday',    time: '08:00 – 21:00' },
+      { days: 'Saturday',  time: '08:00 – 21:00' },
+      { days: 'Sunday',    time: '11:00 – 18:00' },
+    ],
+    mapsUrl: 'https://maps.google.com/?q=46+Pricklepear+Road,+Waterloo',
+  },
+]
 
 export default function LocationHours() {
-  const locations = [
-    {
-      name: 'Umlazi',
-      address: '1 Swazi Rd, Umlazi A, Umlazi 4089',
-      phone: '+27 65 686 6171',
-      hours: {
-        weekdays: '08:00 - 20:00',
-        friday: '08:00 - 21:00',
-        saturday: '08:00 - 21:00',
-        sunday: '11:00 - 18:00',
-      },
-      coordinates: { lat: -30.0195, lng: 31.0067 },
-    },
-    {
-      name: 'KwaMashu',
-      address: 'F 206 Bhejane Road, KwaMashu',
-      phone: '066 564 1784',
-      hours: {
-        weekdays: '08:00 - 20:00',
-        friday: '08:00 - 21:00',
-        saturday: '08:00 - 21:00',
-        sunday: '11:00 - 18:00',
-      },
-      coordinates: { lat: -29.8476, lng: 30.9147 },
-    },
-    {
-      name: 'Waterloo',
-      address: '46 Pricklepear Road, Waterloo',
-      phone: '+27 65 686 6171',
-      hours: {
-        weekdays: '08:00 - 20:00',
-        friday: '08:00 - 21:00',
-        saturday: '08:00 - 21:00',
-        sunday: '11:00 - 18:00',
-      },
-      coordinates: { lat: -29.9087, lng: 30.8819 },
-    },
-  ]
-
   return (
-    <Section background="white">
+    <section className="bg-[#2e2e2e] py-24 px-6">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mb-12"
+        className="max-w-7xl mx-auto mb-16"
       >
-        <motion.h2 
-          className="text-3xl font-heading font-bold text-black-900 mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Visit our Locations
-        </motion.h2>
-        <p className="text-lg text-gray-600 max-w-2xl">
+        <p className="text-[#FFF44F] text-sm font-bold uppercase tracking-[0.2em] mb-3">
+          Find Us
+        </p>
+        <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-white mb-4 leading-none">
+          Visit our<br />
+          <span className="text-[#FFF44F]">Locations</span>
+        </h2>
+        <p className="text-lg text-gray-400 max-w-2xl">
           Slaqa operates three convenient locations across Durban. Visit any of our salons for premium beauty, hair, and barbering services.
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {locations.map((location, index) => (
+      {/* Cards */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        {locations.map((loc, index) => (
           <motion.div
-            key={location.name}
-            initial={{ opacity: 0, y: 30 }}
+            key={loc.name}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition-shadow"
+            transition={{ duration: 0.6, delay: index * 0.15 }}
+            className="group relative flex flex-col bg-[#1e1e1e] rounded-2xl overflow-hidden border border-white/5 hover:border-[#FFF44F]/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#FFF44F]/5"
           >
-            {/* Location Name */}
-            <motion.h3 
-              className="text-2xl font-bold text-black-900 mb-6"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
-            >
-              {location.name}
-            </motion.h3>
-
-            <div className="space-y-5">
-              {/* Address */}
-              <motion.div 
-                className="flex items-start space-x-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.15 }}
-              >
-                <MapPin className="h-5 w-5 text-accent-600 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-black-900 mb-1">Address</p>
-                  <p className="text-gray-600 text-sm">{location.address}</p>
-                </div>
-              </motion.div>
-
-              {/* Phone */}
-              <motion.div 
-                className="flex items-start space-x-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
-              >
-                <Phone className="h-5 w-5 text-accent-600 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-black-900 mb-1">Phone</p>
-                  <a href={`tel:${location.phone.replace(/\s/g, '')}`} className="text-accent-600 hover:text-accent-700 text-sm">
-                    {location.phone}
-                  </a>
-                </div>
-              </motion.div>
-
-              {/* Hours */}
-              <motion.div 
-                className="flex items-start space-x-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.25 }}
-              >
-                <Clock className="h-5 w-5 text-accent-600 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-black-900 mb-2">Hours</p>
-                  <div className="space-y-1 text-gray-600 text-sm">
-                    <div className="flex justify-between">
-                      <span>Mon-Thu:</span>
-                      <span className="font-medium">{location.hours.weekdays}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Fri:</span>
-                      <span className="font-medium">{location.hours.friday}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sat:</span>
-                      <span className="font-medium">{location.hours.saturday}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sun:</span>
-                      <span className="font-medium">{location.hours.sunday}</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+            {/* 3D render image */}
+            <div className="relative h-72 bg-gradient-to-b from-[#111] to-[#1e1e1e] overflow-hidden">
+              {/* subtle yellow glow */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-3/4 h-3/4 bg-[#FFF44F]/10 blur-3xl rounded-full" />
+              </div>
+              <Image
+                src={loc.image}
+                alt={`Slaqa Salon ${loc.name} — 3D render`}
+                fill
+                className="object-contain p-4 drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
             </div>
 
-            {/* Google Maps Link */}
-            <motion.a
-              href={`https://www.google.com/maps/search/${encodeURIComponent(location.address)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-accent-600 hover:text-accent-700 font-medium text-sm mt-6"
-              whileHover={{ x: 5 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-            >
-              <MapPin className="h-4 w-4 mr-2" />
-              Get directions
-            </motion.a>
+            {/* Yellow accent bar */}
+            <div className="h-1 w-full bg-[#FFF44F]" />
+
+            {/* Info */}
+            <div className="flex flex-col flex-1 p-7 gap-5">
+              {/* Location name */}
+              <h3 className="text-2xl font-black text-white tracking-tight">
+                {loc.name}
+              </h3>
+
+              {/* Address */}
+              <div className="flex items-start gap-3">
+                <MapPin className="h-4 w-4 text-[#FFF44F] mt-1 shrink-0" />
+                <div>
+                  <p className="text-xs text-gray-500 uppercase tracking-widest mb-1 font-semibold">Address</p>
+                  <p className="text-sm text-gray-300">{loc.address}</p>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-start gap-3">
+                <Phone className="h-4 w-4 text-[#FFF44F] mt-1 shrink-0" />
+                <div>
+                  <p className="text-xs text-gray-500 uppercase tracking-widest mb-1 font-semibold">Phone</p>
+                  <a
+                    href={`tel:${loc.phone.replace(/\s/g, '')}`}
+                    className="text-sm text-gray-300 hover:text-[#FFF44F] transition-colors"
+                  >
+                    {loc.phone}
+                  </a>
+                </div>
+              </div>
+
+              {/* Hours */}
+              <div className="flex items-start gap-3">
+                <Clock className="h-4 w-4 text-[#FFF44F] mt-1 shrink-0" />
+                <div className="w-full">
+                  <p className="text-xs text-gray-500 uppercase tracking-widest mb-2 font-semibold">Hours</p>
+                  <div className="space-y-1">
+                    {loc.hours.map(({ days, time }) => (
+                      <div key={days} className="flex justify-between text-sm">
+                        <span className="text-gray-400">{days}</span>
+                        <span className="text-gray-200 font-medium tabular-nums">{time}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-auto pt-2">
+                <Link
+                  href={loc.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 w-full justify-center py-3 rounded-full border border-[#FFF44F] text-[#FFF44F] text-sm font-bold uppercase tracking-wider hover:bg-[#FFF44F] hover:text-[#2e2e2e] transition-all duration-300"
+                >
+                  Get Directions
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
           </motion.div>
         ))}
       </div>
-    </Section>
+    </section>
   )
 }

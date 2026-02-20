@@ -104,8 +104,8 @@ export default function Header() {
               href="/book"
               className={`hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium tracking-wide border transition-all duration-300 hover:scale-105 ${
                 isYellow
-                  ? 'border-black text-black hover:bg-black hover:text-white'
-                  : 'border-white text-white hover:bg-white hover:text-black'
+                  ? 'border-black-900 text-black-900 hover:bg-black-900 hover:text-black-900'
+                  : 'border-white text-white hover:bg-black-900 hover:text-black'
               }`}
             >
               <span>BOOK NOW</span>
@@ -123,7 +123,7 @@ export default function Header() {
                   aria-label="Open navigation menu"
                   className={`transition-colors duration-200 p-1 ${
                     isYellow
-                      ? 'text-black hover:text-gray-700'
+                      ? 'text-black-900 hover:text-black-900'
                       : 'text-white hover:text-amber-400'
                   }`}
                 >
@@ -135,7 +135,7 @@ export default function Header() {
                 {/* Mobile drag handle */}
                 {!isDesktop && (
                   <div className="flex justify-center w-full pt-3 pb-1">
-                    <div className="w-16 h-[0.30rem] shrink-0 rounded-full bg-white/30" />
+                    <div className="w-16 h-[0.30rem] shrink-0 rounded-full bg-[#FFF44F]/30" />
                   </div>
                 )}
 
@@ -150,7 +150,7 @@ export default function Header() {
                         height={40}
                         className="h-9 w-auto brightness-0 invert"
                       />
-                      <span className="text-white text-xl font-bold tracking-[0.25em] uppercase">
+                      <span className="text-[#FFF44F] text-xl font-bold tracking-[0.25em] uppercase">
                         SLAQA SALON
                       </span>
                     </Link>

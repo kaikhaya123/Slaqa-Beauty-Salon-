@@ -110,8 +110,8 @@ export default function FollowRealBarbershop() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <Image
-                src="/Images/70 New Black Men Haircuts And Hairstyles In 2025-left.png"
-                alt="Pro Barbershop haircut showcase"
+                src="/Images/574405738_18334801651233342_8526109735161689353_n-landscape.png"
+                alt="Slaqa Salon"
                 width={400}
                 height={600}
                 className="object-contain w-full h-auto"
