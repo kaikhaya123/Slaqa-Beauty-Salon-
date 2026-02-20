@@ -1,9 +1,17 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { Bebas_Neue } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import WhatsAppFloatingButton from '@/components/ui/WhatsAppFloatingButton'
+
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-bebas-neue',
+  display: 'swap',
+})
 
 const rethinkSans = localFont({
   src: [
@@ -39,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={rethinkSans.variable}>
+    <html lang="en" className={`${rethinkSans.variable} ${bebasNeue.variable}`}>
       <body className="font-sans antialiased">
         <Header />
         <main className="pt-16 md:pt-20">

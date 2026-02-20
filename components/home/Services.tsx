@@ -1,90 +1,284 @@
-'use client';
+"use client"
 
-import Image from 'next/image';
-import { useMediaQuery } from '@/hooks/use-media-query';
-import {
-  SliderBtnGroup,
-  ProgressSlider,
-  SliderBtn,
-  SliderContent,
-  SliderWrapper,
-} from '@/components/ui/progressive-carousel';
+import Image from 'next/image'
+import Section from '@/components/ui/Section'
+import Button from '@/components/ui/Button'
+import { motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { SERVICES } from '@/lib/constants'
 
-const items = [
-  {
-    img: '/Images/slaqa_salon_1771343144242.jpeg',
-    title: 'Haircut & Fade',
-    desc: 'Professional haircuts with modern fades and razor-sharp clean lines. Classic to cutting-edge styles.',
-    sliderName: 'haircut',
-  },
-  {
-    img: '/Images/slaqa_salon_1771343202061.jpeg',
-    title: 'Beard Trim & Shape',
-    desc: 'Expert beard sculpting, lining and professional grooming for a polished, distinguished look.',
-    sliderName: 'beard',
-  },
-  {
-    img: '/Images/slaqa_salon_1771343348133.jpeg',
-    title: 'Hair Styling',
-    desc: 'Creative styling for events, occasions and everyday premium looks — tailored to your personality.',
-    sliderName: 'styling',
-  },
-  {
-    img: '/Images/slaqa_salon_1771343429789.jpeg',
-    title: 'Hot Towel Shave',
-    desc: 'Traditional wet shave with a steaming hot towel treatment. The ultimate relaxation experience.',
-    sliderName: 'shave',
-  },
-];
+interface TouchEventType extends React.TouchEvent<HTMLDivElement> {}
+
+interface Service {
+  id: number;
+  name: string;
+  price: number;
+  duration: string;
+  image: string;
+  description: string;
+}
+
+interface OnTouchMoveEvent extends React.TouchEvent<HTMLDivElement> {}
 
 export default function Services() {
-  const isMobile = useMediaQuery('(min-width: 640px)');
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+  const containerRef = useRef(null)
+  
+  const services = SERVICES
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % services.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + services.length) % services.length)
+  }
+
+  const visibleServices = [services[currentSlide]]
+
+  // Touch swipe functionality
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e: TouchEventType) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e: OnTouchMoveEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    
+    if (isLeftSwipe) {
+      nextSlide()
+    }
+    if (isRightSwipe) {
+      prevSlide()
+    }
+  }
 
   return (
-    <>
-      <ProgressSlider
-        vertical={isMobile ? true : false}
-        fastDuration={300}
-        duration={4000}
-        activeSlider='haircut'
-        className='sm:flex'
-      >
-        <SliderBtnGroup className='sm:relative absolute bottom-0 lg:w-md sm:w-96 w-full z-10 sm:flex sm:flex-col grid grid-cols-2 sm:h-[500px] h-fit sm:bg-gray-900 bg-gray-900/80 backdrop-blur-md overflow-hidden'>
-          {items.map((item, index) => (
-            <SliderBtn
-              key={index}
-              value={item.sliderName}
-              className='text-left p-3 sm:border-b border border-gray-700 sm:pl-5 sm:pb-0 pb-6 sm:flex-1'
-              progressBarClass='left-0 sm:top-0 bottom-0 bg-amber-400 sm:w-1 sm:h-full h-1 w-full'
+    <Section background="black" padding="lg">
+      <div className="max-w-7xl mx-auto">
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left Side - Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="mb-8">
+              <motion.h2 
+                className="text-4xl md:text-5xl lg:text-6xl font-black text-[#FFFF00] mb-6 leading-tight tracking-wide"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+              Our Services<br />
+              Excellence Every Time
+            </motion.h2>
+            <motion.p 
+              className="text-base md:text-lg text-white mb-6 leading-relaxed"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h2 className='relative px-3 py-0.5 rounded-sm w-fit bg-amber-400 text-gray-900 font-bold text-sm mb-2'>
-                {item.title}
-              </h2>
-              <p className='text-sm font-medium text-gray-300 line-clamp-2'>
-                {item.desc}
-              </p>
-            </SliderBtn>
-          ))}
-        </SliderBtnGroup>
+              From barbering and hair styling to beauty treatments and special event work, Slaqa delivers professional services with excellence across all three locations.
+            </motion.p>
+            <div className="mb-8">
+              <motion.h3 
+                className="text-2xl md:text-3xl font-black text-white mb-2 tracking-wide"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                Beauty & Lifestyle
+              </motion.h3>
+              <motion.h3 
+                className="text-2xl md:text-3xl font-black text-white tracking-wide"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                Professional Standards.
+              </motion.h3>
+            </div>
+            <motion.div 
+              className="flex flex-wrap gap-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <Button 
+                  asLink 
+                  href="/book" 
+                  variant="primary" 
+                  size="md"
+                  className="bg-black-900 hover:bg-gray-900 whitespace-nowrap text-white"
+                >
+                  Book Your Service →
+                </Button>
 
-        <SliderContent className='w-full'>
-          {items.map((item, index) => (
-            <SliderWrapper
-              className='h-full'
-              key={index}
-              value={item.sliderName}
+                <Button
+                  asLink
+                  href="/services"
+                  variant="outline"
+                  size="md"
+                  className="border-gray-200 text-gray-700 hover:bg-black-900 hover:text-white hover:border-black-900 whitespace-nowrap"
+                >
+                  View All Styles
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Right Side - Swipeable Service Cards */}
+          <motion.div 
+            className="relative"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div 
+              ref={containerRef}
+              className="flex justify-center transition-all duration-500"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Image
-                className='h-[500px] object-cover w-full'
-                src={item.img}
-                width={1900}
-                height={1080}
-                alt={item.title}
-              />
-            </SliderWrapper>
-          ))}
-        </SliderContent>
-      </ProgressSlider>
-    </>
-  );
+              {visibleServices.map((service, index) => (
+                <motion.div 
+                  key={service.id} 
+                  className="group cursor-pointer w-full max-w-[350px]"
+                  whileHover={{ y: -10 }}
+                >
+                  <motion.div 
+                    className="bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] w-full rounded-lg"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    {/* Service Image */}
+                    <div className="relative h-[400px] overflow-hidden">
+                      <motion.div
+                        initial={{ scale: 1.2 }}
+                        whileInView={{ scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                      >
+                        <Image
+                          src={service.image}
+                          alt={service.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </motion.div>
+                      <div className="absolute inset-0 bg-black/40"></div>
+                      
+                      {/* Service Info - Bottom Left Corner */}
+                      <motion.div 
+                        className="absolute bottom-4 left-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                      >
+                        <motion.h3 
+                          className="text-2xl font-black text-white mb-1 tracking-wide"
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: 0.5 }}
+                        >
+                          {service.name}
+                        </motion.h3>
+                        <motion.div 
+                          className="text-3xl font-black text-white tracking-wide"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: 0.6 }}
+                        >
+                          R{service.price}
+                        </motion.div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
+            
+            {/* Navigation Controls - Below Images */}
+            <motion.div 
+              className="flex items-center justify-center space-x-4 mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <Button 
+                onClick={prevSlide}
+                variant="outline" 
+                size="sm"
+                className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
+              >
+                ←
+              </Button>
+              <motion.div 
+                className="flex space-x-2"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                {services.map((_, index) => (
+                  <motion.div
+                    key={index}
+                    layout
+                    className={`w-8 h-2 rounded-full transition-colors ${
+                      index === currentSlide ? 'bg-black-900' : 'bg-gray-300'
+                    }`}
+                    animate={{
+                      scale: index === currentSlide ? 1.2 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  ></motion.div>
+                ))}
+              </motion.div>
+              <Button 
+                onClick={nextSlide}
+                variant="outline" 
+                size="sm"
+                className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
+              >
+                →
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </Section>
+  )
 }

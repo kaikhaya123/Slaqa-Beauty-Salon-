@@ -72,7 +72,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-4 left-4 right-4 z-50 rounded-2xl transition-all duration-300 ${
-        isYellow ? 'bg-[#FFD400] shadow-lg' : 'bg-transparent shadow-none'
+        isYellow ? 'bg-[#FFFF00] shadow-lg' : 'bg-transparent shadow-none'
       }`}
     >
       <div className="mx-auto max-w-7xl">

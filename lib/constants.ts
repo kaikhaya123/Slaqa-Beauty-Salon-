@@ -48,29 +48,29 @@ export function getBaseUrl(): string {
 export const SERVICES = [
   {
     id: 'haircut-fade',
-    name: 'HAIRCUT & FADE',
+    name: 'Brush Cut ',
     description: 'Professional haircuts with modern fades and clean lines',
     duration: 60,
-    price: 150,
+    price: 170,
     image: '/Images/1767772041818.jpeg',
     category: 'Barbering',
   },
   {
-    id: 'beard-trim',
-    name: 'BEARD TRIM & SHAPING',
+    id: 'Taper Fade',
+    name: 'Taper',
     description: 'Expert beard sculpting and professional grooming',
     duration: 45,
-    price: 120,
-    image: '/Images/download (3).jpg',
+    price: 170,
+    image: '/Images/slaqa_salon_1771564240227.jpeg',
     category: 'Barbering',
   },
   {
-    id: 'hot-towel-shave',
-    name: 'HOT TOWEL SHAVE',
+    id: 'Chiskop',
+    name: 'Chiskop',
     description: 'Traditional wet shave with hot towel treatment',
     duration: 45,
-    price: 100,
-    image: '/Images/Dye cut .jpeg',
+    price: 50,
+    image: '/Images/slaqa_salon_1771565063204.jpeg',
     category: 'Barbering',
   },
   {
@@ -108,6 +108,46 @@ export const SERVICES = [
     price: 200,
     image: '/Images/download (4) (1).jpg',
     category: 'Design',
+  },
+]
+
+// Full pricing menu (Standard = base, Black = with black dye, Colour = with colour)
+export type PriceEntry = { name: string; standard: number; black?: number; colour?: number }
+export type PriceCategory = { label: string; items: PriceEntry[] }
+
+export const PRICE_LIST: PriceCategory[] = [
+  {
+    label: 'Men',
+    items: [
+      { name: 'Chiskop',    standard: 50 },
+      { name: 'Plain Brush', standard: 50,  black: 140, colour: 250 },
+      { name: 'Brush Cut',  standard: 80,  black: 170, colour: 250 },
+      { name: 'High Top',   standard: 80,  black: 170, colour: 250 },
+      { name: 'Taper',      standard: 80,  black: 170, colour: 250 },
+      { name: 'Mohawk',     standard: 80,  black: 170, colour: 250 },
+      { name: 'Makhado',    standard: 80,  black: 170, colour: 250 },
+      { name: 'Curls',      standard: 80,  black: 170, colour: 250 },
+      { name: 'Shaving',    standard: 20 },
+      { name: 'Trimming',   standard: 20 },
+    ],
+  },
+  {
+    label: 'Women',
+    items: [
+      { name: 'Short Hair',  standard: 40,  black: 140, colour: 250 },
+      { name: 'Hair Wash',   standard: 60 },
+      { name: 'Ladies Cut',  standard: 80,  black: 170, colour: 250 },
+      { name: 'S-Curl',      standard: 150, black: 250, colour: 250 },
+      { name: 'Twizzing',    standard: 20 },
+    ],
+  },
+  {
+    label: 'Kids',
+    items: [
+      { name: 'Chiskop',  standard: 40 },
+      { name: 'Brush',    standard: 40, black: 120, colour: 200 },
+      { name: 'Fade Cut', standard: 60, black: 150, colour: 200 },
+    ],
   },
 ]
 

@@ -73,7 +73,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-rethink-sans)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-bebas-neue)', 'system-ui', 'sans-serif'],
+        bebas: ['var(--font-bebas-neue)', 'sans-serif'],
+        rethink: ['var(--font-rethink-sans)', 'system-ui', 'sans-serif'],
       },
     },
   },

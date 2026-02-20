@@ -7,7 +7,7 @@ import Link from 'next/link'
 export default function IntroSection() {
   return (
     <section
-      className="relative pt-24 pb-32 px-6 overflow-hidden bg-black text-yellow-400"
+      className="relative pt-24 pb-32 px-6 overflow-hidden bg-black text-[#FFFF00]"
       role="region"
       aria-labelledby="intro-heading"
     >
@@ -29,7 +29,7 @@ export default function IntroSection() {
                 className="text-7xl md:text-8xl font-black tracking-tighter leading-none"
               >
                 Our story. <br />
-                <span className="text-black">SLAQA SALON.</span>
+                <span className="text-white">Slaqa Salon.</span>
               </h2>
             </motion.div>
 
@@ -55,7 +55,7 @@ export default function IntroSection() {
               <div className="pt-4">
                 <Link
                   href="/book"
-                  className="inline-flex items-center h-12 px-8 bg-black text-white rounded-full font-bold text-sm hover:bg-white transition-all duration-200 active:scale-95"
+                  className="inline-flex items-center h-12 px-8 bg-[#FFFF00] text-black-900 rounded-full font-bold text-sm hover:bg-yellow-400 transition-all duration-200 active:scale-95"
                 >
                   Book Appointment
                 </Link>
@@ -71,13 +71,13 @@ export default function IntroSection() {
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
             className="relative aspect-[4/5] lg:aspect-square overflow-hidden rounded-3xl shadow-2xl"
           >
-            <video
-              src="/Images/3653955551751148469.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out w-full h-full"
+            <Image
+              src="/Images/1771563130149.jpeg"
+              alt="Slaqa Salon"
+              fill
+              className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
             />
             {/* Spinning badge */}
             <div className="absolute top-8 right-8">
