@@ -66,7 +66,7 @@ function StatCounter({ value, suffix = "", label, decimals = 0 }: StatCounterPro
 
   return (
     <div ref={ref}>
-      <div className="text-4xl font-bold text-gold-600 mb-2">
+      <div className="text-4xl font-bold text-[#FFF44F] mb-2">
         {display}
         {suffix}
       </div>
@@ -167,7 +167,7 @@ export default function SocialProof() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: index * 0.1 + 0.1 + i * 0.05 }}
                   >
-                    <Star className="h-5 w-5 text-yellow-400 fill-current" />
+                    <Star className="h-5 w-5 text-[#FFF44F] fill-current" />
                   </motion.div>
                 ))}
               </motion.div>
@@ -178,7 +178,7 @@ export default function SocialProof() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
               >
-                <Quote className="h-8 w-8 text-gold-200 mb-3" />
+                <Quote className="h-8 w-8 text-[#FFF44F] mb-3" />
               </motion.div>
 
               <motion.p 
@@ -208,7 +208,7 @@ export default function SocialProof() {
 
       {/* Stats Bar */}
       <motion.div 
-        className="mt-16 bg-black text-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto"
+        className="mt-16 bg-[#2e2e2e] text-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}

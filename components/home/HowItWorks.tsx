@@ -44,7 +44,7 @@ export default function HowItWorks() {
               className="relative text-center"
             >
               {/* Step number */}
-              <span className="block text-lg font-black text-gold-600 mb-6 tracking-wide font-sans">
+              <span className="block text-lg font-black text-[#FFF44F] mb-6 tracking-wide font-sans">
                 {step.number}
               </span>
 

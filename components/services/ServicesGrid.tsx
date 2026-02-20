@@ -31,7 +31,7 @@ export default function ServicesGrid({ services }: Props) {
             key={cat}
             onClick={() => setActive(cat)}
             className={`px-6 py-3 rounded-full text-sm font-semibold tracking-wide transition-colors ${
-              active === cat ? 'bg-black text-white shadow-lg' : 'bg-transparent text-black-900 hover:bg-gray-50'
+              active === cat ? 'bg-[#FFF44F] text-[#2e2e2e] shadow-lg' : 'bg-transparent text-black-900 hover:bg-gray-50'
             }`}
             aria-pressed={active === cat}
           >
@@ -67,7 +67,7 @@ export default function ServicesGrid({ services }: Props) {
               <h3 className="text-sm sm:text-base lg:text-2xl font-bold text-black-900 mb-1 lg:mb-3 line-clamp-2">
                 <Link
                   href={`/book?service=${service.id}#appointment`}
-                  className="hover:text-gold-600 transition-colors"
+                  className="hover:text-[#FFF44F] transition-colors"
                 >
                   {service.name}
                 </Link>

@@ -8,6 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Brand colors
+        brand: {
+          yellow: '#FFF44F',
+          charcoal: '#2e2e2e',
+        },
         // New color scheme
         black: {
           50: '#f9f9f9',
@@ -24,14 +29,14 @@ module.exports = {
         gold: {
           50: '#fffef4',
           100: '#fffce8',
-          200: '#fff9c4',
-          300: '#ffd700', // Main accent
-          400: '#ecb000',
-          500: '#daa000',
-          600: '#c89000',
-          700: '#997000',
-          800: '#664d00',
-          900: '#332600',
+          200: '#FFF44F',
+          300: '#FFF44F', // Lemon yellow
+          400: '#FFF44F',
+          500: '#FFF44F',
+          600: '#FFF44F',
+          700: '#e6da00',
+          800: '#b3a900',
+          900: '#807800',
         },
         white: '#FFFFFF',
         gray: {

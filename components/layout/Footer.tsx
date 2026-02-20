@@ -80,12 +80,12 @@ export default function Footer() {
 
               </li>
               <li>
-                <Link href="/barbers" className="text-gray-600 hover:text-gold-600 transition-colors">
+                <Link href="/barbers" className="text-gray-600 hover:text-[#FFF44F] transition-colors">
                   Our Barbers
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-gold-600 transition-colors">
+                <Link href="/contact" className="text-gray-600 hover:text-[#FFF44F] transition-colors">
                   Contact Us
                 </Link>
               </li>
@@ -114,7 +114,7 @@ export default function Footer() {
                   height={20} 
                   className="h-5 w-5 flex-shrink-0"
                 />
-                <a href={`tel:${BUSINESS_INFO.phone}`} className="text-gray-600 hover:text-gold-600 text-sm">
+                <a href={`tel:${BUSINESS_INFO.phone}`} className="text-gray-600 hover:text-[#FFF44F] text-sm">
                   {BUSINESS_INFO.phone}
                 </a>
               </li>
@@ -126,7 +126,7 @@ export default function Footer() {
                   height={20} 
                   className="h-5 w-5 flex-shrink-0"
                 />
-                <a href={`mailto:${BUSINESS_INFO.email}`} className="text-gray-600 hover:text-gold-600 text-sm">
+                <a href={`mailto:${BUSINESS_INFO.email}`} className="text-gray-600 hover:text-[#FFF44F] text-sm">
                   {BUSINESS_INFO.email}
                 </a>
               </li>

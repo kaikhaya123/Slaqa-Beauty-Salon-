@@ -4,8 +4,10 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --background-start-rgb: 46, 46, 46;
+  --background-end-rgb: 46, 46, 46;
+  --brand-yellow: #FFF44F;
+  --brand-charcoal: #2e2e2e;
 }
 
 @layer base {

@@ -7,7 +7,7 @@ import Link from 'next/link'
 export default function IntroSection() {
   return (
     <section
-      className="relative pt-24 pb-32 px-6 overflow-hidden bg-black text-[#FFFF00]"
+      className="relative pt-24 pb-32 px-6 overflow-hidden bg-[#2e2e2e] text-[#FFF44F]"
       role="region"
       aria-labelledby="intro-heading"
     >
@@ -55,7 +55,7 @@ export default function IntroSection() {
               <div className="pt-4">
                 <Link
                   href="/book"
-                  className="inline-flex items-center h-12 px-8 bg-[#FFFF00] text-black-900 rounded-full font-bold text-sm hover:bg-yellow-400 transition-all duration-200 active:scale-95"
+                  className="inline-flex items-center h-12 px-8 bg-[#FFF44F] text-[#2e2e2e] rounded-full font-bold text-sm hover:brightness-110 transition-all duration-200 active:scale-95"
                 >
                   Book Appointment
                 </Link>

@@ -62,10 +62,10 @@ export default function Header() {
   const navLinkClass =
     'relative flex items-center gap-2 text-white ' +
     'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full ' +
-    'after:origin-bottom-right after:scale-x-0 after:bg-amber-400 ' +
+    'after:origin-bottom-right after:scale-x-0 after:bg-[#FFF44F] ' +
     'after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] ' +
     'hover:after:origin-bottom-left hover:after:scale-x-100 ' +
-    'hover:text-amber-400 transition-colors duration-200';
+    'hover:text-[#FFF44F] transition-colors duration-200';
 
   const isYellow = isScrolled || !isHomePage;
 
@@ -156,7 +156,7 @@ export default function Header() {
                     </Link>
                     {/* Close button — always visible on all screen sizes */}
                     <button
-                      className="flex items-center justify-center p-2 rounded-full bg-white/10 text-white hover:bg-amber-400 hover:text-black transition-colors duration-200"
+                      className="flex items-center justify-center p-2 rounded-full bg-white/10 text-white hover:bg-[#FFF44F] hover:text-[#2e2e2e] transition-colors duration-200"
                       onClick={() => setSidebarOpen(false)}
                       aria-label="Close menu"
                     >
@@ -186,7 +186,7 @@ export default function Header() {
                           <Link
                             href="/book"
                             onClick={() => setSidebarOpen(false)}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium tracking-wide border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-black transition-all duration-300"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium tracking-wide border border-[#FFF44F] text-[#FFF44F] hover:bg-[#FFF44F] hover:text-[#2e2e2e] transition-all duration-300"
                           >
                             BOOK NOW
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
