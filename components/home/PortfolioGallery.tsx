@@ -77,7 +77,7 @@ interface CardType {
 const Card = ({ card }: { card: CardType }) => {
   return (
     <motion.div 
-      className="group relative h-[400px] w-[350px] overflow-hidden bg-[#FFFF00]  rounded-xl shadow-lg"
+      className="group relative h-[400px] w-[350px] overflow-hidden bg-[#FFFF00] rounded-xl shadow-lg"
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.3 }}

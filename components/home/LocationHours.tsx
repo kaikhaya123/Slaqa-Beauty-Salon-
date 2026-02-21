@@ -49,7 +49,7 @@ const locations = [
 
 export default function LocationHours() {
   return (
-    <section className="bg-[#2e2e2e] py-24 px-6">
+    <section className="bg-black-900 py-24 px-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

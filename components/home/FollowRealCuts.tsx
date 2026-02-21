@@ -1,12 +1,16 @@
 'use client'
 
-import Section from '@/components/ui/Section'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+import sceneAnimation from '@/public/lottie/Scene.json'
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
 
 export default function FollowRealBarbershop() {
   return (
-    <Section className="py-20 md:py-28 bg-white">
+    <section className="py-20 md:py-28 bg-[#FFFF00]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         
         {/* LEFT CONTENT */}
@@ -17,7 +21,7 @@ export default function FollowRealBarbershop() {
           transition={{ duration: 0.6 }}
           className="space-y-8"
         >
-          <span className="text-sm uppercase tracking-widest font-medium text-gray-600">
+          <span className="text-sm uppercase tracking-widest font-medium text-black-900">
             Stay connected
           </span>
 
@@ -32,7 +36,7 @@ export default function FollowRealBarbershop() {
           </motion.h2>
 
           <motion.p 
-            className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-lg"
+            className="text-lg md:text-xl text-black-900 leading-relaxed max-w-lg"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -50,8 +54,9 @@ export default function FollowRealBarbershop() {
             transition={{ duration: 0.6, delay: 0.25 }}
           >
             {[
-              { name: 'Instagram', url: 'https://www.instagram.com/slaqa_salon/', icon: '/Images/instagram.png' },
-              { name: 'WhatsApp', url: 'https://wa.me/27656866171', icon: '/Images/whatsapp.png' },
+              { name: 'Instagram', url: 'https://www.instagram.com/slaqa_salon/', icon: '/Icons/instagram (2).png' },
+              { name: 'Facebook', url: 'https://www.facebook.com/slaqa_salon', icon: '/Images/facebook (1).png'},
+              {name:   'TikTok', url: 'https://www.tiktok.com/@slaqa_salon', icon: '/Icons/tik-tok.png' },
             ].map((social, idx) => (
               <motion.a
                 key={idx}
@@ -80,7 +85,7 @@ export default function FollowRealBarbershop() {
 
           {/* MICRO TRUST */}
           <motion.p 
-            className="text-sm text-gray-600 font-medium"
+            className="text-sm text-black-900 font-medium"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -98,30 +103,24 @@ export default function FollowRealBarbershop() {
           transition={{ duration: 0.8 }}
           className="flex justify-center items-center min-h-[600px]"
         >
-          <motion.div 
-            className="relative w-full max-w-sm h-auto"
-            whileHover={{ scale: 1.05, rotate: 2 }}
-            transition={{ duration: 0.3 }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full max-w-lg"
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <Image
-                src="/Images/574405738_18334801651233342_8526109735161689353_n-landscape.png"
-                alt="Slaqa Salon"
-                width={400}
-                height={600}
-                className="object-contain w-full h-auto"
-                priority
-              />
-            </motion.div>
+            <Lottie
+              animationData={sceneAnimation}
+              loop
+              autoplay
+              className="w-full h-auto"
+            />
           </motion.div>
         </motion.div>
 
       </div>
-    </Section>
+      </div>
+    </section>
   )
 }

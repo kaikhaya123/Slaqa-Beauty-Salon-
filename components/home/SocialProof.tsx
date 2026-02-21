@@ -91,8 +91,8 @@ function StatCounter({ value, suffix = '', label, decimals = 0 }: StatCounterPro
 
   return (
     <div ref={ref}>
-      <div className="text-4xl font-bold text-[#FFF44F] mb-2">{display}{suffix}</div>
-      <div className="text-sm text-gray-400 uppercase tracking-widest">{label}</div>
+      <div className="text-4xl font-bold text-black-900 mb-2">{display}{suffix}</div>
+      <div className="text-sm text-black-900 uppercase tracking-widest">{label}</div>
     </div>
   )
 }
@@ -110,7 +110,7 @@ export default function SocialProof() {
   const active = testimonials[activeIndex]
 
   return (
-    <section className="bg-[#2e2e2e] min-h-screen flex flex-col justify-center py-24 px-6">
+    <section className="bg-white min-h-screen flex flex-col justify-center py-24 px-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -119,11 +119,11 @@ export default function SocialProof() {
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto mb-16 text-center"
       >
-        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white mb-4 leading-none">
+        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-black-900 mb-4 leading-none">
           Trusted by<br />
-          <span className="text-[#FFF44F]">Durban</span>
+          <span className="text-black-900">Durban</span>
         </h2>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+        <p className="text-lg text-black-900 max-w-2xl mx-auto">
           Real words from real clients — Facebook, AfricaBZ &amp; more.
         </p>
       </motion.div>
@@ -138,7 +138,7 @@ export default function SocialProof() {
           transition={{ duration: 0.4 }}
           className="size-16 rounded-full bg-[#FFF44F]/10 border border-[#FFF44F]/30 flex items-center justify-center mb-10"
         >
-          <svg className="size-8 text-[#FFF44F]" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="size-8 text-black-900" fill="currentColor" viewBox="0 0 24 24">
             <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017V14H17.017C14.8079 14 13.017 12.2091 13.017 10V5H21.017V16L19.017 21H14.017ZM3.01709 21L3.01709 18C3.01709 16.8954 3.91252 16 5.01709 16H8.01709V14H6.01709C3.80795 14 2.01709 12.2091 2.01709 10V5H10.0171V16L8.01709 21H3.01709Z" />
           </svg>
         </motion.div>
@@ -152,10 +152,10 @@ export default function SocialProof() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-              className="text-2xl sm:text-4xl font-semibold tracking-tight text-white leading-tight text-balance"
+              className="text-2xl sm:text-4xl font-semibold tracking-tight text-black-900 leading-tight text-balance"
             >
               &ldquo;{active.quote}{' '}
-              <span className="text-[#FFF44F] italic">{active.highlight}</span>{' '}
+              <span className="text-black-900 italic">{active.highlight}</span>{' '}
               {active.quoteEnd}&rdquo;
             </motion.blockquote>
           </AnimatePresence>
@@ -177,10 +177,10 @@ export default function SocialProof() {
                 alt={active.name}
                 width={56}
                 height={56}
-                className="size-14 rounded-full object-cover border-2 border-[#FFF44F] mb-1"
+                className="size-14 rounded-full object-cover border-2 border-[#000000] mb-1"
               />
-              <p className="text-sm font-black text-white uppercase tracking-widest">{active.name}</p>
-              <p className="text-xs text-gray-400 font-medium">{active.role}</p>
+              <p className="text-sm font-black text-black-900 uppercase tracking-widest">{active.name}</p>
+              <p className="text-xs text-black-900 font-medium">{active.role}</p>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -195,7 +195,7 @@ export default function SocialProof() {
               className={cn(
                 'h-2 rounded-full transition-all duration-300',
                 index === activeIndex
-                  ? 'bg-[#FFF44F] w-8'
+                  ? 'bg-black-900 w-8'
                   : 'bg-gray-600 w-2 hover:bg-gray-400'
               )}
             />
@@ -209,7 +209,7 @@ export default function SocialProof() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="mt-24 border-t border-white/10 pt-16 max-w-4xl mx-auto w-full"
+        className="mt-24 border-t border-white pt-16 max-w-4xl mx-auto w-full"
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <StatCounter value={98} suffix="%" label="Satisfaction" />

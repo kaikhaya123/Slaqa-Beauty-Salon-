@@ -5,6 +5,7 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import WhatsAppFloatingButton from '@/components/ui/WhatsAppFloatingButton'
+import AppShell from '@/components/layout/AppShell'
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
@@ -49,12 +50,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${rethinkSans.variable} ${bebasNeue.variable}`}>
       <body className="font-sans antialiased">
-        <Header />
-        <main className="pt-16 md:pt-20">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppFloatingButton />
+        <AppShell>
+          <Header />
+          <main className="pt-16 md:pt-20">
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppFloatingButton />
+        </AppShell>
       </body>
     </html>
   )

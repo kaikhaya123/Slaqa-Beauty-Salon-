@@ -35,39 +35,11 @@ export default function SlaqaCosmetics() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-12 gap-4 overflow-hidden px-5 pb-2 lg:pb-5">
 
-            {/* Hero video */}
-            <motion.article
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ ease: 'easeOut', duration: 0.6 }}
-              viewport={{ once: false }}
-              className="relative sm:col-span-7 col-span-12 h-[420px] sm:h-[560px] lg:h-[640px]"
-            >
-              <div className="w-full h-full overflow-hidden rounded-xl">
-                <video
-                  src="/Video/3770841207342444387.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="h-full w-full object-cover object-center brightness-90"
-                />
-              </div>
-              <div className="absolute bottom-0 w-full p-4 flex justify-between items-center">
-                <h3 className="lg:text-xl text-sm bg-black text-white rounded-xl p-2 px-4">
-                  Slaqa Cosmetics
-                </h3>
-                <div className="lg:w-12 w-10 lg:h-12 h-10 text-white grid place-content-center rounded-full bg-black">
-                  <MoveUpRight />
-                </div>
-              </div>
-            </motion.article>
-
             {/* Copy tile */}
             <motion.article
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
-              transition={{ ease: 'easeOut', duration: 0.6, delay: 0.15 }}
+              transition={{ ease: 'easeOut', duration: 0.6 }}
               viewport={{ once: false }}
               className="relative sm:col-span-5 col-span-12 rounded-xl bg-[#FFFF00] flex flex-col justify-between p-8 lg:p-12 h-[320px] sm:h-[560px] lg:h-[640px]"
             >
@@ -96,6 +68,34 @@ export default function SlaqaCosmetics() {
                 >
                   Our Story
                 </Link>
+              </div>
+            </motion.article>
+
+            {/* Hero video */}
+            <motion.article
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ ease: 'easeOut', duration: 0.6, delay: 0.15 }}
+              viewport={{ once: false }}
+              className="relative sm:col-span-7 col-span-12 h-[420px] sm:h-[560px] lg:h-[640px]"
+            >
+              <div className="w-full h-full overflow-hidden rounded-xl">
+                <video
+                  src="/Video/3770841207342444387.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="h-full w-full object-cover object-center brightness-90"
+                />
+              </div>
+              <div className="absolute bottom-0 w-full p-4 flex justify-between items-center">
+                <h3 className="lg:text-xl text-sm bg-black text-white rounded-xl p-2 px-4">
+                  Slaqa Cosmetics
+                </h3>
+                <div className="lg:w-12 w-10 lg:h-12 h-10 text-white grid place-content-center rounded-full bg-black">
+                  <MoveUpRight />
+                </div>
               </div>
             </motion.article>
 
@@ -154,7 +154,7 @@ export default function SlaqaCosmetics() {
               viewport={{ once: false }}
               className="relative sm:col-span-12 col-span-12 rounded-xl overflow-hidden min-h-[480px] sm:min-h-[560px] lg:min-h-[620px]"
             >
-              {/* Background image — fully visible */}
+              {/* Background image */}
               <Image
                 src="/Images/PnP-Express-1920-1080.jpg.png"
                 alt="Pick n Pay Express Bridge City"
@@ -162,10 +162,13 @@ export default function SlaqaCosmetics() {
                 className="object-cover object-center"
               />
 
-              {/* Left-to-right gradient: dark on left for readability, transparent on right */}
+              {/* Mobile overlay: full dark base so text is always readable */}
+              <div className="absolute inset-0 sm:hidden bg-black/70" aria-hidden="true" />
+
+              {/* Desktop overlay: strong left-side gradient, fades to transparent on the right */}
               <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 45%, transparent 75%)' }}
+                className="absolute inset-0 hidden sm:block"
+                style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.15) 75%, transparent 100%)' }}
                 aria-hidden="true"
               />
 
@@ -179,7 +182,7 @@ export default function SlaqaCosmetics() {
                     It&apos;s not just Oil,<br />
                     <span className="text-[#FFFF00]">it&apos;s Beard Qabunga.</span>
                   </h2>
-                  <p className="text-base text-white/80 leading-relaxed max-w-sm">
+                  <p className="text-base text-white leading-relaxed max-w-sm">
                     Now available in-store at{' '}
                     <strong className="text-[#FFFF00]">@bpbridgecity Pick n Pay Express</strong>{' '}
                     for only <strong className="text-[#FFFF00]">R95</strong>.
@@ -196,7 +199,7 @@ export default function SlaqaCosmetics() {
                   ].map((s) => (
                     <div key={s.label} className="space-y-0.5">
                       <p className="text-2xl font-black text-[#FFFF00]">{s.n}</p>
-                      <p className="text-xs text-white/60 uppercase tracking-wider">{s.label}</p>
+                      <p className="text-xs text-white uppercase tracking-wider">{s.label}</p>
                     </div>
                   ))}
                 </div>
