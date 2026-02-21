@@ -5,6 +5,7 @@ import PortfolioGallery from '@/components/home/PortfolioGallery'
 import HowItWorks from '@/components/home/HowItWorks'
 import Services from '@/components/home/Services'
 import SlaqaCosmetics from '@/components/home/SlaqaCosmetics'
+import TheBarbershow from '@/components/home/TheBarbershow'
 import SocialProof from '@/components/home/SocialProof'
 import FollowRealCuts from '@/components/home/FollowRealCuts'
 import LocationHours from '@/components/home/LocationHours'
@@ -18,6 +19,7 @@ export default function HomePage() {
       <HowItWorks />
       <Services />
       <SlaqaCosmetics />
+      <TheBarbershow />
       <SocialProof />
       <FollowRealCuts />
       <LocationHours />

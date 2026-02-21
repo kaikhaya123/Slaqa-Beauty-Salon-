@@ -162,8 +162,12 @@ export default function SlaqaCosmetics() {
                 className="object-cover object-center"
               />
 
-              {/* Mobile overlay: full dark base so text is always readable */}
-              <div className="absolute inset-0 sm:hidden bg-black/70" aria-hidden="true" />
+              {/* Mobile overlay: full dark base for perfect readability */}
+              <div
+                className="absolute inset-0 sm:block"
+                style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.15) 75%, transparent 100%)' }}
+                aria-hidden="true"
+              />
 
               {/* Desktop overlay: strong left-side gradient, fades to transparent on the right */}
               <div

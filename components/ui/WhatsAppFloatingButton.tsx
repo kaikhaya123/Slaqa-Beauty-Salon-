@@ -101,7 +101,7 @@ export default function WhatsAppFloatingButton() {
               hideTimerRef.current = window.setTimeout(() => setShowText(false), 1500)
             }}
             aria-label="Book Now on WhatsApp"
-            className="flex items-center gap-3 bg-gradient-to-br from-green-600 to-green-500 text-white py-2 px-3 sm:py-3 sm:px-4 rounded-full shadow-2xl hover:scale-105 transform transition-all focus:outline-none focus:ring-2 focus:ring-green-400 text-sm sm:text-base"
+            className="flex items-center gap-3 bg-[#FFFF00] text-black-900 py-2 px-3 sm:py-3 sm:px-4 rounded-full shadow-2xl hover:scale-105 transform transition-all focus:outline-none focus:ring-2 focus:ring-[#FFFF00]/40 text-sm sm:text-base font-semibold"
           >
             <div className="relative w-6 h-6 flex-shrink-0">
               <Image src="/Icons/whatsapp.png" alt="WhatsApp" fill className="object-contain" />

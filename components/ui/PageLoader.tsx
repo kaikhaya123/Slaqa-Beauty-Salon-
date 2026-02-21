@@ -8,13 +8,26 @@ import logoAnimation from '@/public/lottie/Logo-2-remix.json'
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
 
 export default function PageLoader() {
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
+
+  // Only show on first visit - tracked via sessionStorage
+  useEffect(() => {
+    const pageLoaderShown = sessionStorage.getItem('pageLoaderShown')
+    
+    if (!pageLoaderShown) {
+      // First visit - show loader
+      setVisible(true)
+      sessionStorage.setItem('pageLoaderShown', 'true')
+    }
+  }, [])
 
   // Fallback: hide after 3.5 s in case onComplete never fires
   useEffect(() => {
-    const t = setTimeout(() => setVisible(false), 3500)
-    return () => clearTimeout(t)
-  }, [])
+    if (visible) {
+      const t = setTimeout(() => setVisible(false), 3500)
+      return () => clearTimeout(t)
+    }
+  }, [visible])
 
   return (
     <AnimatePresence>
