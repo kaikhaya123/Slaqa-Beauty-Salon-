@@ -60,22 +60,24 @@ export default function Header() {
 
   if (isAdminRoute) return null;
 
-  // Always white text inside the black drawer
+  // Header transparency state
+  const isTransparent = (isHomePage || isNambitaCafe) && !isScrolled;
+  const isYellow = (isHomePage || isNambitaCafe) && isScrolled;
+
+  // Header text color: black on home/nambita pages, white elsewhere
   const navLinkClass =
-    'relative flex items-center gap-2 text-white ' +
+    'relative flex items-center gap-2 ' +
+    ((isHomePage || isNambitaCafe) ? 'text-black' : 'text-white') + ' ' +
     'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full ' +
     'after:origin-bottom-right after:scale-x-0 after:bg-[#FFF44F] ' +
     'after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] ' +
     'hover:after:origin-bottom-left hover:after:scale-x-100 ' +
     'hover:text-[#FFF44F] transition-colors duration-200';
 
-  // Header is always yellow
-  const isYellow = true;
-
   return (
     <header
       className={`fixed top-4 left-4 right-4 z-50 rounded-2xl transition-all duration-300 ${
-        isYellow ? 'bg-[#FFFF00] shadow-lg' : 'bg-transparent shadow-none'
+        isYellow ? 'bg-[#FFFF00] shadow-lg' : isTransparent ? 'bg-transparent shadow-none' : 'bg-[#FFFF00] shadow-lg'
       }`}
     >
       <div className="mx-auto max-w-7xl">
@@ -92,7 +94,7 @@ export default function Header() {
               width={220}
               height={75}
               className={`w-auto transition-all duration-300 ${
-                isYellow
+                isNambitaCafe || isYellow
                   ? 'brightness-0 h-12 md:h-14'
                   : 'brightness-0 invert h-14 md:h-16'
               }`}
@@ -106,8 +108,8 @@ export default function Header() {
             <Link
               href="/book"
               className={`hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium tracking-wide border transition-all duration-300 hover:scale-105 ${
-                isYellow
-                  ? 'border-black-900 text-black-900 hover:bg-black-900 hover:text-black-900'
+                isNambitaCafe || isYellow
+                  ? 'border-black-900 text-black-900 hover:bg-black-900 hover:text-white'
                   : 'border-white text-white hover:bg-black-900 hover:text-black'
               }`}
             >
@@ -125,7 +127,7 @@ export default function Header() {
                 <button
                   aria-label="Open navigation menu"
                   className={`transition-colors duration-200 p-1 ${
-                    isYellow
+                    isNambitaCafe || isYellow
                       ? 'text-black-900 hover:text-black-900'
                       : 'text-white hover:text-amber-400'
                   }`}
@@ -144,7 +146,7 @@ export default function Header() {
 
                 <div className="container mx-auto p-5 pb-7">
                   {/* Drawer header row */}
-                  <div className="flex justify-between items-center border-b border-white/15 pb-4 mb-5">
+                  <div className="flex justify-between items-center border-b border-black-900/20 pb-4 mb-5">
                     <Link href="/" onClick={() => setSidebarOpen(false)} className="flex items-center gap-3">
                       <Image
                         src="/logo/SLAQA_SALON_LOGO.png"

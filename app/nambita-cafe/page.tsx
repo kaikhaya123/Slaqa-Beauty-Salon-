@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, MapPin, Clock, Phone, Instagram, MessageCircle } from 'lucide-react'
 import { useState } from 'react'
+import Lottie from 'lottie-react'
 
 interface MenuItem {
   id: string
@@ -47,7 +48,7 @@ export default function NambitaCafe() {
   const [activeMenu, setActiveMenu] = useState<'Bread' | 'Coffee' | 'Cake'>('Bread')
 
   return (
-    <div className="pt-24 md:pt-28 min-h-screen" style={{ backgroundColor: '#FFFF00' }}>
+    <div className="pt-24 md:pt-28 min-h-screen bg-[#FFFF00]" style={{ backgroundColor: '#FFFF00' }}>
         {/* ═══════════════════════════════════
           HERO SECTION
         ═══════════════════════════════════ */}
@@ -84,18 +85,18 @@ export default function NambitaCafe() {
             </div>
 
             {/* Hero Image Placeholder */}
+            {/* Lottie Animation Hero */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ ease: 'easeOut', duration: 0.6, delay: 0.2 }}
               className="col-span-12 md:col-span-6 h-[400px] bg-[#FFFF00] rounded-2xl border-2 border-[#FFFF00] flex items-center justify-center"
             >
-              <Image
-                src="/Images/ChatGPT Image Feb 22, 2026, 11_47_47 AM.png"
-                alt="Café Hero Placeholder"
-                width={768}
-                height={400}
-                className="rounded-xl object-cover w-full h-full border-2 border-[#FFFF00]"
+              {/* Lottie animation for Fast Food Checkout */}
+              <Lottie
+                animationData={require('/public/lottie/Fast Food Checkout.json')}
+                loop={true}
+                style={{ width: '100%', height: '100%' }}
               />
             </motion.div>
           </motion.div>
@@ -107,35 +108,56 @@ export default function NambitaCafe() {
       ═══════════════════════════════════ */}
       <section className="bg-black-900 py-16 md:py-24 overflow-hidden border-b border-white/8">
         <div className="max-w-7xl mx-auto px-5">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false }}
-            transition={{ ease: 'easeOut', duration: 0.6 }}
-            className="max-w-2xl"
-          >
-            <span className="text-xs uppercase tracking-[0.22em] text-[#FFFF00] font-semibold">Our Story</span>
-            <h2 className="text-4xl md:text-5xl font-black text-white mt-4 mb-6 leading-tight">About Nambita Café</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ ease: 'easeOut', duration: 0.6 }}
+              className="max-w-2xl"
+            >
+              <span className="text-xs uppercase tracking-[0.22em] text-[#FFFF00] font-semibold">Our Story</span>
+              <h2 className="text-4xl md:text-5xl font-black text-white mt-4 mb-6 leading-tight">About Nambita Café</h2>
 
-            <div className="space-y-4 text-white/80 text-base md:text-lg leading-relaxed">
-              <p>
-                At Nambita Café, we believe in simple pleasures done right. From freshly baked bread to rich, aromatic coffee and indulgent cakes, every bite carries the warmth of tradition and the joy of community.
-              </p>
-              <p>
-                <span className="text-[#FFFF00] font-semibold">Kuyanambitheka</span> isn&apos;t just a phrase — it&apos;s our promise that every flavor will leave you smiling.
-              </p>
-              <p>
-                We&apos;re part of a growing family of local businesses, including Slaqa Salon and Slaqa Cosmetics, united by our commitment to quality, community, and craft.
-              </p>
-            </div>
-          </motion.div>
+              <div className="space-y-4 text-white/80 text-base md:text-lg leading-relaxed">
+                <p>
+                  At Nambita Café, we believe in simple pleasures done right. From freshly baked bread to rich, aromatic coffee and indulgent cakes, every bite carries the warmth of tradition and the joy of community.
+                </p>
+                <p>
+                  <span className="text-[#FFFF00] font-semibold">Kuyanambitheka</span> isn&apos;t just a phrase — it&apos;s our promise that every flavor will leave you smiling.
+                </p>
+                <p>
+                  We&apos;re part of a growing family of local businesses, including Slaqa Salon and Slaqa Cosmetics, united by our commitment to quality, community, and craft.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Right Column - Image */}
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ ease: 'easeOut', duration: 0.6, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/Images/ChatGPT Image Feb 22, 2026, 11_26_30 AM.png"
+                  alt="Nambita Café Interior"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════
           MENU SECTION
       ═══════════════════════════════════ */}
-      <section className="bg-[#FFFF00] py-16 md:py-24 overflow-hidden border-b border-white/8">
+      <section className="bg-[#FFFF00] py-16 md:py-24 overflow-hidden border-b border-black-900">
         <div className="max-w-7xl mx-auto px-5">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -266,7 +288,7 @@ export default function NambitaCafe() {
             <a
               href="/Document/slaqa_salon_1771753993897.pdf"
               download
-              className="inline-flex items-center justify-center gap-2 bg-black-900 text-white font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+              className="inline-flex items-center justify-center gap-2 bg-black-900 text-white font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-black-900 hover:text-white transition-colors duration-200 border-2 border-black-900"
             >
               Download Full Menu <ArrowRight size={16} />
             </a>
@@ -349,9 +371,9 @@ export default function NambitaCafe() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: false }}
             transition={{ ease: 'easeOut', duration: 0.6 }}
-            className="mb-12"
+            className="mb-12 text-center"
           >
-            <span className="text-xs uppercase tracking-[0.22em] text-[#FFFF00] font-semibold">Love from Our Community</span>
+            <span className="text-xs uppercase tracking-[0.22em] text-black-900 font-semibold">Love from Our Community</span>
             <h2 className="text-4xl md:text-5xl font-black text-black-900 mt-4 leading-tight">What Our Customers Say</h2>
           </motion.div>
 

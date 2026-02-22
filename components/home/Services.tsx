@@ -79,8 +79,16 @@ export default function Services() {
             transition={{ duration: 0.8 }}
           >
             <div className="mb-8">
+              <motion.h2
+                className="text-4xl md:text-5xl lg:text-6xl font-black text-black-900 mb-6 leading-tight tracking-wide font-sans"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.05 }}
+              >
+              </motion.h2>
               <motion.h2 
-                className="text-4xl md:text-5xl lg:text-6xl font-black text-[#FFF44F] mb-6 leading-tight tracking-wide"
+                className="text-4xl md:text-5xl lg:text-6xl font-black text-black-900 mb-6 leading-tight tracking-wide"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -90,7 +98,7 @@ export default function Services() {
               Excellence Every Time
             </motion.h2>
             <motion.p 
-              className="text-base md:text-lg text-white mb-6 leading-relaxed"
+              className="text-base md:text-lg text-black-900 mb-6 leading-relaxed"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -100,7 +108,7 @@ export default function Services() {
             </motion.p>
             <div className="mb-8">
               <motion.h3 
-                className="text-2xl md:text-3xl font-black text-white mb-2 tracking-wide"
+                className="text-2xl md:text-3xl font-black text-black-900 mb-2 tracking-wide"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -109,7 +117,7 @@ export default function Services() {
                 Beauty & Lifestyle
               </motion.h3>
               <motion.h3 
-                className="text-2xl md:text-3xl font-black text-white tracking-wide"
+                className="text-2xl md:text-3xl font-black text-black-900 tracking-wide"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -130,7 +138,7 @@ export default function Services() {
                   href="/book" 
                   variant="primary" 
                   size="md"
-                  className="bg-black-900 hover:bg-gray-900 whitespace-nowrap text-white"
+                  className="bg-black-900 hover:bg-black-900 whitespace-nowrap text-white"
                 >
                   Book Your Service →
                 </Button>
@@ -140,7 +148,7 @@ export default function Services() {
                   href="/services"
                   variant="outline"
                   size="md"
-                  className="border-gray-200 text-white hover:bg-black-900 hover:text-black-900 hover:border-black-900 whitespace-nowrap"
+                  className="border-black-900 text-black hover:bg-black-900 hover:text-black-900 hover:border-black-900 whitespace-nowrap"
                 >
                   View All Styles
                 </Button>
@@ -242,7 +250,7 @@ export default function Services() {
                 onClick={prevSlide}
                 variant="outline" 
                 size="sm"
-                className="bg-[#FFF44F] border-[#FFF44F] text-[#2e2e2e] hover:brightness-110 font-black"
+                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-white"
               >
                 ←
               </Button>
@@ -258,7 +266,7 @@ export default function Services() {
                     key={index}
                     layout
                     className={`w-8 h-2 rounded-full transition-colors ${
-                      index === currentSlide ? 'bg-[#FFF44F]' : 'bg-gray-600'
+                      index === currentSlide ? 'bg-black-900' : 'bg-white'
                     }`}
                     animate={{
                       scale: index === currentSlide ? 1.2 : 1,
@@ -271,7 +279,7 @@ export default function Services() {
                 onClick={nextSlide}
                 variant="outline" 
                 size="sm"
-                className="bg-[#FFF44F] border-[#FFF44F] text-[#2e2e2e] hover:brightness-110 font-black"
+                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-white"
               >
                 →
               </Button>
