@@ -66,7 +66,7 @@ export default function Services() {
   }
 
   return (
-    <Section background="black" padding="lg">
+    <Section background="bg-black-900" padding="lg">
       <div className="max-w-7xl mx-auto">
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

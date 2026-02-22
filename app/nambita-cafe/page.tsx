@@ -47,11 +47,11 @@ export default function NambitaCafe() {
   const [activeMenu, setActiveMenu] = useState<'Bread' | 'Coffee' | 'Cake'>('Bread')
 
   return (
-    <>
-      {/* ═══════════════════════════════════
+    <div className="pt-24 md:pt-28 min-h-screen" style={{ backgroundColor: '#FFFF00' }}>
+        {/* ═══════════════════════════════════
           HERO SECTION
-      ═══════════════════════════════════ */}
-      <section className="relative bg-[#FFFF00]">
+        ═══════════════════════════════════ */}
+        <section className="relative bg-[#FFFF00] min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-5">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -264,7 +264,8 @@ export default function NambitaCafe() {
             className="mt-12 text-center"
           >
             <a
-              href="#"
+              href="/Document/slaqa_salon_1771753993897.pdf"
+              download
               className="inline-flex items-center justify-center gap-2 bg-black-900 text-white font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             >
               Download Full Menu <ArrowRight size={16} />
@@ -517,6 +518,6 @@ export default function NambitaCafe() {
           </motion.div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

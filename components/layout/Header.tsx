@@ -46,6 +46,7 @@ export default function Header() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const isHomePage   = pathname === '/';
+  const isNambitaCafe = pathname === '/nambita-cafe';
   const isAdminRoute = pathname.startsWith('/admin');
 
   useEffect(() => {
@@ -68,7 +69,8 @@ export default function Header() {
     'hover:after:origin-bottom-left hover:after:scale-x-100 ' +
     'hover:text-[#FFF44F] transition-colors duration-200';
 
-  const isYellow = isScrolled || !isHomePage;
+  // Header is always yellow
+  const isYellow = true;
 
   return (
     <header
