@@ -31,11 +31,12 @@ const galleryItems = [
 ];
 
 const navLinks = [
-  { label: 'Home',     href: '/' },
-  { label: 'About',    href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Barbers',  href: '/barbers' },
-  { label: 'Contact',  href: '/contact' },
+  { label: 'Home',          href: '/' },
+  { label: 'About',         href: '/about' },
+  { label: 'Services',      href: '/services' },
+  { label: 'Barbers',       href: '/barbers' },
+  { label: 'Nambita Café',  href: '/nambita-cafe' },
+  { label: 'Contact',       href: '/contact' },
 ];
 
 export default function Header() {
@@ -202,51 +203,57 @@ export default function Header() {
 
                       {/* Mobile: snap-scroll horizontal strip */}
                       <div className="flex md:hidden gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-none">
-                        {galleryItems.map((item) => (
-                          <figure
+                        {galleryItems.map((item, idx) => (
+                          <Link
                             key={item.id}
-                            className="relative flex-none w-44 h-32 rounded-xl overflow-hidden snap-start"
+                            href={idx === 0 ? '/nambita-cafe' : '#'}
+                            onClick={() => setSidebarOpen(false)}
                           >
-                            <video
-                              src={item.src}
-                              autoPlay
-                              muted
-                              loop
-                              playsInline
-                              className="absolute inset-0 w-full h-full object-cover"
-                            />
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5 flex items-end justify-between">
-                              <span className="text-white text-[10px] font-semibold tracking-wide uppercase line-clamp-1">
-                                {item.heading}
-                              </span>
-                              <ArrowUpRight className="h-3 w-3 text-white shrink-0 ml-1" />
-                            </div>
-                          </figure>
+                            <figure className="relative flex-none w-44 h-32 rounded-xl overflow-hidden snap-start cursor-pointer group">
+                              <video
+                                src={item.src}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                className="absolute inset-0 w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
+                              />
+                              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5 flex items-end justify-between">
+                                <span className="text-white text-[10px] font-semibold tracking-wide uppercase line-clamp-1">
+                                  {item.heading}
+                                </span>
+                                <ArrowUpRight className="h-3 w-3 text-white shrink-0 ml-1" />
+                              </div>
+                            </figure>
+                          </Link>
                         ))}
                       </div>
 
                       {/* Desktop: fixed-height grid */}
                       <div className="hidden md:grid grid-cols-3 gap-4 py-4 self-stretch min-h-[220px]">
-                        {galleryItems.map((item) => (
-                          <figure
+                        {galleryItems.map((item, idx) => (
+                          <Link
                             key={item.id}
-                            className="relative rounded-xl overflow-hidden w-full h-full min-h-[160px] group"
+                            href={idx === 0 ? '/nambita-cafe' : '#'}
+                            onClick={() => setSidebarOpen(false)}
                           >
-                            <video
-                              src={item.src}
-                              autoPlay
-                              muted
-                              loop
-                              playsInline
-                              className="absolute inset-0 w-full h-full object-cover"
-                            />
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 flex items-end justify-between">
-                              <span className="text-white text-xs font-semibold leading-tight tracking-wide line-clamp-1 uppercase">
-                                {item.heading}
-                              </span>
-                              <ArrowUpRight className="h-4 w-4 text-white shrink-0 ml-1" />
-                            </div>
-                          </figure>
+                            <figure className="relative rounded-xl overflow-hidden w-full h-full min-h-[160px] group cursor-pointer">
+                              <video
+                                src={item.src}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                className="absolute inset-0 w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
+                              />
+                              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 flex items-end justify-between">
+                                <span className="text-white text-xs font-semibold leading-tight tracking-wide line-clamp-1 uppercase">
+                                  {item.heading}
+                                </span>
+                                <ArrowUpRight className="h-4 w-4 text-white shrink-0 ml-1" />
+                              </div>
+                            </figure>
+                          </Link>
                         ))}
                       </div>
                     </div>
