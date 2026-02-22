@@ -218,7 +218,14 @@ export default function TheBarbershow() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 bg-[#FFFF00] text-black-900 font-black px-10 py-5 rounded-full text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
             >
-              View All Episodes <ArrowRight size={16} strokeWidth={2.5} />
+              View All Episodes
+              <Image
+                src="/Icons/play-button.png"
+                alt="play video"
+                width={16}
+                height={16}
+                className="object-contain"
+              />
             </a>
           </motion.div>
         </div>
@@ -227,7 +234,7 @@ export default function TheBarbershow() {
       {/* ═══════════════════════════════════
           MOVEMENT CTA
       ═══════════════════════════════════ */}
-      <section className="bg-black-900 py-14 md:py-20 overflow-hidden border-t border-white/8">
+      <section className="bg-black-900 py-14 md:py-20 overflow-hidden border-t border-black-900">
         <div className="max-w-7xl mx-auto px-5">
           <motion.article
             initial={{ y: 50, opacity: 0 }}
@@ -246,7 +253,7 @@ export default function TheBarbershow() {
                 More Than<br />Just Content
               </h2>
               <p className="text-lg text-white max-w-2xl mx-auto leading-relaxed">
-                The Barbershow is a movement. Join us as we redefine the barbershop as a space for storytelling, culture, and transformation.
+                A COMMUNITY OF CREATIVES 🇿🇦, CONVERSATIONS THROUGH THE CLIPPER AND BLADE. 
               </p>
             </div>
 
@@ -257,7 +264,13 @@ export default function TheBarbershow() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-[#FFFF00] text-black-900 font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-[#FFFF00] transition-colors duration-200"
               >
-                <Play size={16} strokeWidth={2.5} fill="currentColor" />
+                <Image
+                  src="/Icons/bell.png"
+                  alt="subscribe"
+                  width={16}
+                  height={16}
+                  className="object-contain"
+                />
                 Subscribe Now
               </a>
             </div>

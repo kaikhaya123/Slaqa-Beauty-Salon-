@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import logoAnimation from '@/public/lottie/Logo-2-remix.json'
+import logoAnimation from '@/public/lottie/Scene-Cinematic (2).json'
 import PageLoader from '@/components/ui/PageLoader'
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
@@ -28,8 +28,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Initial page load intro */}
-      <PageLoader />
+      {/* Initial page load intro - only on home page */}
+      <PageLoader pathname={pathname} />
 
       {/* Route-change overlay */}
       <AnimatePresence>
@@ -54,7 +54,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      {children}
+      {/* Ultra smooth hero reveal after loader exits */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.3 }}
+      >
+        {children}
+      </motion.div>
     </>
   )
 }
