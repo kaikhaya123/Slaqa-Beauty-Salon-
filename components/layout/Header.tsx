@@ -61,15 +61,18 @@ export default function Header() {
 
   if (isAdminRoute) return null;
 
+  // Detect About page for transparency
+  const isAboutPage = pathname === '/about' || document.body.classList.contains('about-header-transparent');
+
   // Header transparency state
-  const isTransparent = (isHomePage || isNambitaCafe) && !isScrolled;
-  const isYellow = (isHomePage || isNambitaCafe) && isScrolled;
+  const isTransparent = (isHomePage || isNambitaCafe || isAboutPage) && !isScrolled;
+  const isYellow = (isHomePage || isNambitaCafe || isAboutPage) && isScrolled;
   const servicesTransparent = isServicesPage;
 
-  // Header text color: black on home/nambita/services pages, white elsewhere
+  // Header text color: black when not transparent, white elsewhere
   const navLinkClass =
     'relative flex items-center gap-2 ' +
-    ((isHomePage || isNambitaCafe || isServicesPage) ? 'text-black' : 'text-white') + ' ' +
+    ((isTransparent ? 'text-white' : 'text-black') ) + ' ' +
     'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full ' +
     'after:origin-bottom-right after:scale-x-0 after:bg-[#FFF44F] ' +
     'after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] ' +

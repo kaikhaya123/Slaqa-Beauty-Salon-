@@ -1,262 +1,133 @@
 'use client'
 
-import Section from '@/components/ui/Section'
-import { motion } from 'framer-motion'
+import React, { useEffect } from 'react'
+import { motion } from 'motion/react'
 import Image from 'next/image'
 
-export default function AboutPage() {
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (custom: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: custom * 0.2, duration: 0.6 },
-    }),
-  }
+const AboutPage = () => {
+  useEffect(() => {
+    document.body.classList.add('about-header-transparent')
+    return () => document.body.classList.remove('about-header-transparent')
+  }, [])
 
   return (
-    <div>
-      {/* Full Screen Hero Image Section */}
-      <div className="relative w-full h-screen -mt-24 pt-24 bg-gray-900 overflow-hidden">
-        {/* TODO: Add your hero image to: /public/Images/about-hero.jpg */}
+    <div className="bg-black-900 min-h-screen">
+      {/* Hero Section */}
+      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden pt-24">
         <Image
-          src="/Images/nathon-oski-EW_rqoSdDes-unsplash.jpg"
-          alt="Pro Barber Shop - Hero"
+          src="/Images/yellow-feather-boa-with-copy-space.jpg"
+          alt="Slaqa Salon Hero"
           fill
           className="object-cover"
           priority
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
         />
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
-        
-        {/* Hero Content */}
-        <div className="relative h-full flex items-center justify-center text-center px-4">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            custom={0}
-            className="max-w-3xl"
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              About Slaqa
-            </h1>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Page Content */}
-      <div className="pt-0 pb-16">
-
-      {/* Our Story */}
-      <Section className="mb-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          custom={1}
-          className="grid md:grid-cols-2 gap-8 items-center"
-        >
-          <div>
-            <h2 className="text-2xl font-bold text-black mb-4">Our Story</h2>
-            <p className="text-black mb-4 leading-relaxed">
-              Slaqa was founded in 2015 with a vision to create a premium beauty, hair and barbering brand serving the Durban community. We started in one location and have grown to three thriving salons in KwaMashu, Waterloo, and Umlazi, building a reputation for quality service and excellence.
-            </p>
-            <p className="text-black mb-4 leading-relaxed">
-              We believe that looking good is about feeling good. Our team of skilled professionals specializes in modern barbering, hair styling, beauty services, and special event work. Every client is treated with care and attention to detail.
-            </p>
-            <p className="text-black leading-relaxed">
-              Today, with a strong social presence (61.4K Instagram followers) and partnerships with local businesses, Slaqa continues to serve the Durban area with professional services and a commitment to excellence. We&apos;re proud of our collaborations with other brands and our growing community of satisfied clients.
-            </p> </div> <div className="relative h-80 rounded-lg overflow-hidden shadow-lg bg-white">
-            {/* Hero Image Placeholder - Replace with your shop image */}
-            {/* TODO: Add hero image path to: /public/Images/about-hero.jpg or .png */}
-            <Image
-              src="/Images/pexels-rdne-7697476.jpg"
-              alt="Slaqa - Our Story"
-              fill
-              className="object-cover"
-              onError={(e) => {
-                // Fallback to placeholder if image not found
-                e.currentTarget.style.display = 'none'
-              }}
-            />
-
-          </div>
-        </motion.div>
-      </Section>
-
-      {/* Our Values */}
-      <Section className="mb-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          custom={2}
-        >
-          <h2 className="text-2xl font-bold text-gray-900 mb-12 text-center">Our Values</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Excellence',
-                description: 'We deliver exceptional results with every cut, fade, and trim. Quality is non-negotiable.',
-              },
-              {
-                title: 'Professionalism',
-                description: 'Our team maintains the highest standards of hygiene, punctuality, and customer service.',
-              },
-              {
-                title: 'Innovation',
-                description: 'We blend traditional barbering techniques with modern technology and digital convenience.',
-              },
-            ].map((value, idx) => (
-              <motion.div
-                key={idx}
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                custom={2.3 + idx * 0.1}
-                className="bg-white"
-              >
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{value.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </Section>
-
-      {/* Why Choose Us */}
-      <Section className="mb-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          custom={3}
-        >
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Choose Slaqa?</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              {
-                title: 'Expert Barbers',
-                description: 'Expert barbers with years of experience and proven track records',
-                // TODO: Add icon image path - icon_expert_barbers.svg or .png
-                icon: '/Icons/man.png',
-              },
-              {
-                title: 'Specialized Services',
-                description: 'Specialized services for all hair types and styles',
-                // TODO: Add icon image path - icon_specialized_services.svg or .png
-                icon: '/Icons/haircut.png',
-              },
-              {
-                title: 'Flexible Booking',
-                description: 'Flexible booking system—appointments or walk-ins welcome',
-                // TODO: Add icon image path - icon_flexible_booking.svg or .png
-                icon: '/Icons/online-booking.png',
-              },
-              {
-                title: 'Digital Queue',
-                description: 'Digital queue system for reduced wait times',
-                // TODO: Add icon image path - icon_digital_queue.svg or .png
-                icon: '/Icons/line.png',
-              },
-              {
-                title: 'Hygiene Standards',
-                description: 'Strict hygiene protocols and sanitization standards',
-                // TODO: Add icon image path - icon_hygiene.svg or .png
-                icon: '/Icons/hygiene.png',
-              },
-              {
-                title: 'Competitive Pricing',
-                description: 'Competitive pricing for premium quality services',
-                // TODO: Add icon image path - icon_pricing.svg or .png
-                icon: '/Icons/money.png',
-              },
-              {
-                title: 'Multiple Locations',
-                description: 'Three convenient locations in Durban (KwaMashu, Waterloo, Umlazi)',
-                // TODO: Add icon image path - icon_location.svg or .png
-                icon: '/Icons/location (2).png',
-              },
-              {
-                title: 'Welcoming Atmosphere',
-                description: 'Friendly, welcoming atmosphere for all clients',
-                // TODO: Add icon image path - icon_atmosphere.svg or .png
-                icon: '/Icons/agreement.png',
-              },
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                custom={3.2 + idx * 0.05}
-                className="flex items-start space-x-4 p-4 bg-white rounded-lg border border-gray-100 hover:border-gray-300 transition-colors"
-              >
-                {/* Icon/Image Placeholder - Replace with your icon */}
-                {item.icon ? (
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={64}
-                    height={64}
-                    className="flex-shrink-0 w-16 h-16 object-contain"
-                  />
-                ) : (
-                  <div className="flex-shrink-0 w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xs font-semibold text-center">
-                    {item.title.split(' ')[0]}
-                  </div>
-                )}
-                <div className="flex-1">
-                  <h3 className="text-base font-semibold text-gray-900 mb-1">{item.title}</h3>
-                  <p className="text-sm text-gray-600">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </Section>
-      {/* Ready to Look Fresh CTA Banner */}
-      <div className="relative w-full h-96 mb-16 rounded-lg overflow-hidden shadow-lg bg-gray-100">
-        {/* TODO: Add banner image to: /public/Images/cta-banner.jpg or .png */}
-        <Image
-          src="/Images/mid-section-view-barber-shaking-hand-with-male-client.jpg"
-          alt="Ready to Look Fresh Banner"
-          fill
-          className="object-cover"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/50"></div>
-        
-        {/* Banner Content */}
-        <div className="relative h-full flex items-center justify-center text-center px-4">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            custom={5}
-            className="max-w-2xl"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Experience Slaqa?</h2>
-            <p className="text-base md:text-lg text-gray-100 mb-8">
-              Get premium beauty and barbering services. Book your appointment today and experience Slaqa excellence across our three locations.
-            </p>
-            <a
-              href="/book"
-              className="inline-block px-8 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              Book Now
-            </a>
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 text-center px-4 max-w-3xl"
+        >
+          <h1 className="text-5xl md:text-7xl font-black text-[#FFFF00] mb-4 leading-tight">
+            Slaqa: Where Style Meets Culture
+          </h1>
+          <p className="text-xl md:text-2xl text-white drop-shadow-lg">
+            Shaping confidence and community through beauty, hair, and lifestyle since 2015.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Founders Section */}
+      <section className="max-w-7xl mx-auto py-20 px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        {/* Left: Founder Video */}
+        <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+          <video
+            src="/Video/3656156610225655993.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-contain rounded-xl"
+            poster="/Images/1771342133405.jpeg"
+          />
         </div>
-      </div>
-      </div>
+        {/* Right: Founder Story */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-xl"
+        >
+          <h2 className="text-3xl md:text-4xl font-black text-[#FFFF00] mb-4">Visionaries Behind Slaqa</h2>
+          <p className="text-white/80 text-lg mb-6">
+            The founders established Slaqa in 2015 with the goal of redefining beauty and lifestyle in Durban's townships. Their vision was to create a brand that not only offers professional grooming but also celebrates identity, culture, and community.
+          </p>
+          <ul className="list-disc list-inside space-y-2 mt-4 text-white/80 mb-6">
+            <li>Started with a passion for hair artistry and lifestyle branding.</li>
+            <li>Expanded into multiple branches to serve diverse communities.</li>
+            <li>Built a strong digital presence, now with <span className="font-bold text-[#FFFF00]">61.7K Instagram followers</span>, showcasing their influence and reach.</li>
+            <li>Known for blending local authenticity with modern aesthetics, making Slaqa a recognizable name in the beauty industry.</li>
+          </ul>
+          <blockquote className="text-xl font-semibold text-[#FFFF00] border-l-4 border-[#FFFF00] pl-4 mb-4">
+            "Beauty is more than appearance—it's confidence, culture, and connection."
+          </blockquote>
+          <p className="text-white/80">This guiding principle drives the founders to continually innovate while staying true to their roots.</p>
+        </motion.div>
+      </section>
+
+      {/* Brand Essence Section */}
+      <section className="bg-[#FFFF00] py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-black text-black-900 mb-6">Brand Essence</h2>
+            <p className="text-lg md:text-xl text-black-900 mb-8">
+              Slaqa is a beauty, hair, and lifestyle brand that has been shaping style and confidence since 2015. With a strong presence in KwaZulu-Natal, the salon blends modern trends with authentic local culture, offering clients more than just grooming—it's a lifestyle experience.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-2xl font-bold text-black-900 mb-4">Mission</h3>
+              <p className="text-black-900 mb-6">To empower individuals through beauty and self-expression, creating spaces where style meets community. Slaqa is committed to delivering professional services while fostering creativity, confidence, and cultural pride.</p>
+              
+              <h3 className="text-2xl font-bold text-black-900 mb-4">Values</h3>
+              <ul className="list-disc list-inside text-black-900 space-y-2">
+                <li><span className="font-semibold">Authenticity:</span> Rooted in local culture and community.</li>
+                <li><span className="font-semibold">Innovation:</span> Keeping up with evolving beauty and lifestyle trends.</li>
+                <li><span className="font-semibold">Excellence:</span> High-quality service and customer care.</li>
+                <li><span className="font-semibold">Community:</span> Building relationships beyond the salon chair.</li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-2xl font-bold text-black-900 mb-4">Locations</h3>
+              <ul className="space-y-2 text-black-900 mb-8">
+                <li><span className="font-semibold">Kwamashu:</span> F 206 Bhejane Road</li>
+                <li><span className="font-semibold">Waterloo:</span> 46 Pricklepear Road</li>
+                <li><span className="font-semibold">Umlazi:</span> A Section 1 Swaziland</li>
+              </ul>
+              
+              <h3 className="text-2xl font-bold text-black-900 mb-4">Lifestyle Collaborations</h3>
+              <p className="text-black-900">Partnerships with brands like Nambita Café and creative showcases such as The Barbershow highlight Slaqa's role as more than a salon—it's a hub for lifestyle and cultural exchange.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
+
+export default AboutPage
