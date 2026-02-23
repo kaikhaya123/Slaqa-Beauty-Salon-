@@ -182,7 +182,7 @@ export default function Services() {
                   whileHover={{ y: -10 }}
                 >
                   <motion.div 
-                    className="bg-[#FFF44F] shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] w-full rounded-lg"
+                    className="bg-[#FFFF00] shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] w-full rounded-lg"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -203,7 +203,7 @@ export default function Services() {
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </motion.div>
-                      <div className="absolute inset-0 bg-black/40"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent"></div>
                       
                       {/* Service Info - Bottom Left Corner */}
                       <motion.div 
@@ -250,7 +250,7 @@ export default function Services() {
                 onClick={prevSlide}
                 variant="outline" 
                 size="sm"
-                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-white"
+                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-black-900"
               >
                 ←
               </Button>
@@ -279,7 +279,7 @@ export default function Services() {
                 onClick={nextSlide}
                 variant="outline" 
                 size="sm"
-                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-white"
+                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-black-900"
               >
                 →
               </Button>

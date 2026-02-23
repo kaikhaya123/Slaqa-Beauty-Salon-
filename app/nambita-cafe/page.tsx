@@ -297,65 +297,139 @@ export default function NambitaCafe() {
       </section>
 
       {/* ═══════════════════════════════════
-          GALLERY SECTION
+          GALLERY SECTION - STICKY MASONRY
       ═══════════════════════════════════ */}
       <section className="bg-black-900 py-16 md:py-24 overflow-hidden border-b border-black-900">
         <div className="max-w-7xl mx-auto px-5">
+          {/* Section Header */}
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: false }}
             transition={{ ease: 'easeOut', duration: 0.6 }}
-            className="mb-12"
+            className="mb-16 text-center"
           >
-            <div className="flex flex-col items-center justify-center text-center mb-8">
-              <span className="text-xs uppercase tracking-[0.22em] text-[#FFFF00] font-semibold">Visual Journey</span>
-              <h2 className="text-4xl md:text-5xl font-black text-white mt-4 leading-tight">A Glimpse Into Our Café Life</h2>
-              <p className="text-white/60 text-lg mt-4 max-w-2xl">The aroma, the smiles, and the flavors that make Nambita Café special.</p>
-            </div>
+            <span className="text-xs uppercase tracking-[0.22em] text-[#FFFF00] font-semibold">Visual Journey</span>
+            <h2 className="text-4xl md:text-5xl font-black text-white mt-4 leading-tight">A Glimpse Into Our Café Life</h2>
+            <p className="text-white/60 text-lg mt-4 max-w-2xl mx-auto">The aroma, the smiles, and the flavors that make Nambita Café special.</p>
 
-            {/* Instagram Gallery Fetch */}
-            <div className="mb-8 flex flex-col items-center justify-center text-center">
-              <p className="text-white/80 text-base mb-2">Want to see our latest café moments?</p>
+            {/* Instagram Link */}
+            <div className="mt-8 flex flex-col items-center justify-center">
               <a
                 href="https://www.instagram.com/nambitacafe/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#FFFF00] text-black-900 font-bold px-6 py-3 rounded-full text-sm uppercase tracking-wider hover:bg-white transition-colors duration-200 mb-4"
+                className="inline-flex items-center gap-2 bg-[#FFFF00] text-black-900 font-bold px-6 py-3 rounded-full text-sm uppercase tracking-wider hover:bg-white transition-colors duration-200"
               >
                 View Instagram Gallery
                 <Instagram size={20} className="text-black-900" />
               </a>
-              <p className="text-white/60 text-xs">Gallery images are updated from our Instagram page. Click above to see more or contact us to feature your photo!</p>
+              <p className="text-white/60 text-xs mt-4">Scroll through for more café moments</p>
             </div>
           </motion.div>
 
-          {/* Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Static Gallery Images */}
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.05 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771754495761.jpeg" alt="Gallery Image 1" width={300} height={400} className="object-cover w-full h-full" />
+          {/* Gallery Masonry with Sticky Center */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
+            {/* Left Column */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.6 }}
+              className="grid gap-4"
+            >
+              <figure className="w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771754495761.jpeg"
+                  alt="Café Ambiance 1"
+                  width={400}
+                  height={400}
+                  className="w-full h-96 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
+              <figure className="w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771754683173.jpeg"
+                  alt="Café Ambiance 2"
+                  width={400}
+                  height={400}
+                  className="w-full h-96 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
+              <figure className="w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771754825219.jpeg"
+                  alt="Café Ambiance 3"
+                  width={400}
+                  height={400}
+                  className="w-full h-96 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
             </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.10 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771754683173.jpeg" alt="Gallery Image 2" width={300} height={400} className="object-cover w-full h-full" />
+
+            {/* Center Sticky Column */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="sticky top-0 h-screen gap-4 grid grid-rows-2 hidden md:grid"
+            >
+              <figure className="w-full h-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771754797744.jpeg"
+                  alt="Café Highlights A"
+                  width={400}
+                  height={400}
+                  className="w-full h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
+              <figure className="w-full h-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771754720176.jpeg"
+                  alt="Café Highlights B"
+                  width={400}
+                  height={400}
+                  className="w-full h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
             </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.15 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771754825219.jpeg" alt="Gallery Image 3" width={300} height={400} className="object-cover w-full h-full" />
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.20 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771754797744.jpeg" alt="Gallery Image 4" width={300} height={400} className="object-cover w-full h-full" />
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.25 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771754720176.jpeg" alt="Gallery Image 5" width={300} height={400} className="object-cover w-full h-full" />
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.30 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771754537497.jpeg" alt="Gallery Image 6" width={300} height={400} className="object-cover w-full h-full" />
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.35 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771749933228.jpeg" alt="Gallery Image 7" width={300} height={400} className="object-cover w-full h-full" />
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false }} transition={{ duration: 0.5, delay: 0.40 }} className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden h-[400px] group cursor-pointer hover:border-[#FFFF00]/50 transition-all duration-300">
-              <Image src="/Images/slaqa_salon_1771749827810.jpeg" alt="Gallery Image 8" width={300} height={400} className="object-cover w-full h-full" />
+
+            {/* Right Column */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: false }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="grid gap-4"
+            >
+              <figure className="w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771754537497.jpeg"
+                  alt="Café Moments 1"
+                  width={400}
+                  height={400}
+                  className="w-full h-96 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
+              <figure className="w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771749933228.jpeg"
+                  alt="Café Moments 2"
+                  width={400}
+                  height={400}
+                  className="w-full h-96 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
+              <figure className="w-full overflow-hidden rounded-lg">
+                <Image
+                  src="/Images/slaqa_salon_1771749827810.jpeg"
+                  alt="Café Moments 3"
+                  width={400}
+                  height={400}
+                  className="w-full h-96 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                />
+              </figure>
             </motion.div>
           </div>
         </div>
