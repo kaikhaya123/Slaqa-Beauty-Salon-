@@ -60,7 +60,7 @@ const AboutPage = () => {
         >
           <h2 className="text-3xl md:text-4xl font-black text-[#FFFF00] mb-4">Visionaries Behind Slaqa</h2>
           <p className="text-white/80 text-lg mb-6">
-            The founders established Slaqa in 2015 with the goal of redefining beauty and lifestyle in Durban's townships. Their vision was to create a brand that not only offers professional grooming but also celebrates identity, culture, and community.
+            The founders established Slaqa in 2015 with the goal of redefining beauty and lifestyle in Durban&apos;s townships. Their vision was to create a brand that not only offers professional grooming but also celebrates identity, culture, and community.
           </p>
           <ul className="list-disc list-inside space-y-2 mt-4 text-white/80 mb-6">
             <li>Started with a passion for hair artistry and lifestyle branding.</li>
@@ -69,7 +69,7 @@ const AboutPage = () => {
             <li>Known for blending local authenticity with modern aesthetics, making Slaqa a recognizable name in the beauty industry.</li>
           </ul>
           <blockquote className="text-xl font-semibold text-[#FFFF00] border-l-4 border-[#FFFF00] pl-4 mb-4">
-            "Beauty is more than appearance—it's confidence, culture, and connection."
+            &quot;Beauty is more than appearance&mdash;it&apos;s confidence, culture, and connection.&quot;
           </blockquote>
           <p className="text-white/80">This guiding principle drives the founders to continually innovate while staying true to their roots.</p>
         </motion.div>
@@ -86,7 +86,7 @@ const AboutPage = () => {
           >
             <h2 className="text-3xl md:text-4xl font-black text-black-900 mb-6">Brand Essence</h2>
             <p className="text-lg md:text-xl text-black-900 mb-8">
-              Slaqa is a beauty, hair, and lifestyle brand that has been shaping style and confidence since 2015. With a strong presence in KwaZulu-Natal, the salon blends modern trends with authentic local culture, offering clients more than just grooming—it's a lifestyle experience.
+              Slaqa is a beauty, hair, and lifestyle brand that has been shaping style and confidence since 2015. With a strong presence in KwaZulu-Natal, the salon blends modern trends with authentic local culture, offering clients more than just grooming&mdash;it&apos;s a lifestyle experience.
             </p>
           </motion.div>
 
@@ -121,7 +121,7 @@ const AboutPage = () => {
               </ul>
               
               <h3 className="text-2xl font-bold text-black-900 mb-4">Lifestyle Collaborations</h3>
-              <p className="text-black-900">Partnerships with brands like Nambita Café and creative showcases such as The Barbershow highlight Slaqa's role as more than a salon—it's a hub for lifestyle and cultural exchange.</p>
+              <p className="text-black-900">Partnerships with brands like Nambita Café and creative showcases such as The Barbershow highlight Slaqa&apos;s role as more than a salon&mdash;it&apos;s a hub for lifestyle and cultural exchange.</p>
             </motion.div>
           </div>
         </div>
