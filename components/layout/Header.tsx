@@ -43,6 +43,7 @@ export default function Header() {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isAboutPage, setIsAboutPage] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const isHomePage   = pathname === '/';
@@ -59,10 +60,13 @@ export default function Header() {
   // Close drawer on route change
   useEffect(() => { setSidebarOpen(false); }, [pathname]);
 
-  if (isAdminRoute) return null;
+  // Detect About page for transparency (client-side only)
+  useEffect(() => {
+    const aboutPageCheck = pathname === '/about' || document.body.classList.contains('about-header-transparent');
+    setIsAboutPage(aboutPageCheck);
+  }, [pathname]);
 
-  // Detect About page for transparency
-  const isAboutPage = pathname === '/about' || document.body.classList.contains('about-header-transparent');
+  if (isAdminRoute) return null;
 
   // Header transparency state
   const isTransparent = (isHomePage || isNambitaCafe || isAboutPage) && !isScrolled;

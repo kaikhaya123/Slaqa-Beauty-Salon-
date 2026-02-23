@@ -6,8 +6,10 @@ import Image from 'next/image'
 
 const AboutPage = () => {
   useEffect(() => {
-    document.body.classList.add('about-header-transparent')
-    return () => document.body.classList.remove('about-header-transparent')
+    if (typeof window !== 'undefined' && document) {
+      document.body.classList.add('about-header-transparent')
+      return () => document.body.classList.remove('about-header-transparent')
+    }
   }, [])
 
   return (
