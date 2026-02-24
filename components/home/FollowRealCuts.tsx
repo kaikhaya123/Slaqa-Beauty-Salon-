@@ -32,7 +32,7 @@ export default function FollowRealBarbershop() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            Follow Slaqa
+            Follow Slaqa Salon
           </motion.h2>
 
           <motion.p 
@@ -56,7 +56,7 @@ export default function FollowRealBarbershop() {
             {[
               { name: 'Instagram', url: 'https://www.instagram.com/slaqa_salon/', icon: '/Icons/instagram (2).png' },
               { name: 'Facebook', url: 'https://www.facebook.com/slaqa_salon', icon: '/Images/facebook (1).png'},
-              {name:   'TikTok', url: 'https://www.tiktok.com/@slaqa_salon', icon: '/Icons/tik-tok.png' },
+              {name:   'TikTok', url: 'https://www.tiktok.com/@slaqasalon', icon: '/Icons/tik-tok.png' },
             ].map((social, idx) => (
               <motion.a
                 key={idx}

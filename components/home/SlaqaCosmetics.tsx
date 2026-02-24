@@ -107,7 +107,7 @@ export default function SlaqaCosmetics() {
           3  SHOP CTA
           3-tile collage grid + CTA tile
       ═══════════════════════════════════ */}
-      <section className="bg-black-900 border-t border-white/8 py-14 md:py-20 overflow-hidden">
+      <section className="bg-black-900 border-t border-black-900 py-14 md:py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-12 gap-4 overflow-hidden px-5 lg:pb-5 pb-2">
 
@@ -145,6 +145,37 @@ export default function SlaqaCosmetics() {
                 </motion.article>
               )
             })}
+
+            {/* Image Showcase Section */}
+            <motion.article
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ ease: 'easeOut', duration: 0.8 }}
+              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+              className="relative sm:col-span-12 col-span-12 rounded-xl overflow-hidden min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] bg-black-900 flex flex-col items-center justify-center"
+            >
+              <div className="text-center space-y-8 relative z-20 w-full px-8">
+                <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.9] tracking-tight pt-12">
+                  SHOP YOUR OWN <br />
+                  <span className="text-[#FFFF00]">BEARD QABUNGA</span><br />
+                  TODAY
+                </h3>
+              </div>
+              <motion.div 
+                className="relative w-80 h-80 sm:w-96 sm:h-96 mt-8"
+                initial={{ y: 60, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ ease: 'easeOut', duration: 0.8, delay: 0.2 }}
+                viewport={{ once: false, margin: '0px 0px -50px 0px' }}
+              >
+                <Image
+                  src="/Images/slaqa_salon_1771859591941-removebg-preview (1).png"
+                  alt="Beard Qabunga Product Showcase"
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                />
+              </motion.div>
+            </motion.article>
 
             {/* CTA tile */}
             <motion.article

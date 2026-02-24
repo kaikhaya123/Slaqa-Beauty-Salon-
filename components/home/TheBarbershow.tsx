@@ -12,7 +12,7 @@ interface EpisodeType {
   youtubeId: string
 }
 
-const episodes: EpisodeType[] = [
+const fallbackEpisodes: EpisodeType[] = [
   {
     id: '01',
     title: 'THE BARBERSHOW S3 EPISODE 2 | @manny_yack Speaks on Independency, Lagacy EP and speaks on Beast Rsa.',
@@ -21,7 +21,6 @@ const episodes: EpisodeType[] = [
   {
     id: '02',
     title: 'Bello B - Nanka Amaphoyisa Interview & Performance',
-
     youtubeId: 'j7icV2qvHIo',
   },
   {
@@ -38,6 +37,30 @@ const episodes: EpisodeType[] = [
 
 export default function TheBarbershow() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
+  const [episodes, setEpisodes] = useState<EpisodeType[]>(fallbackEpisodes)
+  const [isLoadingEpisodes, setIsLoadingEpisodes] = useState(true)
+
+  // Fetch latest episodes from YouTube API
+  useEffect(() => {
+    const fetchEpisodes = async () => {
+      try {
+        const response = await fetch('/api/youtube/latest-episodes')
+        if (response.ok) {
+          const data = await response.json()
+          if (Array.isArray(data) && data.length > 0) {
+            setEpisodes(data.slice(0, 4))
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch episodes:', error)
+        // Keep fallback episodes
+      } finally {
+        setIsLoadingEpisodes(false)
+      }
+    }
+
+    fetchEpisodes()
+  }, [])
 
   // Prevent scrolling when modal is open
   useEffect(() => {
