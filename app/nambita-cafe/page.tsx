@@ -133,7 +133,7 @@ export default function NambitaCafe() {
               </div>
             </motion.div>
 
-            {/* Right Column - Image */}
+            {/* Right Column - Lottie Animation */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -141,12 +141,11 @@ export default function NambitaCafe() {
               transition={{ ease: 'easeOut', duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src="/Images/ChatGPT Image Feb 22, 2026, 11_26_30 AM.png"
-                  alt="Nambita Café Interior"
-                  fill
-                  className="object-cover"
+              <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg bg-black-900 flex items-center justify-center">
+                <Lottie
+                  animationData={require('/public/lottie/Burger.json')}
+                  loop={true}
+                  style={{ width: '100%', height: '100%' }}
                 />
               </div>
             </motion.div>
@@ -286,11 +285,11 @@ export default function NambitaCafe() {
             className="mt-12 text-center"
           >
             <a
-              href="/Document/slaqa_salon_1771753993897.pdf"
+              href="/Images/Nambita Cafe Menu.jpeg"
               download
               className="inline-flex items-center justify-center gap-2 bg-black-900 text-white font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-black-900 hover:text-white transition-colors duration-200 border-2 border-black-900"
             >
-              Download Full Menu <ArrowRight size={16} />
+              Download Full Menu <Image src="/Icons/download-circular-button.png" alt="Download" width={20} height={20} />
             </a>
           </motion.div>
         </div>

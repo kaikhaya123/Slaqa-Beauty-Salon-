@@ -43,7 +43,7 @@ export default function SlaqaCosmetics() {
               viewport={{ once: false }}
               className="relative sm:col-span-5 col-span-12 rounded-xl bg-[#FFFF00] flex flex-col justify-between p-8 lg:p-12 h-[320px] sm:h-[560px] lg:h-[640px]"
             >
-              <span className="text-xs uppercase tracking-[0.22em] text-black-900/60 font-semibold">
+              <span className="text-lg uppercase tracking-[0.22em] text-black-900/50 font-semibold">
                 Introducing
               </span>
               <div className="space-y-5">
@@ -179,12 +179,12 @@ export default function SlaqaCosmetics() {
               {/* Content — bottom-left */}
               <div className="absolute bottom-0 left-0 z-10 p-8 lg:p-12 flex flex-col gap-6 max-w-xl">
                 <div className="space-y-3">
-                  <span className="text-xs uppercase tracking-[0.22em] text-[#FFFF00] font-semibold">
+                  <span className="text-xs uppercase tracking-[0.22em] text-white font-semibold">
                     One Vision, One Beard Qabunga off the Shelves
                   </span>
                   <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[0.9] tracking-tight">
                     It&apos;s not just Oil,<br />
-                    <span className="text-[#FFFF00]">it&apos;s Beard Qabunga.</span>
+                    <span className="text-white">it&apos;s Beard Qabunga.</span>
                   </h2>
                   <p className="text-base text-white leading-relaxed max-w-sm">
                     Now available in-store at{' '}

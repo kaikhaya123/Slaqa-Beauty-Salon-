@@ -30,7 +30,7 @@ export default function HowItWorks() {
         <h2 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-black-900 mb-6 leading-tight tracking-wide font-sans">
           HOW IT WORKS
         </h2>
-        <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-sans">
+        <p className="text-lg md:text-xl text-black-900 leading-relaxed font-sans">
           Book your cut in 3 simple steps — select your service, pick your barber and time, and confirm instantly. No hassle, all convenience.
         </p>
       </div>
@@ -44,7 +44,7 @@ export default function HowItWorks() {
               className="relative text-center"
             >
               {/* Step number */}
-              <span className="block text-lg font-black text-[#FFF44F] mb-6 tracking-wide font-sans">
+              <span className="block text-lg font-black text-black-900 mb-6 tracking-wide font-sans">
                 {step.number}
               </span>
 

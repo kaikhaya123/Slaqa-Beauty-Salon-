@@ -100,15 +100,15 @@ export default function IntroSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-32 pt-16 border-t border-white flex flex-col md:flex-row justify-between gap-12"
+          className="mt-32 pt-16 border-t border-black-900 flex flex-col md:flex-row justify-between gap-12"
         >
           <p className="text-3xl md:text-4xl font-medium text-white leading-[1.15] max-w-3xl">
-            Founded with a vision to redefine grooming through culture and
+            Founded with a vision to redefine haicuts through culture and
             community — we&apos;re more than a salon; we&apos;re a movement
             built on authenticity, innovation, and belonging.
           </p>
           <div className="text-sm font-bold text-white uppercase tracking-widest pt-2 shrink-0">
-            Your style.<br />Your identity.<br />Your SLAQA SALON.
+            STAY ClEAN.<br />STAY FRESH.<br />
           </div>
         </motion.div>
 

@@ -114,7 +114,7 @@ const Section2 = ({ scrollYProgress }) => {
           </figure>
           <figure className='relative h-96 rounded-lg overflow-hidden group'>
             <Image
-              src='/Images/1771341907168.jpeg'
+              src='/Images/1771342470193.jpeg'
               alt='Premium Grooming'
               fill
               className='object-cover w-full h-full group-hover:scale-110 transition-transform duration-300 rounded-lg'

@@ -73,12 +73,12 @@ export default function TheBarbershow() {
                 </span>
                 <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-black-900 leading-[0.9] tracking-tight">
                   The<br />
-                  <span className="text-black-900">Barbershow</span>
+                  <span className="text-black-900">Barbershow Studios</span>
                 </h2>
               </div>
 
               <p className="text-base lg:text-lg text-black-900 leading-relaxed max-w-lg">
-                More than just a haircut. The Barbershow transforms the barbershop into a stage where culture, creativity, and authentic conversation come alive. Every episode is a blend of grooming, storytelling, and community.
+                More than just a haircut. The Barbershow Studios transforms the barbershop into a stage where culture, creativity, and authentic conversation come alive. Every episode is a blend of storytelling, and community.
               </p>
 
               <div className="space-y-4">
@@ -88,7 +88,13 @@ export default function TheBarbershow() {
                     <p className="text-xs text-black-900 uppercase tracking-wider">Episodes</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-2xl font-black text-black-900">∞</p>
+                    <Image
+                      src="/Icons/mic.png"
+                      alt="stories icon"
+                      width={32}
+                      height={32}
+                      className="object-contain"
+                    />
                     <p className="text-xs text-black-900 uppercase tracking-wider">Stories</p>
                   </div>
                   <div className="space-y-2">
@@ -103,10 +109,16 @@ export default function TheBarbershow() {
                   href="https://www.youtube.com/@slaqasalon"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 bg-black-900 text-white font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
+                  className="inline-flex items-center justify-center gap-3 border-2 border-black-900 text-black-900 font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-[#FFFF00] transition-colors duration-200"
                 >
-                  <Play size={16} strokeWidth={2.5} fill="currentColor" />
                   Subscribe on YouTube
+                  <Image
+                    src="/Icons/youtube (1).png"
+                    alt="subscribe"
+                    width={16}
+                    height={16}
+                    className="object-contain"
+                  />
                 </a>
                 <Link
                   href="#episodes"
@@ -125,14 +137,28 @@ export default function TheBarbershow() {
               viewport={{ once: false }}
               className="col-span-12 sm:col-span-6 flex items-center justify-center"
             >
-              <div className="relative w-full h-full min-h-[400px] sm:min-h-[500px]">
-                <Image
-                  src="/Images/barbershop full of clients-cuate.png"
-                  alt="Mic drop"
-                  fill
-                  className="object-contain object-center"
-                  priority
-                />
+              {/* Hidden SVG with clip path definition */}
+              <svg className="absolute -top-[999px] -left-[999px] w-0 h-0">
+                <defs>
+                  <clipPath id="differentone9" clipPathUnits="objectBoundingBox">
+                    <path
+                      d="M0.751042 0.500000 L0.751042 0.251042 L0.500000 0.251042 L0.500000 0.000000 L0.000000 0.000000 L0.000000 0.500000 L0.251042 0.500000 L0.251042 0.751042 L0.500000 0.751042 L0.500000 1.000000 L1.000000 1.000000 L1.000000 0.500000 L0.751042 0.500000 Z"
+                      fill="black"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              
+              <div className="bg-[#FFFF00] relative w-full h-full min-h-[400px] sm:min-h-[500px]" style={{ clipPath: 'url(#differentone9)' }}>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                >
+                  <source src="/Video/Video_1.mp4" type="video/mp4" />
+                </video>
               </div>
             </motion.div>
           </div>
