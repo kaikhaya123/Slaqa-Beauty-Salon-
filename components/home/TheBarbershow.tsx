@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, Play, Zap, X } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 interface EpisodeType {
   id: string
@@ -39,6 +39,15 @@ export default function TheBarbershow() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
   const [episodes, setEpisodes] = useState<EpisodeType[]>(fallbackEpisodes)
   const [isLoadingEpisodes, setIsLoadingEpisodes] = useState(true)
+  const [isHeroVideoPlaying, setIsHeroVideoPlaying] = useState(false)
+  const heroVideoRef = useRef<HTMLVideoElement>(null)
+
+  const handleHeroPlayClick = () => {
+    setIsHeroVideoPlaying(true)
+    if (heroVideoRef.current) {
+      heroVideoRef.current.play()
+    }
+  }
 
   // Fetch latest episodes from YouTube API
   useEffect(() => {
@@ -174,7 +183,7 @@ export default function TheBarbershow() {
               
               <div className="bg-[#FFFF00] relative w-full h-full min-h-[400px] sm:min-h-[500px]" style={{ clipPath: 'url(#differentone9)' }}>
                 <video
-                  autoPlay
+                  ref={heroVideoRef}
                   loop
                   muted
                   playsInline
@@ -182,6 +191,17 @@ export default function TheBarbershow() {
                 >
                   <source src="/Video/Video_1.mp4" type="video/mp4" />
                 </video>
+                {!isHeroVideoPlaying && (
+                  <button
+                    onClick={handleHeroPlayClick}
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors duration-200"
+                    aria-label="Play video"
+                  >
+                    <div className="pl-2 flex items-center justify-center w-20 h-20 bg-white rounded-full hover:scale-110 transition-transform duration-200">
+                      <Play className="text-black-900 fill-black-900" size={40} />
+                    </div>
+                  </button>
+                )}
               </div>
             </motion.div>
           </div>

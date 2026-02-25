@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, MoveUpRight, ShoppingBag } from 'lucide-react'
+import { ArrowRight, MoveUpRight, ShoppingBag, Play } from 'lucide-react'
+import { useState, useRef } from 'react'
 
 interface ProductType {
   id: string
@@ -25,6 +26,16 @@ const collageItems: CollageType[] = [
 ]
 
 export default function SlaqaCosmetics() {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const handlePlayClick = () => {
+    setIsPlaying(true)
+    if (videoRef.current) {
+      videoRef.current.play()
+    }
+  }
+
   return (
     <>
       {/* ═══════════════════════════════════
@@ -81,13 +92,24 @@ export default function SlaqaCosmetics() {
             >
               <div className="w-full h-full overflow-hidden rounded-xl">
                 <video
+                  ref={videoRef}
                   src="/Video/3770841207342444387.mp4"
-                  autoPlay
                   muted
                   loop
                   playsInline
                   className="h-full w-full object-cover object-center brightness-90"
                 />
+                {!isPlaying && (
+                  <button
+                    onClick={handlePlayClick}
+                    className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors duration-200 group"
+                    aria-label="Play video"
+                  >
+                    <div className="pl-2 flex items-center justify-center w-20 h-20 bg-white rounded-full hover:scale-110 transition-transform duration-200">
+                      <Play className="text-black-900 fill-black-900" size={40} />
+                    </div>
+                  </button>
+                )}
               </div>
               <div className="absolute bottom-0 w-full p-4 flex justify-between items-center">
                 <h3 className="lg:text-xl text-sm bg-black text-white rounded-xl p-2 px-4">
