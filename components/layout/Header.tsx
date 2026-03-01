@@ -219,7 +219,7 @@ export default function Header() {
                         {galleryItems.map((item, idx) => (
                           <Link
                             key={item.id}
-                            href={idx === 0 ? '/nambita-cafe' : '#'}
+                            href={idx === 0 ? '/nambita-cafe' : idx === 2 ? '/barber-show' : '#'}
                             onClick={() => setSidebarOpen(false)}
                           >
                             <figure className="relative flex-none w-44 h-32 rounded-xl overflow-hidden snap-start cursor-pointer group">
@@ -247,7 +247,7 @@ export default function Header() {
                         {galleryItems.map((item, idx) => (
                           <Link
                             key={item.id}
-                            href={idx === 0 ? '/nambita-cafe' : '#'}
+                            href={idx === 0 ? '/nambita-cafe' : idx === 2 ? '/barber-show' : '#'}
                             onClick={() => setSidebarOpen(false)}
                           >
                             <figure className="relative rounded-xl overflow-hidden w-full h-full min-h-[160px] group cursor-pointer">

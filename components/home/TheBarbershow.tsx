@@ -10,27 +10,51 @@ interface EpisodeType {
   id: string
   title: string
   youtubeId: string
+  hook?: string
+  artist?: string
 }
 
 const fallbackEpisodes: EpisodeType[] = [
   {
     id: '01',
-    title: 'THE BARBERSHOW S3 EPISODE 2 | @manny_yack Speaks on Independency, Lagacy EP and speaks on Beast Rsa.',
-    youtubeId: 'VjtDEw4C3uA',
+    title: 'Bello B - Nanka Amaphoyisa Interview & Performance',
+    artist: 'Bello B',
+    hook: 'Legendary rapper opens up on legacy, police brutality, and freestyle in the chair.',
+    youtubeId: '4zX0IxgnM8M',
   },
   {
     id: '02',
-    title: 'Bello B - Nanka Amaphoyisa Interview & Performance',
-    youtubeId: 'j7icV2qvHIo',
+    title: 'Manny Yack Speaks on Independency, Lagacy EP and Beast RSA',
+    artist: 'Manny Yack (@manny_yack)',
+    hook: 'Hip-hop artist breaks down independence, new music, and building his empire.',
+    youtubeId: 'VjtDEw4C3uA',
   },
   {
     id: '03',
-    title: 'THE BARBERSHOW S3 EPISODE 1 | @campmastersrecords_sa Speaks on VATHELA, AFROTAINMENT & SMOKOLO',
-    youtubeId: 'UCGvtrrrCzM',
+    title: 'LaQhaSha - MR BULLY Album Breakdown: The Establishment of the Qwellers',
+    artist: 'LaQhaSha (@LaQhaSha)',
+    hook: 'Deep dive into the MR BULLY album, the Qwellers movement, and South African hip-hop.',
+    youtubeId: '6dNnI1VoPUo',
   },
   {
     id: '04',
-    title: 'THE BARBERSHOW SA S2 EPISODE 4 | @isthixoPOD7865',
+    title: 'THE BARBERSHOW S3 EPISODE 1 - Campmaster Records Speaks on VATHELA',
+    artist: 'Campmaster Records (@campmastersrecords_sa)',
+    hook: 'Music producer reveals secrets behind VATHELA and the art of production.',
+    youtubeId: 'E23Okee18hA',
+  },
+  {
+    id: '05',
+    title: 'INYAMA YENHLOKO IMNANDI YAZI - Lethulight x 3omncane',
+    artist: 'Lethulight & 3omncane',
+    hook: 'Artists collaborate on a celebration of authentic sound and cultural storytelling.',
+    youtubeId: 'UCGvtrrrCzM',
+  },
+  {
+    id: '06',
+    title: 'THE BARBERSHOW SA S2 EPISODE 4 - Isthixo',
+    artist: 'Isthixo (@isthixoPOD7865)',
+    hook: 'Podcast icon shares insights on content creation, community, and influence.',
     youtubeId: 'hgUQ2-Poh1I',
   },
 ]
@@ -136,29 +160,8 @@ export default function TheBarbershow() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="https://www.youtube.com/@slaqasalon"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 border-2 border-black-900 text-black-900 font-black px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-[#FFFF00] transition-colors duration-200"
-                >
-                  Subscribe on YouTube
-                  <Image
-                    src="/Icons/youtube (1).png"
-                    alt="subscribe"
-                    width={16}
-                    height={16}
-                    className="object-contain"
-                  />
-                </a>
-                <Link
-                  href="#episodes"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-black-900 text-black-900 font-semibold px-8 py-4 rounded-full text-sm uppercase tracking-wider hover:border-black-900 hover:black-900 transition-colors duration-200"
-                >
-                  Watch Episodes <ArrowRight size={14} />
-                </Link>
-              </div>
+              {/* CTAs removed per request */}
+              <div />
             </motion.article>
 
             {/* Mic Drop Image */}
@@ -220,8 +223,12 @@ export default function TheBarbershow() {
             transition={{ duration: 0.6 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-12 px-5"
           >
-            Latest <span className="text-white">Episodes</span>
+            Inside <span className="text-[#FFFF00]">The Barbershow</span>
           </motion.h2>
+
+          <p className="text-white/70 mb-8 px-5 text-base leading-relaxed max-w-2xl">
+            Conversations through the clipper. Real stories from real people. Subscribe and join our growing community.
+          </p>
 
           <div className="grid grid-cols-12 gap-3 overflow-hidden px-5">
             {episodes.map((episode, idx) => (
@@ -231,7 +238,7 @@ export default function TheBarbershow() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ ease: 'easeOut', duration: 0.55, delay: idx * 0.1 }}
                 viewport={{ once: false }}
-                className="col-span-12 sm:col-span-6 lg:col-span-6 xl:col-span-3 rounded-lg overflow-hidden bg-white/5 border border-white/10 hover:border-[#FFFF00]/50 transition-all duration-300 group cursor-pointer"
+                className="col-span-12 sm:col-span-6 lg:col-span-6 xl:col-span-2 rounded-lg overflow-hidden bg-white/5 border border-white/10 hover:border-[#FFFF00]/50 transition-all duration-300 group cursor-pointer flex flex-col"
               >
                 {/* Video Embed Container */}
                 <button
@@ -253,50 +260,34 @@ export default function TheBarbershow() {
                 </button>
 
                 {/* Content */}
-                <div className="p-4 space-y-3">
-                  <div className="space-y-1">
-                    <span className="text-xs uppercase tracking-[0.18em] text-[#FFFF00] font-bold">
-                    </span>
+                <div className="p-4 space-y-3 flex flex-col flex-1">
+                  {/* Title & Hook */}
+                  <div className="space-y-2 flex-1">
                     <h3 className="text-sm font-black text-white leading-tight line-clamp-2">
                       {episode.title}
                     </h3>
+                    {episode.hook && (
+                      <p className="text-xs text-white/70 leading-snug line-clamp-2">
+                        {episode.hook}
+                      </p>
+                    )}
+                    {episode.artist && (
+                      <p className="text-xs text-[#FFFF00] font-semibold">
+                        Feat. {episode.artist}
+                      </p>
+                    )}
                   </div>
 
-                  <button
-                    onClick={() => setSelectedVideo(episode.youtubeId)}
-                    className="inline-flex items-center gap-1 text-[#FFFF00] font-semibold text-xs hover:translate-x-1 transition-transform duration-200"
-                  >
-                    Watch Now <ArrowRight size={12} />
-                  </button>
+                  {/* CTA Buttons */}
+                  {/* CTA buttons removed */}
+                  <div />
                 </div>
               </motion.article>
             ))}
           </div>
 
           {/* View All CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-14 text-center"
-          >
-            <a
-              href="https://www.youtube.com/@slaqasalon/videos"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 bg-[#FFFF00] text-black-900 font-black px-10 py-5 rounded-full text-sm uppercase tracking-widest hover:bg-white transition-colors duration-200"
-            >
-              View All Episodes
-              <Image
-                src="/Icons/play-button.png"
-                alt="play video"
-                width={16}
-                height={16}
-                className="object-contain"
-              />
-            </a>
-          </motion.div>
+          {/* View All / Subscribe CTAs removed per request */}
         </div>
       </section>
 
