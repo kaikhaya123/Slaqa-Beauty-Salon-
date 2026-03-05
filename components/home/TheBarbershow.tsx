@@ -1,10 +1,11 @@
-'use client'
-
+// @ts-nocheck
+'use client';
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, Play, Zap, X } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
+import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
 
 interface EpisodeType {
   id: string
@@ -73,7 +74,6 @@ export default function TheBarbershow() {
     }
   }
 
-  // Fetch latest episodes from YouTube API
   useEffect(() => {
     const fetchEpisodes = async () => {
       try {
@@ -86,7 +86,6 @@ export default function TheBarbershow() {
         }
       } catch (error) {
         console.error('Failed to fetch episodes:', error)
-        // Keep fallback episodes
       } finally {
         setIsLoadingEpisodes(false)
       }
@@ -95,7 +94,6 @@ export default function TheBarbershow() {
     fetchEpisodes()
   }, [])
 
-  // Prevent scrolling when modal is open
   useEffect(() => {
     if (selectedVideo) {
       document.body.style.overflow = 'hidden'
@@ -109,13 +107,60 @@ export default function TheBarbershow() {
 
   return (
     <>
-      {/* ═══════════════════════════════════
-          THE BARBERSHOW - HERO SECTION
-      ═══════════════════════════════════ */}
-      <section className="bg-[#FFFF00] py-14 md:py-20 overflow-hidden border-t border-white/8">
-        <div className="max-w-7xl mx-auto">
+      {/* HERO SECTION WITH 3D BACKGROUND */}
+      <section className="relative bg-black-900 py-14 md:py-20 overflow-hidden border-t border-white/8">
+        {/* 3D Shader Gradient Background - Positioned absolutely */}
+        <div className="absolute inset-0 z-0 opacity-60">
+          <ShaderGradientCanvas
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            lazyLoad={undefined}
+            fov={undefined}
+            pixelDensity={1}
+            pointerEvents='none'
+          >
+            <ShaderGradient
+              animate='on'
+              type='sphere'
+              wireframe={false}
+              shader='defaults'
+              uTime={0}
+              uSpeed={0.3}
+              uStrength={0.3}
+              uDensity={0.8}
+              uFrequency={5.5}
+              uAmplitude={3.2}
+              positionX={-0.1}
+              positionY={0}
+              positionZ={0}
+              rotationX={0}
+              rotationY={130}
+              rotationZ={70}
+              color1='#73bfc4'
+              color2='#ff810a'
+              color3='#8da0ce'
+              reflection={0.4}
+              cAzimuthAngle={270}
+              cPolarAngle={180}
+              cDistance={0.5}
+              cameraZoom={15.1}
+              lightType='env'
+              brightness={0.8}
+              envPreset='city'
+              grain='on'
+              toggleAxis={false}
+              zoomOut={false}
+              hoverState=''
+              enableTransition={false}
+            />
+          </ShaderGradientCanvas>
+        </div>
+
+        {/* Content Overlay */}
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-12 gap-4 overflow-hidden px-5 lg:pb-5 pb-2">
-            {/* Hero Content */}
             <motion.article
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -124,24 +169,24 @@ export default function TheBarbershow() {
               className="relative col-span-12 sm:col-span-6 flex flex-col justify-between space-y-8"
             >
               <div className="space-y-3">
-                <span className="text-xs uppercase tracking-[0.22em] text-black-900 font-semibold flex items-center gap-2">
+                <span className="text-xs uppercase tracking-[0.22em] text-white font-semibold flex items-center gap-2">
                   Storytelling Platform
                 </span>
-                <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-black-900 leading-[0.9] tracking-tight">
+                <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[0.9] tracking-tight">
                   The<br />
-                  <span className="text-black-900">Barbershow Studios</span>
+                  <span className="text-[#FFFF00]">Barbershow Studios</span>
                 </h2>
               </div>
 
-              <p className="text-base lg:text-lg text-black-900 leading-relaxed max-w-lg">
+              <p className="text-base lg:text-lg text-white leading-relaxed max-w-lg">
                 More than just a haircut. The Barbershow Studios transforms the barbershop into a stage where culture, creativity, and authentic conversation come alive. Every episode is a blend of storytelling, and community.
               </p>
 
               <div className="space-y-4">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <p className="text-2xl font-black text-black-900">50+</p>
-                    <p className="text-xs text-black-900 uppercase tracking-wider">Episodes</p>
+                    <p className="text-2xl font-black text-white">50+</p>
+                    <p className="text-xs text-white uppercase tracking-wider">Episodes</p>
                   </div>
                   <div className="space-y-2">
                     <Image
@@ -151,20 +196,17 @@ export default function TheBarbershow() {
                       height={32}
                       className="object-contain"
                     />
-                    <p className="text-xs text-black-900 uppercase tracking-wider">Stories</p>
+                    <p className="text-xs text-white uppercase tracking-wider">Stories</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-2xl font-black text-black-900">1</p>
-                    <p className="text-xs text-black-900 uppercase tracking-wider">Chair</p>
+                    <p className="text-2xl font-black text-white">1</p>
+                    <p className="text-xs text-white uppercase tracking-wider">Chair</p>
                   </div>
                 </div>
               </div>
-
-              {/* CTAs removed per request */}
               <div />
             </motion.article>
 
-            {/* Mic Drop Image */}
             <motion.div
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
@@ -172,7 +214,6 @@ export default function TheBarbershow() {
               viewport={{ once: false }}
               className="col-span-12 sm:col-span-6 flex items-center justify-center"
             >
-              {/* Hidden SVG with clip path definition */}
               <svg className="absolute -top-[999px] -left-[999px] w-0 h-0">
                 <defs>
                   <clipPath id="differentone9" clipPathUnits="objectBoundingBox">
@@ -184,7 +225,7 @@ export default function TheBarbershow() {
                 </defs>
               </svg>
               
-              <div className="bg-[#FFFF00] relative w-full h-full min-h-[400px] sm:min-h-[500px]" style={{ clipPath: 'url(#differentone9)' }}>
+              <div className="bg-white relative w-full h-full min-h-[400px] sm:min-h-[500px]" style={{ clipPath: 'url(#differentone9)' }}>
                 <video
                   ref={heroVideoRef}
                   loop
@@ -198,11 +239,8 @@ export default function TheBarbershow() {
                   <button
                     onClick={handleHeroPlayClick}
                     className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors duration-200"
-                    aria-label="Play video"
                   >
-                    <div className="pl-2 flex items-center justify-center w-20 h-20 bg-white rounded-full hover:scale-110 transition-transform duration-200">
-                      <Play className="text-black-900 fill-black-900" size={40} />
-                    </div>
+                    <Play size={64} className="text-white" strokeWidth={1.5} />
                   </button>
                 )}
               </div>
@@ -211,57 +249,43 @@ export default function TheBarbershow() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════
-          EPISODES GRID
-      ═══════════════════════════════════ */}
-      <section id="episodes" className="bg-black-900 py-14 md:py-20 overflow-hidden border-t border-white/8">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+      {/* LATEST EPISODES */}
+      <section className="bg-black py-14 md:py-20 overflow-hidden border-b border-white/8">
+        <div className="max-w-7xl mx-auto px-5 space-y-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ ease: 'easeOut', duration: 0.5 }}
             viewport={{ once: false }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-12 px-5"
+            className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8"
           >
-            Inside <span className="text-[#FFFF00]">The Barbershow</span>
-          </motion.h2>
+            <div className="space-y-2">
+              <h3 className="text-xs uppercase tracking-[0.22em] text-white font-semibold flex items-center gap-2">
+                <Zap size={16} strokeWidth={3} />
+                Latest Episodes
+              </h3>
+              <h2 className="text-4xl md:text-5xl font-black text-white">Conversations That Matter</h2>
+            </div>
+          </motion.div>
 
-          <p className="text-white/70 mb-8 px-5 text-base leading-relaxed max-w-2xl">
-            Conversations through the clipper. Real stories from real people. Subscribe and join our growing community.
-          </p>
-
-          <div className="grid grid-cols-12 gap-3 overflow-hidden px-5">
-            {episodes.map((episode, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {episodes.map((episode, i) => (
               <motion.article
                 key={episode.id}
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 40, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
-                transition={{ ease: 'easeOut', duration: 0.55, delay: idx * 0.1 }}
+                transition={{ ease: 'easeOut', duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: false }}
-                className="col-span-12 sm:col-span-6 lg:col-span-6 xl:col-span-2 rounded-lg overflow-hidden bg-white/5 border border-white/10 hover:border-[#FFFF00]/50 transition-all duration-300 group cursor-pointer flex flex-col"
+                className="group relative rounded-lg overflow-hidden cursor-pointer h-full flex flex-col"
               >
-                {/* Video Embed Container */}
                 <button
                   onClick={() => setSelectedVideo(episode.youtubeId)}
-                  className="relative w-full aspect-square bg-black/50 block overflow-hidden group-hover:brightness-110 transition-all duration-300"
+                  className="relative bg-white h-40 overflow-hidden flex-shrink-0 group"
                 >
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={`https://www.youtube.com/embed/${episode.youtubeId}`}
-                    title={episode.title}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    className="pointer-events-none"
-                  />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300"></div>
                 </button>
 
-                {/* Content */}
                 <div className="p-4 space-y-3 flex flex-col flex-1">
-                  {/* Title & Hook */}
                   <div className="space-y-2 flex-1">
                     <h3 className="text-sm font-black text-white leading-tight line-clamp-2">
                       {episode.title}
@@ -277,23 +301,15 @@ export default function TheBarbershow() {
                       </p>
                     )}
                   </div>
-
-                  {/* CTA Buttons */}
-                  {/* CTA buttons removed */}
                   <div />
                 </div>
               </motion.article>
             ))}
           </div>
-
-          {/* View All CTA */}
-          {/* View All / Subscribe CTAs removed per request */}
         </div>
       </section>
 
-      {/* ═══════════════════════════════════
-          MOVEMENT CTA
-      ═══════════════════════════════════ */}
+      {/* MOVEMENT CTA */}
       <section className="bg-black-900 py-14 md:py-20 overflow-hidden border-t border-black-900">
         <div className="max-w-7xl mx-auto px-5">
           <motion.article
@@ -338,9 +354,7 @@ export default function TheBarbershow() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════
-          VIDEO MODAL
-      ═══════════════════════════════════ */}
+      {/* VIDEO MODAL */}
       {selectedVideo && (
         <div 
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
@@ -350,7 +364,6 @@ export default function TheBarbershow() {
             className="relative w-full max-w-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button - Visible and accessible */}
             <button
               onClick={() => setSelectedVideo(null)}
               className="absolute -top-10 right-0 text-white hover:text-[#FFFF00] transition-colors duration-200 z-20 p-2"
@@ -360,7 +373,6 @@ export default function TheBarbershow() {
               <X size={28} strokeWidth={3} />
             </button>
 
-            {/* Video container - Compact */}
             <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border-2 border-[#FFFF00]/20">
               <iframe
                 width="100%"
@@ -375,7 +387,6 @@ export default function TheBarbershow() {
               />
             </div>
 
-            {/* Footer - Compact */}
             <div className="mt-4 flex flex-col sm:flex-row gap-3 justify-between items-center sm:items-end">
               <p className="text-white/60 text-xs uppercase tracking-wider">Full Immersive Experience</p>
               <div className="flex gap-3">

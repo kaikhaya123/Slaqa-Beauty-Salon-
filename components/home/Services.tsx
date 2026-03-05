@@ -66,8 +66,9 @@ export default function Services() {
   }
 
   return (
-    <Section background="black" padding="lg">
-      <div className="max-w-7xl mx-auto">
+    <Section background="black" padding="lg" className="w-full bg-black">
+      <div className="w-full bg-black">
+        <div className="max-w-7xl mx-auto">
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
@@ -79,26 +80,18 @@ export default function Services() {
             transition={{ duration: 0.8 }}
           >
             <div className="mb-8">
-              <motion.h2
-                className="text-4xl md:text-5xl lg:text-6xl font-black text-black-900 mb-6 leading-tight tracking-wide font-sans"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-              >
-              </motion.h2>
               <motion.h2 
-                className="text-4xl md:text-5xl lg:text-6xl font-black text-black-900 mb-6 leading-tight tracking-wide"
+                className="text-4xl md:text-5xl lg:text-6xl font-black text-[#FFFF00] mb-6 leading-tight tracking-wide"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-              Our Services<br />
-              Excellence Every Time
-            </motion.h2>
+                Our Services<br />
+                Excellence Every Time
+              </motion.h2>
             <motion.p 
-              className="text-base md:text-lg text-black-900 mb-6 leading-relaxed"
+              className="text-base md:text-lg text-white mb-6 leading-relaxed"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -106,9 +99,10 @@ export default function Services() {
             >
               From barbering and hair styling to beauty treatments and special event work, Slaqa delivers professional services with excellence across all three locations.
             </motion.p>
+            </div>
             <div className="mb-8">
               <motion.h3 
-                className="text-2xl md:text-3xl font-black text-black-900 mb-2 tracking-wide"
+                className="text-2xl md:text-3xl font-black text-[#FFFF00] mb-2 tracking-wide"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -117,7 +111,7 @@ export default function Services() {
                 Beauty & Lifestyle
               </motion.h3>
               <motion.h3 
-                className="text-2xl md:text-3xl font-black text-black-900 tracking-wide"
+                className="text-2xl md:text-3xl font-black text-white tracking-wide"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -138,7 +132,7 @@ export default function Services() {
                   href="/book" 
                   variant="primary" 
                   size="md"
-                  className="bg-black-900 hover:bg-black-900 whitespace-nowrap text-white"
+                  className="bg-[#FFFF00] hover:bg-[#FFFF00] whitespace-nowrap text-black-900"
                 >
                   Book Your Service →
                 </Button>
@@ -148,13 +142,12 @@ export default function Services() {
                   href="/services"
                   variant="outline"
                   size="md"
-                  className="border-black-900 text-black hover:bg-black-900 hover:text-black-900 hover:border-black-900 whitespace-nowrap"
+                  className="border-white text-white hover:bg-[#FFFF00] hover:text-black-900 hover:border-white whitespace-nowrap"
                 >
                   View All Styles
                 </Button>
               </motion.div>
-            </div>
-          </motion.div>
+            </motion.div>
 
           {/* Right Side - Swipeable Service Cards */}
           <motion.div 
@@ -250,7 +243,7 @@ export default function Services() {
                 onClick={prevSlide}
                 variant="outline" 
                 size="sm"
-                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-black-900"
+                className="bg-black-900 border-black-900 text-white hover:black-900 font-black-900"
               >
                 ←
               </Button>
@@ -266,7 +259,7 @@ export default function Services() {
                     key={index}
                     layout
                     className={`w-8 h-2 rounded-full transition-colors ${
-                      index === currentSlide ? 'bg-black-900' : 'bg-white'
+                      index === currentSlide ? 'bg-[#FFFF00]' : 'bg-white'
                     }`}
                     animate={{
                       scale: index === currentSlide ? 1.2 : 1,
@@ -279,13 +272,14 @@ export default function Services() {
                 onClick={nextSlide}
                 variant="outline" 
                 size="sm"
-                className="bg-black-900 border-black-900 text-white hover:brightness-110 font-black-900"
+                className="bg-black-900 border-black-900 text-white hover:brightness-100 font-black-900"
               >
                 →
               </Button>
             </motion.div>
           </motion.div>
         </div>
+      </div>
       </div>
     </Section>
   )

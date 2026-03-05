@@ -20,7 +20,7 @@
 @layer base {
   body {
     color: rgb(var(--foreground-rgb));
-    background: #FFFF00;
+    background: #000000;
     margin: 0;
     padding: 0;
   }
