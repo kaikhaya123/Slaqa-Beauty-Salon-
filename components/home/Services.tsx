@@ -1,6 +1,7 @@
 "use client"
 
 import Image from 'next/image'
+import Link from 'next/link'
 import Section from '@/components/ui/Section'
 import Button from '@/components/ui/Button'
 import { motion } from 'framer-motion'
@@ -128,23 +129,25 @@ export default function Services() {
               transition={{ duration: 0.6, delay: 0.5 }}
             >
               <Button 
-                  asLink 
-                  href="/book" 
-                  variant="primary" 
-                  size="md"
+                  asChild
+                  variant="default" 
+                  size="default"
                   className="bg-[#FFFF00] hover:bg-[#FFFF00] whitespace-nowrap text-black-900"
                 >
-                  Book Your Service →
+                  <Link href="/book">
+                    Book Your Service →
+                  </Link>
                 </Button>
 
                 <Button
-                  asLink
-                  href="/services"
+                  asChild
                   variant="outline"
-                  size="md"
+                  size="default"
                   className="border-white text-white hover:bg-[#FFFF00] hover:text-black-900 hover:border-white whitespace-nowrap"
                 >
-                  View All Styles
+                  <Link href="/services">
+                    View All Styles
+                  </Link>
                 </Button>
               </motion.div>
             </motion.div>

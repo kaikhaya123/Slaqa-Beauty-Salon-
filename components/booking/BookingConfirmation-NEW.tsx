@@ -1,6 +1,7 @@
 'use client'
 import { Service, Barber } from '@/lib/types'
 import Button from '@/components/ui/Button'
+import Link from 'next/link'
 import { format } from 'date-fns'
 // Icon placeholders: put custom SVGs in `/public/Icons/` and reference them via <img>
 // Example: <img src="/Icons/calendar.svg" alt="Calendar" className="h-5 w-5" />
@@ -331,8 +332,7 @@ export default function BookingConfirmation({
             <Button
               variant="secondary"
               size="lg"
-              fullWidth
-              className="bg-gold-300 text-black-900 hover:bg-gold-400 border-0 font-semibold max-w-sm"
+              className="w-full bg-gold-300 text-black-900 hover:bg-gold-400 border-0 font-semibold max-w-sm"
               onClick={() => {
                 const link = whatsappLink || (window as any).__WHATSAPP_LINK || ("https://wa.me/" + (BUSINESS_INFO.whatsapp || ''))
                 try { trackEvent('whatsapp_cta_click', { location: 'booking_confirmation', path: pathname || '/' }) } catch (e) {}
@@ -349,9 +349,8 @@ export default function BookingConfirmation({
           <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto">
             <Button
               variant="outline"
-              size="md"
-              fullWidth
-              className="border-gold-300 text-gold-300 hover:bg-gold-300 hover:text-black-900"
+              size="default"
+              className="w-full border-gold-300 text-gold-300 hover:bg-gold-300 hover:text-black-900"
               onClick={onStartOver}
             >
               <span className="inline-flex items-center justify-center gap-2">
@@ -361,17 +360,15 @@ export default function BookingConfirmation({
             </Button>
 
             <Button
-              asLink
-              href="/"
+              asChild
               variant="outline"
-              size="md"
-              fullWidth
-              className="border-gold-300 text-gold-300 hover:bg-gold-300 hover:text-black-900"
+              size="default"
+              className="w-full border-gold-300 text-gold-300 hover:bg-gold-300 hover:text-black-900"
             >
-              <span className="inline-flex items-center justify-center gap-2">
+              <Link href="/" className="inline-flex items-center justify-center gap-2">
                 <Image src="/Icons/home (1).png" alt="Back to Home" width={18} height={18} className="h-4 w-4" />
                 <span>Back to Home</span>
-              </span>
+              </Link>
             </Button>
           </div>
         </div>

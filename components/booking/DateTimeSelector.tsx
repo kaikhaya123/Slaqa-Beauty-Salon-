@@ -354,9 +354,9 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
       )}
 
       <Button
-        variant="primary"
+        variant="default"
         size="lg"
-        fullWidth
+        className="w-full"
         onClick={handleContinue}
         disabled={!selectedTime || takenSlots.includes(selectedTime) || isLoadingSlots || isVerifying}
       >

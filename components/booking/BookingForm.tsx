@@ -209,7 +209,7 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
         </div>
 
         <div className="pt-4">
-          <Button type="submit" variant="primary" size="lg" fullWidth>
+          <Button type="submit" variant="default" size="lg" className="w-full">
             Book Now 
           </Button>
         </div>
