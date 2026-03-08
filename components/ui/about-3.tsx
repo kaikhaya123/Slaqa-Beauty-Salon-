@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/Button"
+import { CountUpNumber } from "@/components/ui/CountUpNumber"
 import { useState, useRef } from "react"
 
 interface About3Props {
@@ -203,9 +204,11 @@ export const About3 = ({
             {achievements.map((item, idx) => (
               <div className="flex flex-col gap-4" key={item.label + idx}>
                 <p className="text-black-900/80">{item.label}</p>
-                <span className="text-4xl font-semibold md:text-5xl text-black-900">
-                  {item.value}
-                </span>
+                <CountUpNumber 
+                  value={item.value}
+                  duration={2000}
+                  className="text-4xl font-semibold md:text-5xl text-black-900"
+                />
               </div>
             ))}
           </div>

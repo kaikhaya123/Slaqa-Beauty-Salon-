@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Calendar, Users, ArrowRight } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import { BUSINESS_INFO } from '@/lib/constants'
+import { Typewriter } from '@/components/ui/typewriter'
 
 export default function Hero() {
   return (
@@ -43,7 +44,16 @@ export default function Hero() {
             SLAQA SALON
           </h1>
           <p className="text-base text-white md:text-lg lg:text-xl mb-8 lg:mb-10 max-w-2xl opacity-90 leading-relaxed">
-            Beauty, Hair & Lifestyle.
+            <Typewriter
+              text={["Beauty, Hair & Lifestyle.", "Stay clean, Stay Fresh"]}
+              speed={50}
+              deleteSpeed={30}
+              waitTime={2000}
+              className="text-base md:text-lg lg:text-xl"
+              showCursor={true}
+              cursorChar="|"
+              cursorClassName="ml-1"
+            />
           </p>
         </div>
       </div>

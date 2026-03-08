@@ -2,6 +2,8 @@
 
 import React, { useEffect } from 'react'
 import { About3 } from '@/components/ui/about-3'
+import { LogoCarousel } from '@/components/ui/logo-carousel'
+import { GradientHeading } from '@/components/ui/gradient-heading'
 
 const AboutPage = () => {
   useEffect(() => {
@@ -34,21 +36,41 @@ const AboutPage = () => {
           buttonText: "Book Now",
           buttonUrl: "/book",
         }}
-        companiesTitle="Trusted by Communities Across KwaZulu-Natal"
-        companies={[
-          { src: "/logo/569626317_18086126728820606_7933996279465277143_n.jpg", alt: "Slaqa Cosmetics" },
-          { src: "/logo/ChatGPT_Image_Mar_6__2026__11_33_14_AM-removebg-preview.png", alt: "The Barbershopshow Studio" },
-          { src: "/Images/588620845_17866014813514627_4879679079962877394_n.jpg", alt: "Nambita Cafe" },
-        ]}
         achievementsTitle="Our Impact in Numbers"
         achievementsDescription="Since 2015, Slaqa has been a cornerstone of beauty and lifestyle in Durban's townships, delivering excellence and fostering community across multiple locations."
         achievements={[
           { label: "Years in Business", value: "9+" },
           { label: "Happy Clients", value: "1000+" },
           { label: "Locations", value: "3+" },
-          { label: "Social Following", value: "61.7K" },
         ]}
       />
+      
+      {/* Logo Carousel Section */}
+      <section className="w-full py-24 bg-black-900">
+        <div className="mx-auto flex w-full max-w-screen-lg flex-col items-center space-y-12 px-6 md:px-12">
+          <div className="text-center space-y-4">
+            <GradientHeading variant="secondary" size="lg">
+              Trusted by Communities
+            </GradientHeading>
+            <GradientHeading variant="default" size="xl" weight="black">
+              Across KwaZulu-Natal
+            </GradientHeading>
+            <p className="text-neutral-400 mt-4 max-w-2xl mx-auto">
+              Partnering with local businesses and communities to deliver excellence in beauty and lifestyle
+            </p>
+          </div>
+
+          <LogoCarousel 
+            columnCount={3} 
+            logos={[
+              { name: "Slaqa Cosmetics", id: 1, src: "/logo/ChatGPT_Image_Mar_8__2026__07_49_05_PM-removebg-preview.png", alt: "Slaqa Cosmetics" },
+              { name: "The Barbershopshow Studio", id: 2, src: "/logo/ChatGPT_Image_Mar_6__2026__11_33_14_AM-removebg-preview.png", alt: "The Barbershopshow Studio" },
+              { name: "Nambita Cafe", id: 3, src: "/logo/ChatGPT_Image_Mar_8__2026__07_43_33_PM-removebg-preview.png", alt: "Nambita Cafe" },
+
+            ]}
+          />
+        </div>
+      </section>
     </main>
   )
 }
