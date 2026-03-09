@@ -32,7 +32,7 @@ export default function Footer() {
       {/* ── Floating CTA banner ── */}
       <div className="w-[90%] lg:w-[85%] mx-auto">
         <div className="relative z-10 -mb-24">
-          <div className="rounded-2xl overflow-hidden h-80 sm:h-96 relative shadow-2xl">
+          <div className="rounded-2xl overflow-hidden h-64 sm:h-80 md:h-96 relative shadow-2xl">
             <Image
               src="/Images/andre-reis-1_DAlXy0wng-unsplash.jpg"
               alt="Slaqa Salon"
@@ -42,18 +42,18 @@ export default function Footer() {
             />
             {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/55" />
-            <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-16 lg:p-24">
-              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-black max-w-2xl mb-8 leading-[0.92] tracking-tight">
+            <div className="absolute inset-0 flex flex-col justify-center p-6 sm:p-8 md:p-16 lg:p-24">
+              <h2 className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black max-w-2xl mb-6 sm:mb-8 leading-[0.92] tracking-tight">
                 Book your next<br />
                 <span className="text-[#FFFF00]">Slaqa experience.</span>
               </h2>
               <Link
                 href="/book"
-                className="bg-[#FFFF00] text-black-900 px-8 py-4 rounded-full w-fit flex items-center gap-3 font-black text-sm uppercase tracking-widest hover:bg-white transition-colors"
+                className="bg-[#FFFF00] text-black-900 px-6 sm:px-8 py-3 sm:py-4 rounded-full w-fit flex items-center gap-3 font-black text-xs sm:text-sm uppercase tracking-widest hover:bg-white transition-colors"
               >
                 Book Now
-                <div className="w-8 h-8 bg-black-900 rounded-full flex items-center justify-center text-[#FFFF00]">
-                  <ArrowRight className="w-5 h-5" />
+                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-black-900 rounded-full flex items-center justify-center text-[#FFFF00]">
+                  <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5" />
                 </div>
               </Link>
             </div>

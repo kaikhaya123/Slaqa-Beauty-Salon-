@@ -357,7 +357,7 @@ export default function NambitaCafe() {
               </figure>
               <figure className="w-full overflow-hidden rounded-lg">
                 <Image
-                  src="/Images/slaqa_salon_1771754825219.jpeg"
+                  src="/Images/nambitacafe_1771754771538.jpeg"
                   alt="Café Ambiance 3"
                   width={400}
                   height={400}
