@@ -9,6 +9,34 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Acumin Pro';
+  src: url('/Font/acumin-pro/Acumin-RPro.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Acumin Pro';
+  src: url('/Font/acumin-pro/Acumin-ItPro.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Acumin Pro';
+  src: url('/Font/acumin-pro/Acumin-BdPro.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Acumin Pro';
+  src: url('/Font/acumin-pro/Acumin-BdItPro.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 46, 46, 46;

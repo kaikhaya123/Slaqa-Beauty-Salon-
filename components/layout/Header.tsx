@@ -164,7 +164,7 @@ export default function Header() {
                         height={40}
                         className="h-9 w-auto brightness-0 invert"
                       />
-                      <span className="text-[#FFFF00] text-xl font-bold tracking-[0.25em] uppercase">
+                      <span className="text-[#FFFF00] text-xl font-bold tracking-[0.25em] uppercase" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}>
                         SLAQA SALON
                       </span>
                     </Link>
@@ -232,7 +232,7 @@ export default function Header() {
                                 className="absolute inset-0 w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
                               />
                               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5 flex items-end justify-between">
-                                <span className="text-white text-[10px] font-semibold tracking-wide uppercase line-clamp-1">
+                                <span className="text-white text-[10px] font-semibold tracking-wide uppercase line-clamp-1" style={{ fontFamily: "'Acumin Pro', sans-serif" }}>
                                   {item.heading}
                                 </span>
                                 <ArrowUpRight className="h-3 w-3 text-white shrink-0 ml-1" />
@@ -260,7 +260,7 @@ export default function Header() {
                                 className="absolute inset-0 w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
                               />
                               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 flex items-end justify-between">
-                                <span className="text-white text-xs font-semibold leading-tight tracking-wide line-clamp-1 uppercase">
+                                <span className="text-white text-xs font-semibold leading-tight tracking-wide line-clamp-1 uppercase" style={{ fontFamily: "'Acumin Pro', sans-serif" }}>
                                   {item.heading}
                                 </span>
                                 <ArrowUpRight className="h-4 w-4 text-white shrink-0 ml-1" />
