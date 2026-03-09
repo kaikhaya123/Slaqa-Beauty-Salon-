@@ -71,12 +71,12 @@ export default function Header() {
   // Header transparency state
   const isTransparent = (isHomePage || isNambitaCafe || isAboutPage) && !isScrolled;
   const isYellow = (isHomePage || isNambitaCafe || isAboutPage) && isScrolled;
-  const servicesTransparent = isServicesPage;
+  const servicesHeaderState = isServicesPage ? (isScrolled ? 'bg-[#FFFF00] shadow-lg' : 'bg-black-900 backdrop-blur-sm shadow-none') : '';
 
-  // Header text color: black when not transparent, white elsewhere
+  // Header text color: white when transparent or services not scrolled, black when yellow
   const navLinkClass =
     'relative flex items-center gap-2 ' +
-    ((isTransparent ? 'text-white' : 'text-black') ) + ' ' +
+    ((isTransparent || (isServicesPage && !isScrolled)) ? 'text-white' : 'text-black') + ' ' +
     'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full ' +
     'after:origin-bottom-right after:scale-x-0 after:bg-[#FFF44F] ' +
     'after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] ' +
@@ -86,7 +86,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-4 left-4 right-4 z-50 rounded-2xl transition-all duration-300 ${
-        servicesTransparent ? 'bg-transparent shadow-none' : isYellow ? 'bg-[#FFFF00] shadow-lg' : isTransparent ? 'bg-transparent shadow-none' : 'bg-[#FFFF00] shadow-lg'
+        isServicesPage ? servicesHeaderState : (isYellow ? 'bg-[#FFFF00] shadow-lg' : isTransparent ? 'bg-transparent shadow-none' : 'bg-[#FFFF00] shadow-lg')
       }`}
     >
       <div className="mx-auto max-w-7xl">
@@ -103,7 +103,7 @@ export default function Header() {
               width={220}
               height={75}
               className={`w-auto transition-all duration-300 ${
-                isNambitaCafe || isServicesPage || isYellow
+                isNambitaCafe || (isServicesPage && isScrolled) || isYellow
                   ? 'brightness-0 h-12 md:h-14'
                   : 'brightness-0 invert h-14 md:h-16'
               }`}
@@ -117,7 +117,7 @@ export default function Header() {
             <Link
               href="/book"
               className={`hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium tracking-wide border transition-all duration-300 hover:scale-105 ${
-                isNambitaCafe || isServicesPage || isYellow
+                isNambitaCafe || (isServicesPage && isScrolled) || isYellow
                   ? 'border-black-900 text-black-900 hover:bg-black-900 hover:text-white'
                   : 'border-white text-white hover:bg-black-900 hover:text-black'
               }`}
@@ -136,7 +136,7 @@ export default function Header() {
                 <button
                   aria-label="Open navigation menu"
                   className={`transition-colors duration-200 p-1 ${
-                    isNambitaCafe || isServicesPage || isYellow
+                    isNambitaCafe || (isServicesPage && isScrolled) || isYellow
                       ? 'text-black-900 hover:text-black-900'
                       : 'text-white hover:text-black-900'
                   }`}
@@ -164,7 +164,7 @@ export default function Header() {
                         height={40}
                         className="h-9 w-auto brightness-0 invert"
                       />
-                      <span className="text-[#FFFF00] text-xl font-bold tracking-[0.25em] uppercase" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}>
+                      <span className="text-[#FFFF00] text-xl font-bold tracking-[0.25em] uppercase">
                         SLAQA SALON
                       </span>
                     </Link>

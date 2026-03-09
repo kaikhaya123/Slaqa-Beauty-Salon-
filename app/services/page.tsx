@@ -30,23 +30,23 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black" />
         {/* Content sits above overlay */}
         <div className="relative z-10">
-        <p className="text-[#FFF44F] text-sm font-bold uppercase tracking-[0.25em] mb-3">Slaqa Salon</p>
+        <p className="text-[#FFFF00] text-sm font-bold uppercase tracking-[0.25em] mb-3">Slaqa Salon</p>
         <h1 className="text-5xl md:text-7xl font-black text-white leading-none tracking-tighter">
           Services &<br />
-          <span className="text-[#FFF44F]">Pricing</span>
+          <span className="text-[#FFFF00]">Pricing</span>
         </h1>
         <p className="mt-5 text-gray-400 max-w-xl mx-auto text-base">
           Professional cuts, styles and grooming for men, women and kids. Three pricing tiers based on finish.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-6 text-xs font-bold uppercase tracking-widest text-gray-500">
           <span className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-full bg-gray-400" /> Standard — base service
+            <span className="inline-block w-3 h-3 rounded-full bg-gray-500" /> Standard — base service
           </span>
           <span className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-full bg-gray-700 border border-gray-500" /> Black — with black dye
+            <span className="inline-block w-3 h-3 rounded-full bg-black-900 border border-gray-500" /> Black — with black dye
           </span>
           <span className="flex items-center gap-2">
-            <span className="inline-block w-3 h-3 rounded-full bg-[#FFF44F]" /> Colour — with colour
+            <span className="inline-block w-3 h-3 rounded-full bg-[#FFFF00]" /> Colour — with colour
           </span>
         </div>
         </div>{/* end z-10 content */}
