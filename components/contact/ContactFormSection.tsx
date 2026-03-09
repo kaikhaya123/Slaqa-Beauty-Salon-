@@ -112,7 +112,7 @@ export default function ContactFormSection() {
                 Contact Us
               </h2>
               <p className="text-white text-sm mb-8">
-                We'd love to hear from you. Get in touch with us today.
+                We&apos;d love to hear from you. Get in touch with us today.
               </p>
 
               {/* Contact Details */}
