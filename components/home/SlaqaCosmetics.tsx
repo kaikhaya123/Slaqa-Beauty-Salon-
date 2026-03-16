@@ -75,7 +75,7 @@ export default function SlaqaCosmetics() {
                 </Link>
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 border border-black-900/30 text-black-900 font-medium px-6 py-3 rounded-full text-sm uppercase tracking-wider hover:border-black-900 transition-colors duration-200"
+                  className="inline-flex items-center gap-2 border border-[#FFFF00] text-black-900 font-medium px-6 py-3 rounded-full text-sm uppercase tracking-wider hover:border-black-900 transition-colors duration-200"
                 >
                   Our Story
                 </Link>

@@ -82,30 +82,30 @@ export default function ContactPage() {
       <ContactFormSection />
 
       {/* Opening Hours */}
-      <Section background="white" padding="lg">
+      <Section background="black" padding="lg">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-black-800 mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
             OPENING HOURS
           </h2>
 
-          <div className="bg-black-900 rounded-2xl p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-[#FFFF00] rounded-2xl p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <h3 className="font-semibold text-white mb-1">Mon - Fri</h3>
-              <p className="text-xl font-bold text-white">
+              <h3 className="font-semibold text-black-900 mb-1">Mon - Fri</h3>
+              <p className="text-xl font-bold text-black-900">
                 {BUSINESS_INFO.hours.weekdays}
               </p>
             </div>
 
             <div>
-              <h3 className="font-semibold text-white mb-1">Saturday</h3>
-              <p className="text-xl font-bold text-white">
+              <h3 className="font-semibold text-black-900 mb-1">Saturday</h3>
+              <p className="text-xl font-bold text-black-900">
                 {BUSINESS_INFO.hours.saturday}
               </p>
             </div>
 
             <div>
-              <h3 className="font-semibold text-white mb-1">Sunday</h3>
-              <p className="text-xl font-bold text-white">
+              <h3 className="font-semibold text-black-900 mb-1">Sunday</h3>
+              <p className="text-xl font-bold text-black-900">
                 {BUSINESS_INFO.hours.sunday}
               </p>
             </div>
@@ -114,7 +114,7 @@ export default function ContactPage() {
       </Section>
 
       {/* FAQ Accordion */}
-      <Section background="black" padding="lg">
+      <Section background="white" padding="lg">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-black-900 mb-12 text-center">
             FREQUENTLY ASKED QUESTIONS
@@ -127,7 +127,7 @@ export default function ContactPage() {
               return (
                 <div
                   key={index}
-                  className="rounded-2xl border border-white bg-white"
+                  className="rounded-2xl border border-white bg-black-900 overflow-hidden"
                 >
                   <button
                     onClick={() => toggleFAQ(index)}
@@ -137,7 +137,7 @@ export default function ContactPage() {
                       {faq.question}
                     </span>
 
-                    <span className="text-gold-600">
+                    <span className="text-white">
                       {isOpen ? <Minus size={20} /> : <Plus size={20} />}
                     </span>
                   </button>

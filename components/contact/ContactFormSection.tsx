@@ -45,14 +45,14 @@ export default function ContactFormSection() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-black-900 via-blue-950 to-black-900 flex items-center py-12 px-4 md:px-0">
+    <div className="relative min-h-screen bg-[#FFFF00] flex items-center py-12 px-4 md:px-0">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-[#FFFF00] rounded-full blur-3xl -z-0"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-400/5 rounded-full blur-3xl -z-0"></div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Main Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-gradient-to-br from-slate-900 to-blue-950 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-[#FFFF00] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
           {/* LEFT SIDE - Image Section */}
           <div className="relative h-[500px] lg:h-[600px] bg-gradient-to-b from-black-900/80 to-black-900 flex items-end justify-center overflow-hidden group">
             {/* Vertical Text - "1 ONLINE 24/7" */}
@@ -108,10 +108,10 @@ export default function ContactFormSection() {
 
             {/* Header */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 font-sans">
+              <h2 className="text-4xl md:text-5xl font-bold text-black-900 mb-2 font-sans">
                 Contact Us
               </h2>
-              <p className="text-white text-sm mb-8">
+              <p className="text-black-900 text-sm mb-8">
                 We&apos;d love to hear from you. Get in touch with us today.
               </p>
 
@@ -121,10 +121,10 @@ export default function ContactFormSection() {
                 <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-white/60 text-xs uppercase tracking-wider mb-1">Phone</p>
+                    <p className="text-black-900  text-xs uppercase tracking-wider mb-1">Phone</p>
                     <a
                       href={`tel:${BUSINESS_INFO.phone.replace(/\s/g, '')}`}
-                      className="text-white text-lg font-semibold hover:text-yellow-400 transition-colors"
+                      className="text-black-900 text-lg font-semibold hover:text-yellow-400 transition-colors"
                     >
                       {BUSINESS_INFO.phone}
                     </a>
