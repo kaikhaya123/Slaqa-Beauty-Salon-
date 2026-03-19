@@ -60,9 +60,9 @@ function Carousel() {
   return (
     <section className='w-full py-16 md:py-24 bg-[#FFFF00]'>
       <div className='max-w-7xl mx-auto px-5'>
-        <h1 className='text-5xl md:text-6xl leading-[120%] font-black mb-12 text-center text-black-900'>
+        <h2 className='text-5xl md:text-6xl leading-[120%] font-black mb-12 text-center text-black-900'>
           View Our Slaqa Signature Styles <br /> & Expert Craftsmanship
-        </h1>
+        </h2>
         <div className='w-full overflow-hidden'>
           <motion.div
             ref={carousel}

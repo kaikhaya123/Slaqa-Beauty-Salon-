@@ -223,7 +223,7 @@ className="absolute inset-0 flex items-center justify-center bg-black/20 hover:b
                 transition={{ duration: 0.6 }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-3"
               >
-                Inside <span className="text-[#FFFF00]">The Barbershow</span>
+                Fresh From <span className="text-[#FFFF00]">The Chair</span>
               </motion.h2>
               <p className="text-white text-base max-w-2xl leading-relaxed text-center">
                 Conversations through the clipper. Real stories from real people.

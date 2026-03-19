@@ -33,11 +33,16 @@ const rethinkSans = localFont({
 
 export const metadata: Metadata = {
   title: 'Slaqa | Beauty, Hair & Barbering Services in Durban',
-  description: 'Slaqa — Multi-location beauty, hair and barbering services in Durban. Professional haircuts, fades, beard trims, hot towel shaves and hair styling. Visit us in KwaMashu, Waterloo or Umlazi.',
+  description: 'Slaqa Salon Durban offers premium haircuts, fades, beard grooming, and beauty services in KwaMashu, Waterloo, and Umlazi.',
   keywords: 'barber, hair salon, beauty services, Durban, KZN, haircut, beard trim, hair styling, fades',
+  icons: {
+    icon: '/logo/SLAQA_SALON_LOGO.png',
+    shortcut: '/logo/SLAQA_SALON_LOGO.png',
+    apple: '/logo/SLAQA_SALON_LOGO.png',
+  },
   openGraph: {
     title: 'Slaqa | Beauty, Hair & Barbering Services in Durban',
-    description: 'Slaqa — Professional beauty, hair and barbering services in Durban with three convenient locations.',
+    description: 'Slaqa Salon Durban offers premium haircuts, fades, beard grooming, and beauty services across three locations.',
     type: 'website',
   },
 } 
@@ -49,6 +54,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${rethinkSans.variable} ${bebasNeue.variable}`}>
+      <head>
+        <link rel="icon" href="/logo/SLAQA_SALON_LOGO.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/logo/SLAQA_SALON_LOGO.png" />
+      </head>
       <body className="font-sans antialiased">
         <AppShell>
           <Header />
