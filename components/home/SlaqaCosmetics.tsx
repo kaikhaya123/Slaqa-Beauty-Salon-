@@ -112,9 +112,9 @@ export default function SlaqaCosmetics() {
                 )}
               </div>
               <div className="absolute bottom-0 w-full p-4 flex justify-between items-center">
-                <h3 className="lg:text-xl text-sm bg-black text-white rounded-xl p-2 px-4">
-                  Slaqa Cosmetics
-                </h3>
+                <div className="lg:text-xl text-sm bg-black text-white rounded-xl p-2 px-4 font-black">
+                  Featured
+                </div>
                 <div className="lg:w-12 w-10 lg:h-12 h-10 text-white grid place-content-center rounded-full bg-black">
                   <MoveUpRight />
                 </div>
@@ -157,9 +157,9 @@ export default function SlaqaCosmetics() {
                     />
                   </div>
                   <div className="absolute lg:bottom-2 bottom-0 w-full p-4 flex justify-between items-center">
-                    <h3 className="lg:text-xl text-sm bg-black text-white rounded-xl p-2 px-4">
+                    <div className="lg:text-xl text-sm bg-black text-white rounded-xl p-2 px-4 font-black">
                       {item.label}
-                    </h3>
+                    </div>
                     <div className="lg:w-12 w-10 lg:h-12 h-10 text-white grid place-content-center rounded-full bg-black">
                       <MoveUpRight />
                     </div>
@@ -177,11 +177,11 @@ export default function SlaqaCosmetics() {
               className="relative sm:col-span-12 col-span-12 rounded-xl overflow-hidden min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] bg-[#FFFF00] flex flex-col items-center justify-center"
             >
               <div className="text-center space-y-8 relative z-20 w-full px-8">
-              <h3 className="text-4xl sm:text-5xl lg:text-6xl font-black text-black-900 leading-[0.9] tracking-tight pt-12">
+              <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-black-900 leading-[0.9] tracking-tight pt-12">
                 SHOP YOUR OWN <br />
                 <span className="text-black-900">BEARD QABUNGA</span><br />
                 TODAY
-              </h3>
+              </div>
               </div>
               <motion.div 
               className="relative w-80 h-80 sm:w-96 sm:h-96 mt-8"

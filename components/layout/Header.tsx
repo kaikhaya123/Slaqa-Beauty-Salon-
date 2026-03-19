@@ -100,14 +100,15 @@ export default function Header() {
             <Image
               src="/logo/SLAQA_SALON_LOGO.png"
               alt="Slaqa Barbershop Logo"
-              width={220}
-              height={75}
+              width={128}
+              height={44}
               className={`w-auto transition-all duration-300 ${
                 isNambitaCafe || (isServicesPage && isScrolled) || isYellow
                   ? 'brightness-0 h-12 md:h-14'
                   : 'brightness-0 invert h-14 md:h-16'
               }`}
               priority
+              quality={80}
             />
           </Link>
 

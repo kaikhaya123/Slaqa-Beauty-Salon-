@@ -78,6 +78,7 @@ export default function IntroSection() {
               className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out"
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
+              quality={70}
             />
             {/* Spinning badge */}
             <div className="absolute top-8 right-8">

@@ -178,7 +178,7 @@ export default function Hero() {
             fill
             className="object-cover object-center brightness-90 contrast-110"
             priority
-            quality={100}
+            quality={65}
           />
         </div>
         
@@ -190,7 +190,7 @@ export default function Hero() {
             fill
             className="object-cover object-center md:object-left brightness-90 contrast-110"
             priority
-            quality={100}
+            quality={65}
           />
         </div>
         

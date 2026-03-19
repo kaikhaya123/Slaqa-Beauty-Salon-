@@ -71,7 +71,7 @@ export default function BarbersSection() {
                 href={`/barbers#${String(b.id).toLowerCase()}`}
                 className="group relative w-full sm:w-[300px] md:w-[360px] rounded-2xl overflow-hidden shadow-2xl"
               >
-                <motion.div 
+                <motion.div
                   className="relative w-full aspect-[4/5] bg-gray-100"
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -88,7 +88,7 @@ export default function BarbersSection() {
                     >
                       <Image
                         src="/Images/Fuze Ngcobo.jpeg"
-                        alt={`${b.name} barber`}
+                        alt={`${b.name}, barber at Slaqa Salon`}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 40vw"
@@ -135,7 +135,7 @@ export default function BarbersSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
                   >
-                    <h3 className="text-2xl font-extrabold text-white drop-shadow-lg">{b.name}</h3>
+                    <div className="text-2xl font-extrabold text-white drop-shadow-lg">{b.name}</div>
                     <p className="text-gray-100 text-sm mt-1">{b.title}</p>
                   </motion.div>
 

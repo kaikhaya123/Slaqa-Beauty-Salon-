@@ -83,6 +83,8 @@ function Carousel() {
                     height={400}
                     alt={itemData?.title}
                     className='w-full h-full object-cover pointer-events-none  rounded-md'
+                    quality={70}
+                    loading="lazy"
                   />
                 </motion.div>
               );

@@ -286,9 +286,9 @@ className="absolute inset-0 flex items-center justify-center bg-black/20 hover:b
 
                     {/* Info */}
                     <div className="p-4 space-y-1">
-                      <h3 className="text-sm font-black text-white leading-snug line-clamp-2 group-hover:text-[#FFFF00] transition-colors duration-200">
+                      <div className="text-sm font-black text-white leading-snug line-clamp-2 group-hover:text-[#FFFF00] transition-colors duration-200">
                         {episode.title}
-                      </h3>
+                      </div>
                       {episode.artist && (
                         <p className="text-xs text-white/50 font-medium">{episode.artist}</p>
                       )}

@@ -102,9 +102,9 @@ export default function LocationHours() {
             {/* Info */}
             <div className="flex flex-col flex-1 p-7 gap-5">
               {/* Location name */}
-              <h3 className="text-2xl font-black text-white tracking-tight">
+              <div className="text-2xl font-black text-white tracking-tight">
                 {loc.name}
-              </h3>
+              </div>
 
               {/* Address */}
               <div className="flex items-start gap-3">
