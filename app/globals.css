@@ -2,41 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Quando';
-  src: url('/Font/Quando-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Acumin Pro';
-  src: url('/Font/acumin-pro/Acumin-RPro.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Acumin Pro';
-  src: url('/Font/acumin-pro/Acumin-ItPro.otf') format('opentype');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Acumin Pro';
-  src: url('/Font/acumin-pro/Acumin-BdPro.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Acumin Pro';
-  src: url('/Font/acumin-pro/Acumin-BdItPro.otf') format('opentype');
-  font-weight: bold;
-  font-style: italic;
-}
-
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 46, 46, 46;
@@ -56,30 +21,5 @@
   html {
     margin: 0;
     padding: 0;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-    20%, 40%, 60%, 80% { transform: translateX(4px); }
-  }
-  
-  .animate-shake {
-    animation: shake 0.5s ease-in-out;
-  }
-
-  /* Hide scrollbar while keeping scroll functionality */
-  .scrollbar-none {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE / Edge */
-  }
-  .scrollbar-none::-webkit-scrollbar {
-    display: none; /* Chrome / Safari / Opera */
   }
 }

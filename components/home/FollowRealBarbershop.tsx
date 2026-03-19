@@ -21,13 +21,12 @@ export default function FollowRealBarbershop() {
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
-            <span className="text-sm uppercase tracking-widest font-medium text-black" style={{ fontFamily: 'Quando' }}>
+            <span className="text-sm uppercase tracking-widest font-medium text-black font-rethink">
               Stay connected
             </span>
 
             <motion.h2 
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black leading-tight"
-              style={{ fontFamily: 'Quando' }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black leading-tight font-rethink"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -37,8 +36,7 @@ export default function FollowRealBarbershop() {
             </motion.h2>
 
             <motion.p 
-              className="text-lg md:text-xl text-black leading-relaxed max-w-lg"
-              style={{ fontFamily: 'Quando' }}
+              className="text-lg md:text-xl text-black leading-relaxed max-w-lg font-rethink"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -87,8 +85,7 @@ export default function FollowRealBarbershop() {
 
             {/* MICRO TRUST */}
             <motion.p 
-              className="text-sm text-black font-medium"
-              style={{ fontFamily: 'Quando' }}
+              className="text-sm text-black font-medium font-rethink"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

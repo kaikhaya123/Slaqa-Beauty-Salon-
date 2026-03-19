@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -48,14 +48,7 @@ export const items = [
 ];
 
 function Carousel() {
-  const [activeItem, setActiveItem] = useState(items[0]);
-  const [width, setWidth] = useState(0);
-  const carousel = useRef(null);
-
-  useEffect(() => {
-    // @ts-ignore
-    setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-  }, [carousel]);
+  const constraintsRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className='w-full py-16 md:py-24 bg-[#FFFF00]'>
@@ -63,13 +56,12 @@ function Carousel() {
         <h2 className='text-5xl md:text-6xl leading-[120%] font-black mb-12 text-center text-black-900'>
           View Our Slaqa Signature Styles <br /> & Expert Craftsmanship
         </h2>
-        <div className='w-full overflow-hidden'>
+        <div ref={constraintsRef} className='w-full overflow-hidden'>
           <motion.div
-            ref={carousel}
             drag='x'
             whileDrag={{ scale: 0.95 }}
             dragElastic={0.2}
-            dragConstraints={{ right: 0, left: -width }}
+            dragConstraints={constraintsRef}
             dragTransition={{ bounceDamping: 30 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             className='flex will-change-transform cursor-grab active:cursor-grabbing'

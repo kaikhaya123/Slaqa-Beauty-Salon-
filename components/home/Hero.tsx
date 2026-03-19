@@ -14,6 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero() {
+  const heroHeading = 'SLAQA SALON DURBAN STUDIO'
   const sectionRef = useRef<HTMLElement>(null)
   const leftImageRef = useRef<HTMLDivElement>(null)
   const rightImageRef = useRef<HTMLDivElement>(null)
@@ -55,18 +56,10 @@ export default function Hero() {
       0
     )
 
-    // 2. LUXURY HEADING TEXT - Split characters with blur and stagger
+    // 2. LUXURY HEADING TEXT - Character blur and stagger
     const heading = headingRef.current
     if (heading) {
-      const text = heading.textContent || ''
-      heading.innerHTML = text
-        .split('')
-        .map((char: string) => 
-          `<span class="inline-block" style="display: inline-block;">${char === ' ' ? '&nbsp;' : char}</span>`
-        )
-        .join('')
-
-      const chars = heading.querySelectorAll('span')
+      const chars = heading.querySelectorAll('[data-hero-char]')
       
       tl.fromTo(
         chars,
@@ -204,7 +197,11 @@ export default function Hero() {
             ref={headingRef} 
             className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 lg:mb-6 leading-[0.9] max-w-4xl tracking-tight text-center will-change-transform"
           >
-            SLAQA SALON
+            {heroHeading.split('').map((char, index) => (
+              <span key={`${char}-${index}`} data-hero-char className="inline-block">
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
           </h1>
 
           {/* Tagline with Typewriter Effect - Fade In */}

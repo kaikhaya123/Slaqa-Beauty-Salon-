@@ -152,7 +152,7 @@ export default function SocialProof() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-              className="text-2xl sm:text-4xl font-semibold tracking-tight text-black-900 leading-tight text-balance"
+              className="text-2xl sm:text-4xl font-semibold tracking-tight text-black-900 leading-tight [text-wrap:balance]"
             >
               &ldquo;{active.quote}{' '}
               <span className="text-black-900 italic">{active.highlight}</span>{' '}

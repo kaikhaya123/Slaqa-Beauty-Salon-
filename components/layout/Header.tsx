@@ -216,7 +216,7 @@ export default function Header() {
                     <div className="w-full md:pl-4 xl:pl-8 xl:pr-10">
 
                       {/* Mobile: snap-scroll horizontal strip */}
-                      <div className="flex md:hidden gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory scrollbar-none">
+                      <div className="flex md:hidden gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                         {galleryItems.map((item, idx) => (
                           <Link
                             key={item.id}
@@ -233,7 +233,7 @@ export default function Header() {
                                 className="absolute inset-0 w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
                               />
                               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5 flex items-end justify-between">
-                                <span className="text-white text-[10px] font-semibold tracking-wide uppercase line-clamp-1" style={{ fontFamily: "'Acumin Pro', sans-serif" }}>
+                                <span className="text-white text-[10px] font-semibold tracking-wide uppercase line-clamp-1 font-rethink">
                                   {item.heading}
                                 </span>
                                 <ArrowUpRight className="h-3 w-3 text-white shrink-0 ml-1" />
@@ -261,7 +261,7 @@ export default function Header() {
                                 className="absolute inset-0 w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
                               />
                               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 flex items-end justify-between">
-                                <span className="text-white text-xs font-semibold leading-tight tracking-wide line-clamp-1 uppercase" style={{ fontFamily: "'Acumin Pro', sans-serif" }}>
+                                <span className="text-white text-xs font-semibold leading-tight tracking-wide line-clamp-1 uppercase font-rethink">
                                   {item.heading}
                                 </span>
                                 <ArrowUpRight className="h-4 w-4 text-white shrink-0 ml-1" />
