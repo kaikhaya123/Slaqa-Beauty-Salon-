@@ -14,7 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero() {
-  const heroHeading = 'SLAQA SALON DURBAN STUDIO'
+  const heroHeading = 'SLAQA SALON'
   const sectionRef = useRef<HTMLElement>(null)
   const leftImageRef = useRef<HTMLDivElement>(null)
   const rightImageRef = useRef<HTMLDivElement>(null)
