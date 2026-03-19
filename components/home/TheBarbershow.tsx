@@ -225,12 +225,12 @@ className="absolute inset-0 flex items-center justify-center bg-black/20 hover:b
               >
                 Fresh From <span className="text-[#FFFF00]">The Chair</span>
               </motion.h2>
-              <p className="text-white text-base max-w-2xl leading-relaxed text-center">
+              <p className="text-white/90 text-base max-w-2xl leading-relaxed text-center">
                 Conversations through the clipper. Real stories from real people.
                 Auto-updates with every new upload.
               </p>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs text-white/40 uppercase tracking-widest">
+            <div className="flex items-center justify-center gap-2 text-xs text-white/75 uppercase tracking-widest">
               <span className="inline-block w-2 h-2 rounded-full bg-[#FFFF00] animate-pulse" />
               Auto-updating feed
             </div>
@@ -290,7 +290,7 @@ className="absolute inset-0 flex items-center justify-center bg-black/20 hover:b
                         {episode.title}
                       </div>
                       {episode.artist && (
-                        <p className="text-xs text-white/50 font-medium">{episode.artist}</p>
+                        <p className="text-xs text-white/75 font-medium">{episode.artist}</p>
                       )}
                     </div>
                   </motion.article>
